@@ -25,8 +25,8 @@ namespace Organizations.Application.Features.Organization.Handlers.Commands
         {
             var organizationEntity = _mapper.Map<Domain.Organization>(request.OrganizationDto);
             var newOrganization = await _repository.CreateAsync(organizationEntity);
-            _logger.LogInformation($"Organization {newOrganization.Id} is successfully created.");
-            return newOrganization.Id;
+            _logger.LogInformation($"Organization {newOrganization} is successfully created.");
+            return newOrganization;
         }
     }
 }

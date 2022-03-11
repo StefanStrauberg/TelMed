@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Organizations.Application;
 using Organizations.Infrastructure;
+using Organizations.Infrastructure.Persistence.Config;
 
 namespace Organizations.API
 {
@@ -20,7 +21,8 @@ namespace Organizations.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplicationServices();
-            services.AddInfrastructureServices(Configuration);
+            services.Configure<DatabaseSettings>(Configuration.GetSection("DatabaseSettings"));
+            services.AddInfrastructureServices();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

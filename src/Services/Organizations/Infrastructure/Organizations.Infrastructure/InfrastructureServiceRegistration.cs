@@ -9,9 +9,8 @@ namespace Organizations.Infrastructure
 {
     public static class InfrastructureServiceRegistration
     {
-        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
         {
-            services.Configure<DatabaseSettings>(x => configuration.GetSection("DatabaseSettings"));
             services.AddScoped<IOrganizationContext, OrganizationContext>();
             services.AddScoped<IOrganizationRepository, OrganizationRepository>();
             return services;

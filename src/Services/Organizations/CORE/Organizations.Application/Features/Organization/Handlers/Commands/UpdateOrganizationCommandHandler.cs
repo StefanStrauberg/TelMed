@@ -23,10 +23,11 @@ namespace Organizations.Application.Features.Organization.Handlers.Commands
         }
         public async Task<Unit> Handle(UpdateOrganizationCommand request, CancellationToken cancellationToken)
         {
-            var organizationToUpdate = _mapper.Map<Domain.Organization>(request.OrganizationDto);
+            var organizationToUpdate = _mapper.Map<Domain.Organization>(request);
+            organizationToUpdate.Updated = DateTime.Now;
             var result = await _repository.UpdateAsync(organizationToUpdate);
             if (!result)
-                throw new NotFoundException(nameof(request), request.OrganizationDto.Id);
+                throw new NotFoundException(nameof(request), request.Id);
             _logger.LogInformation($"Organization {organizationToUpdate.Id} is successfully to updated.");
             return Unit.Value;
         }

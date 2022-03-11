@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Organizations.Application.Contracts.Persistence;
-using Organizations.Application.DTOs.Organization;
+using Organizations.Application.DTO;
 using Organizations.Application.Features.Organization.Requests.Queries;
 
 namespace Organizations.Application.Features.Organization.Handlers.Queries

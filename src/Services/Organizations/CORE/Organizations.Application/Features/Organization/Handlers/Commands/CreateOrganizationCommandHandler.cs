@@ -2,7 +2,6 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Organizations.Application.Contracts.Persistence;
-using Organizations.Application.DTOs.Organization;
 using Organizations.Application.Features.Organization.Requests.Commands;
 
 namespace Organizations.Application.Features.Organization.Handlers.Commands
@@ -23,10 +22,12 @@ namespace Organizations.Application.Features.Organization.Handlers.Commands
         }
         public async Task<string> Handle(CreateOrganizationCommand request, CancellationToken cancellationToken)
         {
-            var organizationEntity = _mapper.Map<Domain.Organization>(request.OrganizationDto);
-            var newOrganization = await _repository.CreateAsync(organizationEntity);
-            _logger.LogInformation($"Organization {newOrganization} is successfully created.");
-            return newOrganization;
+            var organizationEntity = _mapper.Map<Domain.Organization>(request);
+            organizationEntity.Published = DateTime.Now;
+            organizationEntity.Updated = DateTime.Now;
+            await _repository.CreateAsync(organizationEntity);
+            _logger.LogInformation($"Organization {organizationEntity.Id} is successfully created.");
+            return organizationEntity.Id;
         }
     }
 }

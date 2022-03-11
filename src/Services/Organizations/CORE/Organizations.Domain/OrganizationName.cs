@@ -8,10 +8,10 @@
         /// <summary>
         /// Abbreviated name of the organization
         /// </summary>
-        public string UsualName { get { return UsualName; } set { UsualName = value.Trim(); } }
+        public string UsualName { get; set; }
         /// <summary>
         /// Full name of the organization
         /// </summary>
-        public string OfficialName { get { return OfficialName; } set { OfficialName = value.Trim(); } }
+        public string OfficialName { get; set; }
     }
 }

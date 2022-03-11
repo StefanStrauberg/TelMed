@@ -1,17 +1,18 @@
 ﻿using FluentValidation;
+using Organizations.Application.Features.Organization.Requests.Commands;
 
 namespace Organizations.Application.DTOs.Organization.Validators
 {
-    public class OrganizationDtoValidator : AbstractValidator<IOrganizationDto>
+    public class CreateOrganizationCommandValidator : AbstractValidator<CreateOrganizationCommand>
     {
-        public OrganizationDtoValidator()
+        public CreateOrganizationCommandValidator()
         {
             RuleFor(x => x.Level)
                 .IsInEnum().WithMessage("{PropertyName} has a range of values which does not include '{PropertyValue}'.");
-            
+
             RuleFor(x => x.Region)
                 .IsInEnum().WithMessage("{PropertyName} has a range of values which does not include '{PropertyValue}'.");
-            
+
             RuleFor(x => x.Address.Line)
                 .NotNull().WithMessage("{PropertyName} is cannot be null.")
                 .NotEmpty().WithMessage("{PropertyName} is required.")

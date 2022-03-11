@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Organizations.Application.Contracts.Persistence;
-using Organizations.Application.DTOs.Organization;
+using Organizations.Application.DTO;
 using Organizations.Application.Exceptions;
 using Organizations.Application.Features.Organization.Requests.Queries;
 
@@ -21,7 +21,7 @@ namespace Organizations.Application.Features.Organization.Handlers.Queries
         public async Task<OrganizationDto> Handle(GetOrganizationDetailRequest request, CancellationToken cancellationToken)
         {
             var organization = await _repository.GetAsync(request.Id);
-            if (organization == default)
+            if (organization is null)
                 throw new NotFoundException(nameof(request), request.Id);
             return _mapper.Map<OrganizationDto>(organization);
         }

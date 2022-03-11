@@ -1,9 +1,4 @@
 ﻿{
-  "DatabaseSettings": {
-    "ConnectionString": "mongodb://localhost:27017",
-    "DatabaseName": "OrganizationDb",
-    "CollectionName": "Organizations"
-  },
   "profiles": {
     "Organizations.API": {
       "commandName": "Project",

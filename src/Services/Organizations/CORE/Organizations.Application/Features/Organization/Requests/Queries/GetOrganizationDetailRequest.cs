@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Organizations.Application.DTOs.Organization;
+using Organizations.Application.DTO;
 
 namespace Organizations.Application.Features.Organization.Requests.Queries
 {

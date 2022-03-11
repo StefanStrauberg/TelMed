@@ -8,6 +8,6 @@
         /// <summary>
         /// Address
         /// </summary>
-        public string Line { get { return Line; } set { Line = value.Trim(); } }
+        public string Line { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using Organizations.Application.Contracts.Persistence;
 using Organizations.Domain;
 using Organizations.Infrastructure.Persistence;
@@ -15,6 +16,7 @@ namespace Organizations.Infrastructure.Repositories
 
         public async Task<string> CreateAsync(Organization entity)
         {
+            entity.Id = ObjectId.GenerateNewId().ToString();
             await _context.Organizations.InsertOneAsync(entity);
             return entity.Id;
         }

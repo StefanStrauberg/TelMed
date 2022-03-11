@@ -11,7 +11,7 @@ namespace Organizations.Infrastructure
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<DatabaseSettings>(configuration["MongoDbSettings"]);
+            services.Configure<DatabaseSettings>(x => configuration.GetSection("DatabaseSettings"));
             services.AddScoped<IOrganizationContext, OrganizationContext>();
             services.AddScoped<IOrganizationRepository, OrganizationRepository>();
             return services;

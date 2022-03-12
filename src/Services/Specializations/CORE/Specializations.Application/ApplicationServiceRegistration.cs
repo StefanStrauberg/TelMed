@@ -8,7 +8,7 @@ namespace Specializations.Application
 {
     public static class ApplicationServiceRegistration
     {
-        public static IServiceCollection AddSpecializationServices(IServiceCollection services)
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());

@@ -6,7 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Contracts\Infrastructure\" />
+    <Compile Remove="Contracts\Infrastructure\**" />
+    <EmbeddedResource Remove="Contracts\Infrastructure\**" />
+    <None Remove="Contracts\Infrastructure\**" />
   </ItemGroup>
 
   <ItemGroup>

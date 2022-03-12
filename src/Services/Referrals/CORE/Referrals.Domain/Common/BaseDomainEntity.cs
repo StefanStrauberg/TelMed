@@ -1,4 +1,4 @@
-﻿namespace Organizations.Domain.Common
+﻿namespace Referrals.Domain.Common
 {
     public abstract class BaseDomainEntity
     {

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Organizations.Application.Features.Organization.Requests.Commands;
 
-namespace Organizations.Application.DTOs.Organization.Validators
+namespace Organizations.Application.DTO
 {
     public class UpdateOrganizationCommandValidator : AbstractValidator<UpdateOrganizationCommand>
     {

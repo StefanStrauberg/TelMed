@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Organizations.Application.DTOs.Organization;
 using Organizations.Domain;
 
 namespace Organizations.Application.Features.Organization.Requests.Commands

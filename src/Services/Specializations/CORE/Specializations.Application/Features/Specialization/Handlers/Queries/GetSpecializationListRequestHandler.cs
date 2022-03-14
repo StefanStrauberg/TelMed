@@ -1,24 +1,19 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Specializations.Application.Contracts.Persistence;
-using Specializations.Application.DTO;
 using Specializations.Application.Features.Specialization.Requests.Queries;
 
 namespace Specializations.Application.Features.Specialization.Handlers.Queries
 {
-    public class GetSpecializationListRequestHandler : IRequestHandler<GetSpecializationListRequest, IReadOnlyList<SpecializationDto>>
+    public class GetSpecializationListRequestHandler : IRequestHandler<GetSpecializationListRequest, IReadOnlyList<Domain.Specialization>>
     {
         private readonly ISpecializationRepository _repository;
-        private readonly IMapper _mapper;
-        public GetSpecializationListRequestHandler(ISpecializationRepository repository, IMapper mapper)
+        public GetSpecializationListRequestHandler(ISpecializationRepository repository)
         {
             _repository = repository;
-            _mapper = mapper;
         }
-        public async Task<IReadOnlyList<SpecializationDto>> Handle(GetSpecializationListRequest request, CancellationToken cancellationToken)
+        public async Task<IReadOnlyList<Domain.Specialization>> Handle(GetSpecializationListRequest request, CancellationToken cancellationToken)
         {
-            var specializations = await _repository.GetAllAsync();
-            return _mapper.Map<IReadOnlyList<SpecializationDto>>(specializations);
+            return await _repository.GetAllAsync();
         }
     }
 }

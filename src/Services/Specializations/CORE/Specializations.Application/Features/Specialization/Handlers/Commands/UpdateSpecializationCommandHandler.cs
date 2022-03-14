@@ -23,12 +23,9 @@ namespace Specializations.Application.Features.Specialization.Handlers.Commands
         }
         public async Task<Unit> Handle(UpdateSpecializationCommand request, CancellationToken cancellationToken)
         {
-            var specializationToUpdate = _mapper.Map<Domain.Specialization>(request);
-            specializationToUpdate.Updated = DateTime.Now;
-            var result = await _repository.UpdateAsync(specializationToUpdate);
-            if (!result)
+            if (!await _repository.UpdateAsync(_mapper.Map<Domain.Specialization>(request)))
                 throw new NotFoundException(nameof(request), request.Id);
-            _logger.LogInformation($"Specialization {specializationToUpdate.Id} is successfully updated.");
+            _logger.LogInformation($"Specialization {request.Id} is successfully updated.");
             return Unit.Value;
         }
     }

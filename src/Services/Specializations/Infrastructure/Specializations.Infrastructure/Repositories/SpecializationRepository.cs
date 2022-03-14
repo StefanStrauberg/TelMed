@@ -13,11 +13,10 @@ namespace Specializations.Infrastructure.Repositories
         {
             _context = context;
         }
-        public async Task<string> CreateAsync(Specialization entity)
+        public async Task CreateAsync(Specialization entity)
         {
             entity.Id = ObjectId.GenerateNewId().ToString();
             await _context.Specializations.InsertOneAsync(entity);
-            return entity.Id;
         }
 
         public async Task<bool> DeleteAsync(string Id)
@@ -47,6 +46,7 @@ namespace Specializations.Infrastructure.Repositories
         {
             var filter = Builders<Specialization>.Filter.Eq(x => x.Id, entity.Id);
             var update = Builders<Specialization>.Update
+                .Set(x => x.Updated, DateTime.Now)
                 .Set(x => x.Name, entity.Name)
                 .Set(x => x.IsActive, entity.IsActive)
                 .Set(x => x.DenyConsult, entity.DenyConsult);

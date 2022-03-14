@@ -19,8 +19,7 @@ namespace Specializations.Application.Features.Specialization.Handlers.Commands
         }
         public async Task<Unit> Handle(DeleteSpecializationCommand request, CancellationToken cancellationToken)
         {
-            var resultSpecializationToDelete = await _repository.DeleteAsync(request.Id);
-            if(!resultSpecializationToDelete)
+            if(!await _repository.DeleteAsync(request.Id))
                 throw new NotFoundException(nameof(request), request.Id);
             _logger.LogInformation($"Specialization {request.Id} is successfully deleted.");
             return Unit.Value;

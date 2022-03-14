@@ -23,8 +23,6 @@ namespace Specializations.Application.Features.Specialization.Handlers.Commands
         public async Task<string> Handle(CreateSpecializationCommand request, CancellationToken cancellationToken)
         {
             var specializationEntity = _mapper.Map<Domain.Specialization>(request);
-            specializationEntity.Published = DateTime.Now;
-            specializationEntity.Updated = DateTime.Now;
             await _repository.CreateAsync(specializationEntity);
             _logger.LogInformation($"Specialization {specializationEntity.Id} is successfully created.");
             return specializationEntity.Id;

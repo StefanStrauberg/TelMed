@@ -19,8 +19,7 @@ namespace Organizations.Application.Features.Organization.Handlers.Commands
         }
         public async Task<Unit> Handle(DeleteOrganizationCommand request, CancellationToken cancellationToken)
         {
-            var resultOrganizationToDelete = await _repository.DeleteAsync(request.Id);
-            if(!resultOrganizationToDelete)
+            if(!await _repository.DeleteAsync(request.Id))
                 throw new NotFoundException(nameof(request), request.Id);
             _logger.LogInformation($"Organization {request.Id} is successfully deleted.");
             return Unit.Value;

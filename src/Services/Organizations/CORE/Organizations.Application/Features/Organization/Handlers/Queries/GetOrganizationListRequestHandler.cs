@@ -1,26 +1,20 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Organizations.Application.Contracts.Persistence;
-using Organizations.Application.DTO;
 using Organizations.Application.Features.Organization.Requests.Queries;
 
 namespace Organizations.Application.Features.Organization.Handlers.Queries
 {
-    public class GetOrganizationListRequestHandler : IRequestHandler<GetOrganizationListRequest, IReadOnlyList<OrganizationDto>>
+    public class GetOrganizationListRequestHandler : IRequestHandler<GetOrganizationListRequest, IReadOnlyList<Domain.Organization>>
     {
         private readonly IOrganizationRepository _repository;
-        private readonly IMapper _mapper;
         public GetOrganizationListRequestHandler(
-            IOrganizationRepository repository,
-            IMapper mapper)
+            IOrganizationRepository repository)
         {
             _repository = repository;
-            _mapper = mapper;
         }
-        public async Task<IReadOnlyList<OrganizationDto>> Handle(GetOrganizationListRequest request, CancellationToken cancellationToken)
+        public async Task<IReadOnlyList<Domain.Organization>> Handle(GetOrganizationListRequest request, CancellationToken cancellationToken)
         {
-            var organizations = await _repository.GetAllAsync();
-            return _mapper.Map<IReadOnlyList<OrganizationDto>>(organizations);
+            return await _repository.GetAllAsync();
         }
     }
 }

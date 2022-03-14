@@ -14,11 +14,10 @@ namespace Organizations.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<string> CreateAsync(Organization entity)
+        public async Task CreateAsync(Organization entity)
         {
             entity.Id = ObjectId.GenerateNewId().ToString();
             await _context.Organizations.InsertOneAsync(entity);
-            return entity.Id;
         }
 
         public async Task<bool> DeleteAsync(string Id)
@@ -44,10 +43,10 @@ namespace Organizations.Infrastructure.Repositories
         {
             var filter = Builders<Organization>.Filter.Eq(x => x.Id, entity.Id);
             var update = Builders<Organization>.Update
+                .Set(x => x.Updated, DateTime.Now)
                 .Set(x => x.Level, entity.Level)
                 .Set(x => x.Region, entity.Region)
                 .Set(x => x.Address, entity.Address)
-                .Set(x => x.Updated, DateTime.Now)
                 .Set(x => x.OrganizationName, entity.OrganizationName)
                 .Set(x => x.SpecializationIds, entity.SpecializationIds);
             var result = await _context.Organizations.UpdateOneAsync(filter, update);

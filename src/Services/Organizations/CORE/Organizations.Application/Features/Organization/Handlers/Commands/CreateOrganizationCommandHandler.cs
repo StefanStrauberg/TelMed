@@ -23,8 +23,6 @@ namespace Organizations.Application.Features.Organization.Handlers.Commands
         public async Task<string> Handle(CreateOrganizationCommand request, CancellationToken cancellationToken)
         {
             var organizationEntity = _mapper.Map<Domain.Organization>(request);
-            organizationEntity.Published = DateTime.Now;
-            organizationEntity.Updated = DateTime.Now;
             await _repository.CreateAsync(organizationEntity);
             _logger.LogInformation($"Organization {organizationEntity.Id} is successfully created.");
             return organizationEntity.Id;

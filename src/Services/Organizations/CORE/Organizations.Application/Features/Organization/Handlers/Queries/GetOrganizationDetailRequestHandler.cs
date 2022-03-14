@@ -1,29 +1,24 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Organizations.Application.Contracts.Persistence;
-using Organizations.Application.DTO;
 using Organizations.Application.Exceptions;
 using Organizations.Application.Features.Organization.Requests.Queries;
 
 namespace Organizations.Application.Features.Organization.Handlers.Queries
 {
-    public class GetOrganizationDetailRequestHandler : IRequestHandler<GetOrganizationDetailRequest, OrganizationDto>
+    public class GetOrganizationDetailRequestHandler : IRequestHandler<GetOrganizationDetailRequest, Domain.Organization>
     {
         private readonly IOrganizationRepository _repository;
-        private readonly IMapper _mapper;
         public GetOrganizationDetailRequestHandler(
-            IOrganizationRepository repository,
-            IMapper mapper)
+            IOrganizationRepository repository)
         {
             _repository = repository;
-            _mapper = mapper;
         }
-        public async Task<OrganizationDto> Handle(GetOrganizationDetailRequest request, CancellationToken cancellationToken)
+        public async Task<Domain.Organization> Handle(GetOrganizationDetailRequest request, CancellationToken cancellationToken)
         {
             var organization = await _repository.GetAsync(request.Id);
             if (organization is null)
                 throw new NotFoundException(nameof(request), request.Id);
-            return _mapper.Map<OrganizationDto>(organization);
+            return organization;
         }
     }
 }

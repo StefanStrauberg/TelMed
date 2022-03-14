@@ -19,42 +19,43 @@ namespace Organizations.API.Controllers
         {
             _mediator = mediator;
         }
-        [HttpGet(Name = "GetOrganizations")]
+        [HttpGet(Name = "GetAllOrganizations")]
         [ProducesResponseType(typeof(List<Organization>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<List<Organization>>> GetOrganizations()
+        public async Task<ActionResult<IReadOnlyList<Organization>>> GetAllOrganizations()
         {
             return Ok(await _mediator.Send(new GetOrganizationListRequest()));
         }
 
-        [HttpGet("id", Name = "GetOrganization")]
+        [HttpGet("{id:length(24)}", Name = "GetByIdOrganization")]
         [ProducesResponseType(typeof(Organization), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<Organization>> GetOrganization(string id)
+        public async Task<ActionResult<Organization>> GetByIdOrganization(string id)
         {
             return Ok(await _mediator.Send(new GetOrganizationDetailRequest() { Id = id }));
         }
 
-        [HttpPost(Name = "CreateOrganization")]
+        [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<ActionResult<string>> CreateOrganization([FromBody] CreateOrganizationCommand command)
         {
             return Ok(await _mediator.Send(command));
         }
 
-        [HttpPut(Name = "UpdateOrganization")]
+        [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> UpdateOrganization([FromBody] UpdateOrganizationCommand command)
         {
             return Ok(await _mediator.Send(command));
         }
 
-        [HttpDelete("{id}", Name = "DeleteOrganization")]
+        [HttpDelete("{id:length(24)}", Name = "DeleteOrganization")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> DeleteOrganization(string id)
         {
-            await _mediator.Send(new DeleteOrganizationCommand() { Id = id });
-            return Ok();
+            return Ok(await _mediator.Send(new DeleteOrganizationCommand() { Id = id }));
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.Extensions.Logging;
 using Observations.Application.Contracts.Persistence;
 using Observations.Application.Exceptions;
 using Observations.Application.Features.Observation.Requests.Queries;

@@ -5,10 +5,11 @@
     /// </summary>
     public class Attachment
     {
+        private string _name;
         /// <summary>
         /// Image Name
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get { return _name; } set { _name = value.Trim(); } }
         /// <summary>
         /// Image Size
         /// </summary>

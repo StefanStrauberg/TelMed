@@ -23,10 +23,9 @@ namespace Observations.Application.Features.Observation.Handlers.Commands
         }
         public async Task<Unit> Handle(UpdateObservationCommand request, CancellationToken cancellationToken)
         {
-            var observationToUpdate = _mapper.Map<Domain.Observation>(request);
-            if (!await _repository.UpdateAsync(observationToUpdate))
+            if (!await _repository.UpdateAsync(_mapper.Map<Domain.Observation>(request)))
                 throw new NotFoundException(nameof(request), request.Id);
-            _logger.LogInformation($"Observation {observationToUpdate.Id} in Referral {observationToUpdate.ReferralId} is successfully updated.");
+            _logger.LogInformation($"Observation {request.Id} in Referral {request.ReferralId} is successfully updated.");
             return Unit.Value;
         }
     }

@@ -14,11 +14,10 @@ namespace Observations.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<string> CreateAsync(Observation entity)
+        public async Task CreateAsync(Observation entity)
         {
             entity.Id = ObjectId.GenerateNewId().ToString();
             await _context.Observations.InsertOneAsync(entity);
-            return entity.Id;
         }
 
         public async Task<bool> DeleteAsync(string Id)

@@ -11,7 +11,7 @@ namespace Observations.Domain
         /// <summary>
         /// Date of observation
         /// </summary>
-        public DateTime ObservationDate { get; set; } = DateTime.Now;
+        public DateTime ObservationDate { get; set; }
         /// <summary>
         /// Description of the observation
         /// </summary>

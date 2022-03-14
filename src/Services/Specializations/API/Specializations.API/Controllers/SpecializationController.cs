@@ -19,42 +19,43 @@ namespace Specializations.API.Controllers
         {
             _mediator = mediator;
         }
-        [HttpGet(Name = "GetOrganizations")]
-        [ProducesResponseType(typeof(List<Specialization>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<List<Specialization>>> GetOrganizations()
+        [HttpGet(Name = "GetAllSpecializations")]
+        [ProducesResponseType(typeof(IReadOnlyList<Specialization>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<IReadOnlyList<Specialization>>> GetAllSpecializations()
         {
             return Ok(await _mediator.Send(new GetSpecializationListRequest()));
         }
 
-        [HttpGet("id", Name = "GetOrganization")]
+        [HttpGet("{id:length(24)}", Name = "GetByIdSpecialization")]
         [ProducesResponseType(typeof(Specialization), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<Specialization>> GetOrganization(string id)
+        public async Task<ActionResult<Specialization>> GetByIdSpecialization(string id)
         {
             return Ok(await _mediator.Send(new GetSpecializationDetailRequest() { Id = id }));
         }
 
-        [HttpPost(Name = "CreateOrganization")]
+        [HttpPost(Name = "CreateSpecialization")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<ActionResult<string>> CreateOrganization([FromBody] CreateSpecializationCommand command)
+        public async Task<ActionResult<string>> CreateSpecialization([FromBody] CreateSpecializationCommand command)
         {
             return Ok(await _mediator.Send(command));
         }
 
-        [HttpPut(Name = "UpdateOrganization")]
+        [HttpPut(Name = "UpdateSpecialization")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult> UpdateOrganization([FromBody] UpdateSpecializationCommand command)
+        public async Task<ActionResult> UpdateSpecialization([FromBody] UpdateSpecializationCommand command)
         {
             return Ok(await _mediator.Send(command));
         }
 
-        [HttpDelete("{id}", Name = "DeleteOrganization")]
+        [HttpDelete("{id:length(24)}", Name = "DeleteSpecialization")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult> DeleteOrganization(string id)
+        public async Task<ActionResult> DeleteSpecialization(string id)
         {
-            await _mediator.Send(new DeleteSpecializationCommand() { Id = id });
-            return Ok();
+            return Ok(await _mediator.Send(new DeleteSpecializationCommand() { Id = id }));
         }
     }
 }

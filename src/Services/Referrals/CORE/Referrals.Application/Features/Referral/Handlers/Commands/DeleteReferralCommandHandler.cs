@@ -19,8 +19,7 @@ namespace Referrals.Application.Features.Referral.Handlers.Commands
         }
         public async Task<Unit> Handle(DeleteReferralCommand request, CancellationToken cancellationToken)
         {
-            var resultReferralToDelete = await _repository.DeleteAsync(request.Id);
-            if (!resultReferralToDelete)
+            if (!await _repository.DeleteAsync(request.Id))
                 throw new NotFoundException(nameof(request), request.Id);
             _logger.LogInformation($"Referral {request.Id} is successfully deleted.");
             return Unit.Value;

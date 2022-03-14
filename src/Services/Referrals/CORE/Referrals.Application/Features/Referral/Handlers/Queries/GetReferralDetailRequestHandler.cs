@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Referrals.Application.Contracts.Persistence;
-using Referrals.Application.DTO;
 using Referrals.Application.Exceptions;
 using Referrals.Application.Features.Referral.Requests.Queries;
 
@@ -10,11 +8,9 @@ namespace Referrals.Application.Features.Referral.Handlers.Queries
     public class GetReferralDetailRequestHandler : IRequestHandler<GetReferralDetailRequest, Domain.Referral>
     {
         private readonly IReferralRepository _repository;
-        private readonly IMapper _mapper;
-        public GetReferralDetailRequestHandler(IReferralRepository repository, IMapper mapper)
+        public GetReferralDetailRequestHandler(IReferralRepository repository)
         {
             _repository = repository;
-            _mapper = mapper;
         }
         public async Task<Domain.Referral> Handle(GetReferralDetailRequest request, CancellationToken cancellationToken)
         {

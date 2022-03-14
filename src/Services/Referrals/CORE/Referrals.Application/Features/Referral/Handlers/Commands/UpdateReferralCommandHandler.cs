@@ -23,10 +23,9 @@ namespace Referrals.Application.Features.Referral.Handlers.Commands
         }
         public async Task<Unit> Handle(UpdateReferralCommand request, CancellationToken cancellationToken)
         {
-            var referralToUpdate = _mapper.Map<Domain.Referral>(request);
-            if (!await _repository.UpdateAsync(referralToUpdate))
+            if (!await _repository.UpdateAsync(_mapper.Map<Domain.Referral>(request)))
                 throw new NotFoundException(nameof(request), request.Id);
-            _logger.LogInformation("");
+            _logger.LogInformation($"Referral {request.Id} is successfully updated.");
             return Unit.Value;
         }
     }

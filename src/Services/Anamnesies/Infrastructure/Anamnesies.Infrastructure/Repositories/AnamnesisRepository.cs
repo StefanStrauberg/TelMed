@@ -14,11 +14,10 @@ namespace Referrals.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<string> CreateAsync(Anamnesis entity)
+        public async Task CreateAsync(Anamnesis entity)
         {
             entity.Id = ObjectId.GenerateNewId().ToString();
             await _context.Anamnesies.InsertOneAsync(entity);
-            return entity.Id;
         }
 
         public async Task<bool> DeleteAsync(string Id)

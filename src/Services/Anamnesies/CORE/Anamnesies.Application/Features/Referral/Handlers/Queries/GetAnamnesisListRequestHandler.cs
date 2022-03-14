@@ -15,8 +15,7 @@ namespace Anamnesies.Application.Features.Referral.Handlers.Queries
         }
         public async Task<IReadOnlyList<Anamnesis>> Handle(GetAnamnesisListRequest request, CancellationToken cancellationToken)
         {
-            var anamnesies = await _repository.GetAllAsync();
-            return anamnesies;
+            return await _repository.GetAllAsync();
         }
     }
 }

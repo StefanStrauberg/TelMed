@@ -24,10 +24,9 @@ namespace Anamnesies.Application.Features.Referral.Handlers.Commands
         }
         public async Task<Unit> Handle(UpdateAnamnesisCommand request, CancellationToken cancellationToken)
         {
-            var anamnesisToUpdate = _mapper.Map<Anamnesis>(request);
-            if (!await _repository.UpdateAsync(anamnesisToUpdate))
+            if (!await _repository.UpdateAsync(_mapper.Map<Anamnesis>(request)))
                 throw new NotFoundException(nameof(request), request.Id);
-            _logger.LogInformation($"Anamnesis {anamnesisToUpdate.Id} in Referral {anamnesisToUpdate.ReferralId} is successfully updated.");
+            _logger.LogInformation($"Anamnesis {request.Id} in Referral {request.ReferralId} is successfully updated.");
             return Unit.Value;
         }
     }

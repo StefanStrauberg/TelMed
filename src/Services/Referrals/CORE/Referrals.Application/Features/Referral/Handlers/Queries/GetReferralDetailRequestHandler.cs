@@ -7,7 +7,7 @@ using Referrals.Application.Features.Referral.Requests.Queries;
 
 namespace Referrals.Application.Features.Referral.Handlers.Queries
 {
-    public class GetReferralDetailRequestHandler : IRequestHandler<GetReferralDetailRequest, ReferralDto>
+    public class GetReferralDetailRequestHandler : IRequestHandler<GetReferralDetailRequest, Domain.Referral>
     {
         private readonly IReferralRepository _repository;
         private readonly IMapper _mapper;
@@ -16,12 +16,12 @@ namespace Referrals.Application.Features.Referral.Handlers.Queries
             _repository = repository;
             _mapper = mapper;
         }
-        public async Task<ReferralDto> Handle(GetReferralDetailRequest request, CancellationToken cancellationToken)
+        public async Task<Domain.Referral> Handle(GetReferralDetailRequest request, CancellationToken cancellationToken)
         {
             var referral = await _repository.GetAsync(request.Id);
             if (referral is null)
                 throw new NotFoundException(nameof(request), request.Id);
-            return _mapper.Map<ReferralDto>(referral);
+            return referral;
         }
     }
 }

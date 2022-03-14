@@ -1,4 +1,4 @@
-﻿namespace Referrals.Domain.PatientEntity
+﻿namespace Referrals.Domain
 {
     public enum PatientGender
     {

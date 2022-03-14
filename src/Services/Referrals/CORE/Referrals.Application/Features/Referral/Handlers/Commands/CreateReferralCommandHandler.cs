@@ -23,9 +23,8 @@ namespace Referrals.Application.Features.Referral.Handlers.Commands
         public async Task<string> Handle(CreateReferralCommand request, CancellationToken cancellationToken)
         {
             var referralEntity = _mapper.Map<Domain.Referral>(request);
-            referralEntity.Published = DateTime.Now;
-            referralEntity.Updated = DateTime.Now;
             await _repository.CreateAsync(referralEntity);
+            _logger.LogInformation($"Referral {referralEntity.Id} is successfully created.");
             return referralEntity.Id;
         }
     }

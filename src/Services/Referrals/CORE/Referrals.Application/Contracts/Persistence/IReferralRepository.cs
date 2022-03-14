@@ -2,11 +2,7 @@
 
 namespace Referrals.Application.Contracts.Persistence
 {
-    public interface IReferralRepository
+    public interface IReferralRepository : IGenericRepository<Referral>
     {
-        Task<Referral> GetAsync(string Id);
-        Task<IReadOnlyList<Referral>> GetAllAsync();
-        Task<string> CreateAsync(Referral entity);
-        Task<bool> DeleteAsync(string Id);
     }
 }

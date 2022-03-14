@@ -1,20 +1,21 @@
-﻿namespace Referrals.Domain.PatientEntity
+﻿namespace Referrals.Domain
 {
     /// <summary>
-    /// Full information about the patient
+    /// Patient full information - FullName, Gender, BirthDate
     /// </summary>
     public class Patient
     {
         /// <summary>
         /// Patient full name
         /// </summary>
-        public string FullName { get; set; }
+        private string _FullName;
+        public string FullName { get { return _FullName; } set { _FullName = value.Trim(); } }
         /// <summary>
         /// Patient gender
         /// </summary>
         public PatientGender Gender { get; set; }
         /// <summary>
-        /// Patient date of birth
+        /// Patient date birth
         /// </summary>
         public DateTime BirthDate { get; set; }
     }

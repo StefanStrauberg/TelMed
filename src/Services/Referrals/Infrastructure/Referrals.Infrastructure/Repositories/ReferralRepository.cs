@@ -13,6 +13,7 @@ namespace Referrals.Infrastructure.Repositories
         {
             _context = context;
         }
+
         public async Task<string> CreateAsync(Referral entity)
         {
             entity.Id = ObjectId.GenerateNewId().ToString();
@@ -41,6 +42,18 @@ namespace Referrals.Infrastructure.Repositories
         {
             var filter = Builders<Referral>.Filter.Eq(x => x.Id, Id);
             return await _context.Referrals.Find(filter).FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> UpdateAsync(Referral entity)
+        {
+            var filter = Builders<Referral>.Filter.Eq(x => x.Id, entity.Id);
+            var update = Builders<Referral>.Update
+                .Set(x => x.Updated, DateTime.Now)
+                .Set(x => x.Patient.FullName, entity.Patient.FullName)
+                .Set(x => x.Patient.Gender, entity.Patient.Gender)
+                .Set(x => x.Patient.BirthDate, entity.Patient.BirthDate);
+            var result = await _context.Referrals.UpdateOneAsync(filter, update);
+            return result.IsAcknowledged && result.ModifiedCount > 0;
         }
     }
 }

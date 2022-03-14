@@ -1,9 +1,4 @@
-﻿using Referrals.Domain.AnamnesisEntity;
-using Referrals.Domain.Common;
-using Referrals.Domain.ImagingStudyEntity;
-using Referrals.Domain.ObservationEntity;
-using Referrals.Domain.PatientEntity;
-using Referrals.Domain.PurposeEntity;
+﻿using Referrals.Domain.Common;
 
 namespace Referrals.Domain
 {
@@ -12,14 +7,14 @@ namespace Referrals.Domain
     /// </summary>
     public class Referral : BaseDomainEntity
     {
-        public ReferralStatus Status { get; set; }
+        public ReferralStatus Status { get; set; } = ReferralStatus.Incomplete;
         public Patient Patient { get; set; }
         public Guid AuthorId { get; set; }
-        public List<Anamnesis> Anamnesis { get; set; }
-        public List<ImagingStudy> ImagingStudies { get; set; }
-        public List<Observation> Observations { get; set; }
-        public List<Purpose> PurposeList { get; set; }
-        public MedicalAttention MedicalAttention { get; set; }
+        public List<string> Anamnesis { get; set; } = new List<string>();
+        public List<string> ImagingStudies { get; set; } = new List<string>();
+        public List<string> Observations { get; set; } = new List<string>();
+        public List<string> PurposeList { get; set; } = new List<string>();
+        public MedicalAttention MedicalAttention { get; set; } = MedicalAttention.Planned;
         public string RecallCause { get; set; }
     }
 }

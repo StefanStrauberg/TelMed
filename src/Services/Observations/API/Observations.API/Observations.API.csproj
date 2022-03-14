@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\CORE\Observations.Application\Observations.Application.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Observations.Infrastructure\Observations.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

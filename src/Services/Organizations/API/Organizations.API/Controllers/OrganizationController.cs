@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Organizations.Application.Features.Organization.Requests.Commands;
@@ -10,8 +11,9 @@ using System.Threading.Tasks;
 
 namespace Organizations.API.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
+    [Authorize]
     public class OrganizationController : ControllerBase
     {
         private readonly IMediator _mediator;

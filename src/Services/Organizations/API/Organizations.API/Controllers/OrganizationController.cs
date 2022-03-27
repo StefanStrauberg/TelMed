@@ -13,7 +13,6 @@ namespace Organizations.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class OrganizationController : ControllerBase
     {
         private readonly IMediator _mediator;

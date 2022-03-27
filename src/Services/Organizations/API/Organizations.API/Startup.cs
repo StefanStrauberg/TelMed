@@ -29,20 +29,21 @@ namespace Organizations.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Organizations.API", Version = "v1" });
             });
-            services.AddAuthentication("Bearer")
-                .AddJwtBearer("Bearer", options =>
-                {
-                    options.RequireHttpsMetadata = false;
-                    options.Authority = Configuration["ServiceUrls:IdentityAPI"];
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateAudience = false
-                    };
-                });
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("ClientIdPolicy", policy => policy.RequireClaim("client_id", "Doctor"));
-            });
+            services.AddCors();
+            //services.AddAuthentication("Bearer")
+            //    .AddJwtBearer("Bearer", options =>
+            //    {
+            //        options.RequireHttpsMetadata = false;
+            //        options.Authority = Configuration["ServiceUrls:IdentityAPI"];
+            //        options.TokenValidationParameters = new TokenValidationParameters
+            //        {
+            //            ValidateAudience = false
+            //        };
+            //    });
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("ClientIdPolicy", policy => policy.RequireClaim("client_id", "Doctor"));
+            //});
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -54,15 +55,18 @@ namespace Organizations.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Organizations.API v1"));
             }
 
-            app.UseCookiePolicy(new CookiePolicyOptions
-            {
-                MinimumSameSitePolicy = SameSiteMode.None,
-                Secure = CookieSecurePolicy.Always,
-            });
+            //app.UseCookiePolicy(new CookiePolicyOptions
+            //{
+            //    MinimumSameSitePolicy = SameSiteMode.None,
+            //    Secure = CookieSecurePolicy.Always,
+            //});
 
             app.UseRouting();
 
-            app.UseAuthentication();
+            app.UseCors(policy => policy.AllowAnyHeader()
+                .AllowAnyMethod()
+                .WithOrigins("http://localhost:4200"));
+            //app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

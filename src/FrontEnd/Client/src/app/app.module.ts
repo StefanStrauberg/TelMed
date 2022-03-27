@@ -6,17 +6,27 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthComponent } from './auth/auth.component';
+import { OrganizationListComponent } from './organization/organization-list/organization-list.component';
+import { OrganizationDetailComponent } from './organization/organization-detail/organization-detail.component';
+import { OrganizationEditComponent } from './organization/organization-edit/organization-edit.component';
+import { HttpClientModule } from '@angular/common/http';
+import { OrganizationCreateComponent } from './organization/organization-create/organization-create.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
-    AuthComponent
+    AuthComponent,
+    OrganizationListComponent,
+    OrganizationDetailComponent,
+    OrganizationEditComponent,
+    OrganizationCreateComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

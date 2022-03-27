@@ -11,6 +11,7 @@ import { OrganizationDetailComponent } from './organization/organization-detail/
 import { OrganizationEditComponent } from './organization/organization-edit/organization-edit.component';
 import { HttpClientModule } from '@angular/common/http';
 import { OrganizationCreateComponent } from './organization/organization-create/organization-create.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { OrganizationCreateComponent } from './organization/organization-create/
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -23,13 +23,13 @@
                         <td>{{ item.address.line }}</td>
                         <td>{{ item.specializationIds }}</td>
                         <td>{{ item.region }}</td>
-                        <td>{{ item .level }}</td>
+                        <td>{{ item.level }}</td>
                         <td>{{ item.isActive }}</td>
                         <td>
                             <div class="row">
                                 <div class="col-xs-12">
                                     <div class="btn-group btn-group-sm">
-                                        <button type="button" class="btn btn-primary">
+                                        <button type="button" class="btn btn-primary" routerLink='/organizations/edit/{{ item.id }}'>
                                             Редактировать
                                         </button>
                                         <button type="button" class="btn btn-primary">

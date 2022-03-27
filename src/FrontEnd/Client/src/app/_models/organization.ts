@@ -22,14 +22,14 @@ export interface OrganizationName {
 }
 
 export enum OrganizationRegion {
-    BrestRegion = 'Брестская область',
-    VitebskRegion = '',
-    GomelRegion = '',
-    GrodnoRegion = '',
-    MinskRegion = '',
-    MogilevRegion = '',
-    Minsk = '',
-    Belarus = "Республика Беларусь"
+    BrestRegion,
+    VitebskRegion,
+    GomelRegion,
+    GrodnoRegion,
+    MinskRegion,
+    MogilevRegion,
+    Minsk,
+    Belarus
 }
 
 export interface Address {

@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { Organization } from '../_models/organization';
 import { HttpClient } from '@angular/common/http';
 import { of, map } from 'rxjs';
 import { OrganizationCreate } from '../_models/organizationCreate';
+import { OrganizationUpdate } from '../_models/organizationUpdate';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrganizationService {
 
-  baseUrl = environment.orgUrl;
+  baseUrl = 'http://localhost:5000/api/organization';
   organizations: Organization[] = [];
 
   constructor(private http: HttpClient) { }
@@ -28,14 +28,14 @@ export class OrganizationService {
   getOrganization(id: string) {
     const organization = this.organizations.find( x => x.id === id);
     if(organization !== undefined) return of(organization);
-    return this.http.get<Organization>(this.baseUrl + id);
+    return this.http.get<Organization>(this.baseUrl + `/${id}`);
   }
 
-  createOrganization(organizationCreate: OrganizationCreate) {
-    return this.http.post<string>(this.baseUrl, organizationCreate).subscribe(
-      response => {
-        console.log(response);
-      }
-    )
+  createOrganization(data: OrganizationCreate) {
+    return this.http.post<string>(this.baseUrl, data);
+  }
+
+  updateOrganization(date: OrganizationUpdate) {
+    return this.http.put(this.baseUrl, date);
   }
 }

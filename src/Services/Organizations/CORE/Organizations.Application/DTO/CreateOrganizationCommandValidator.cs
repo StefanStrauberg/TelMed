@@ -15,18 +15,15 @@ namespace Organizations.Application.DTO
 
             RuleFor(x => x.Address.Line)
                 .NotNull().WithMessage("{PropertyName} is cannot be null.")
-                .NotEmpty().WithMessage("{PropertyName} is required.")
-                .MaximumLength(200).WithMessage("{PropertyName} must not exceed {ComparisonValue} characters.");
+                .NotEmpty().WithMessage("{PropertyName} is required.");
 
             RuleFor(x => x.OrganizationName.UsualName)
                 .NotNull().WithMessage("{PropertyName} is cannot be null.")
-                .NotEmpty().WithMessage("{PropertyName} is required.")
-                .MaximumLength(200).WithMessage("{PropertyName} must not exceed {ComparisonValue} characters.");
+                .NotEmpty().WithMessage("{PropertyName} is required.");
 
             RuleFor(x => x.OrganizationName.OfficialName)
                 .NotNull().WithMessage("{PropertyName} is cannot be null.")
-                .NotEmpty().WithMessage("{PropertyName} is required.")
-                .MaximumLength(200).WithMessage("{PropertyName} must not exceed {ComparisonValue} characters.");
+                .NotEmpty().WithMessage("{PropertyName} is required.");
         }
     }
 }

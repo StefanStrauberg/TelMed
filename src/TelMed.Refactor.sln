@@ -107,13 +107,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E63C48DE-E244-41AD-ACD2-6E5DA6F7C209}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImagingStudies.Domain", "Services\ImagingStudies\CORE\ImagingStudies.Domain\ImagingStudies.Domain.csproj", "{F4A06DBF-BDC9-4F09-B444-B981D115F284}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImagingStudies.Domain", "Services\ImagingStudies\CORE\ImagingStudies.Domain\ImagingStudies.Domain.csproj", "{F4A06DBF-BDC9-4F09-B444-B981D115F284}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImagingStudies.Application", "Services\ImagingStudies\CORE\ImagingStudies.Application\ImagingStudies.Application.csproj", "{6093576B-BDF9-4DBA-B929-BE1BCCF12AC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImagingStudies.Application", "Services\ImagingStudies\CORE\ImagingStudies.Application\ImagingStudies.Application.csproj", "{6093576B-BDF9-4DBA-B929-BE1BCCF12AC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImagingStudies.Infrastructure", "Services\ImagingStudies\Infrastructure\ImagingStudies.Infrastructure\ImagingStudies.Infrastructure.csproj", "{A5A462F6-1654-4C42-8B89-E727319B4286}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImagingStudies.Infrastructure", "Services\ImagingStudies\Infrastructure\ImagingStudies.Infrastructure\ImagingStudies.Infrastructure.csproj", "{A5A462F6-1654-4C42-8B89-E727319B4286}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImagingStudies.API", "Services\ImagingStudies\API\ImagingStudies.API\ImagingStudies.API.csproj", "{80434C99-9F2C-4BC2-ABF2-A286BE8701B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImagingStudies.API", "Services\ImagingStudies\API\ImagingStudies.API\ImagingStudies.API.csproj", "{80434C99-9F2C-4BC2-ABF2-A286BE8701B4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReferralRequests", "ReferralRequests", "{3CA45874-7E13-4FAC-8487-2A35B2284F9C}"
 EndProject
@@ -125,9 +125,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{10C92886-F020-4F02-B2CC-1FE0BBA2621D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferralRequests.Domain", "Services\ReferralRequests\CORE\ReferralRequests.Domain\ReferralRequests.Domain.csproj", "{956E6784-97A8-43E8-BA57-A7754412FD85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReferralRequests.Domain", "Services\ReferralRequests\CORE\ReferralRequests.Domain\ReferralRequests.Domain.csproj", "{956E6784-97A8-43E8-BA57-A7754412FD85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferralRequests.Application", "Services\ReferralRequests\CORE\ReferralRequests.Application\ReferralRequests.Application.csproj", "{11095B50-6DFF-47BC-A022-E504BE97BF74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReferralRequests.Application", "Services\ReferralRequests\CORE\ReferralRequests.Application\ReferralRequests.Application.csproj", "{11095B50-6DFF-47BC-A022-E504BE97BF74}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityServer", "IdentityServer", "{F082168F-DC48-46A9-91CA-906CAD8736D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelMed.IdentityServer", "IdentityServer\TelMed.IdentityServer\TelMed.IdentityServer.csproj", "{2E9CCD2A-6B5F-42FC-8244-E527342097B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -239,6 +243,10 @@ Global
 		{11095B50-6DFF-47BC-A022-E504BE97BF74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11095B50-6DFF-47BC-A022-E504BE97BF74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11095B50-6DFF-47BC-A022-E504BE97BF74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E9CCD2A-6B5F-42FC-8244-E527342097B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E9CCD2A-6B5F-42FC-8244-E527342097B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E9CCD2A-6B5F-42FC-8244-E527342097B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E9CCD2A-6B5F-42FC-8244-E527342097B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -305,6 +313,7 @@ Global
 		{10C92886-F020-4F02-B2CC-1FE0BBA2621D} = {3CA45874-7E13-4FAC-8487-2A35B2284F9C}
 		{956E6784-97A8-43E8-BA57-A7754412FD85} = {8725ED90-C94B-4817-9373-4E716829B1DC}
 		{11095B50-6DFF-47BC-A022-E504BE97BF74} = {8725ED90-C94B-4817-9373-4E716829B1DC}
+		{2E9CCD2A-6B5F-42FC-8244-E527342097B3} = {F082168F-DC48-46A9-91CA-906CAD8736D2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1152D39D-FF8E-420A-9CDE-A164B2036B64}

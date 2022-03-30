@@ -9,6 +9,9 @@ import { ViewOrganizationsComponent } from './components/organizations/view-orga
 import { EditOrganizationComponent } from './components/organizations/edit-organization/edit-organization.component';
 import { CreateOrganizationComponent } from './components/organizations/create-organization/create-organization.component';
 import { SetSpecOrganizationComponent } from './components/organizations/set-spec-organization/set-spec-organization.component';
+import { CreateSpecializationComponent } from './components/specializations/create-specialization/create-specialization.component';
+import { ViewSpecializationsComponent } from './components/specializations/view-specializations/view-specializations.component';
+import { EditSpecializationComponent } from './components/specializations/edit-specialization/edit-specialization.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { SetSpecOrganizationComponent } from './components/organizations/set-spe
     ViewOrganizationsComponent,
     EditOrganizationComponent,
     CreateOrganizationComponent,
-    SetSpecOrganizationComponent
+    SetSpecOrganizationComponent,
+    CreateSpecializationComponent,
+    ViewSpecializationsComponent,
+    EditSpecializationComponent
   ],
   imports: [
     BrowserModule,

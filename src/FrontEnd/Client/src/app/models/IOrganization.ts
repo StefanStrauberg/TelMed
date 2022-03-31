@@ -11,20 +11,20 @@ export interface IOrganization {
 }
 
 export enum OrganizationLevel {
-    AreaLevel,
-    RegionLevel,
-    RepublicLevel
+    "Раонный уровень",
+    "егиональынй уровень",
+    "Республика Беларусь"
 }
 
 export enum OrganizationRegion {
-    BrestRegion,
-    VitebskRegion,
-    GomelRegion,
-    GrodnoRegion,
-    MinskRegion,
-    MogilevRegion,
-    Minsk,
-    Belarus
+    "Брестский регион",
+    "Витебский регион",
+    "Гомельский регион",
+    "Гродненский регион",
+    "Минский регион",
+    "Могилевский регион",
+    "г. Минск",
+    "Беларусь"
 }
 
 export interface Address {

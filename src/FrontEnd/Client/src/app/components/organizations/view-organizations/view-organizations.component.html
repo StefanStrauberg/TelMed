@@ -1,4 +1,5 @@
 <div class="container">
+    <pre>{{ organizations | json }}</pre>
     <div class="row">
         <div class="col">
             <div class="d-flex justify-content-end mb-2" routerLink="/admin/organizations/create">
@@ -20,14 +21,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                            <tr>
-                                <td>OfficialName</td>
-                                <td>UsualName</td>
-                                <td>Address</td>
-                                <td>Specializations</td>
-                                <td>RegionDisplay</td>
-                                <td>LevelDisplay</td>
-                                <td>IsActive</td>
+                            <tr *ngFor="let organization of organizations">
+                                <td>{{ organization.organizationName.officialName }}</td>
+                                <td>{{ organization.organizationName.usualName }}</td>
+                                <td>{{ organization.address.line }}</td>
+                                <td>{{ organization.specializationIds }}</td>
+                                <td>{{ orgReg[organization.region] }}</td>
+                                <td>{{ levOrg[organization.level] }}</td>
+                                <td>{{ organization.isActive ? "Активна" : "Не активна" }}</td>
                                 <td>
                                     <div class="row">
                                         <div class="col">

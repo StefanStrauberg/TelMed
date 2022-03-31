@@ -1,0 +1,20 @@
+{
+    "Organizations": [
+        {
+            "id": "xT78hZ",
+            "published": 20220202,
+            "updated": 20220202,
+            "level": 2,
+            "region": 7,
+            "address": { 
+                "line": "ул. Петруся Бровки 7а, Минск"
+            },
+            "isActive": "true",
+            "organizationName": {
+                "usualName": "РНПЦ МТ",
+                "officialName": "Республиканский научно-практический центр медицинских технологий, информатизации, управления и экономики здравоохранения"
+            },
+            "specializationIds": [""]
+        }
+    ]
+}

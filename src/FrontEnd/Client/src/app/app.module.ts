@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './components/nav/nav.component';
@@ -12,6 +11,8 @@ import { SetSpecOrganizationComponent } from './components/organizations/set-spe
 import { CreateSpecializationComponent } from './components/specializations/create-specialization/create-specialization.component';
 import { ViewSpecializationsComponent } from './components/specializations/view-specializations/view-specializations.component';
 import { EditSpecializationComponent } from './components/specializations/edit-specialization/edit-specialization.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,9 @@ import { EditSpecializationComponent } from './components/specializations/edit-s
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

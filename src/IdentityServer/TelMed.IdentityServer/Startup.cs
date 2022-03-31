@@ -1,9 +1,11 @@
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TelMed.IdentityServer.Configuration;
 
 namespace TelMed.IdentityServer
 {
@@ -16,9 +18,12 @@ namespace TelMed.IdentityServer
         }
         public void ConfigureServices(IServiceCollection services)
         {
+            var migrationAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+            
             services.AddIdentityServer()
-                .AddInMemoryClients(Config.Clients)
-                .AddInMemoryApiScopes(Config.ApiScopes)
+                .AddInMemoryIdentityResources(InMemoryConfig.GetIdentityResources())
+                .AddTestUsers(InMemoryConfig.GetUsers())
+                .AddInMemoryClients(InMemoryConfig.GetClients())
                 .AddDeveloperSigningCredential();
         }
 
@@ -34,6 +39,7 @@ namespace TelMed.IdentityServer
                 Secure = CookieSecurePolicy.Always,
             });
             app.UseRouting();
+
             app.UseIdentityServer();
 
             app.UseEndpoints(endpoints =>

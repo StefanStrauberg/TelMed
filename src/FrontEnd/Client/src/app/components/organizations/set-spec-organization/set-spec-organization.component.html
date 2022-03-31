@@ -1,5 +1,4 @@
 <div class="container">
-    <pre>{{ organization | json }}</pre>
     <div class="row">
         <div class="col">
             <div class="card">
@@ -8,7 +7,7 @@
                         <a class="btn btn-secondary" routerLink="/admin/organizations">
                             <i class="fa-solid fa-xmark"></i> Отмена
                         </a>
-                        <button type="submit" class="btn btn-success">
+                        <button type="submit" form="updateSpecForm" class="btn btn-success">
                             <i class="fa-solid fa-check"></i> Сохранить
                         </button>
                     </div>
@@ -16,17 +15,19 @@
                 <div class="card-body">
                     <h4>{{ organization.organizationName.usualName }}</h4>
                     <hr/>
-                    <div class="checkbox" *ngFor="let specialization of specializations">
-                        <label>
-                            <input 
+                    <form class="form-group" id="updateSpecForm" (submit)="updateOrganization()" >
+                        <div class="col" *ngFor="let specialization of specializations">
+                            <label>
+                                <input 
                                 type="checkbox"
                                 ng-true-value=""
                                 [checked]="checkSpecializationInOrganization(specialization.id)"
-                                (change)="pushSpecializationInOrganization(specialization.id)"
+                                (change)="pushSpecializationInOrganization($event)"
                                 value="{{ specialization.id }}"
-                                name="SpecializationIds"/> {{ specialization.name }}
-                        </label>
-                    </div>
+                                name="{{ specialization.id }}"/> {{ specialization.name }}
+                            </label>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { IOrganization, OrganizationLevel, OrganizationRegion } from 'src/app/models/IOrganization';
 import { ISpecialization } from 'src/app/models/ISpecialization';
@@ -60,8 +60,25 @@ export class SetSpecOrganizationComponent implements OnInit {
       return false;
   }
 
-  pushSpecializationInOrganization(specializationId: string){
-    if(this.checkSpecializationInOrganization(specializationId)) return;
-      this.organization.specializationIds.push(specializationId);
+  pushSpecializationInOrganization(event: any){
+    if (event.target?.checked){
+      this.organization.specializationIds.push(event.target.name);
+    } else {
+      this.organization.specializationIds.forEach((item, index) => {
+        if(item === event.target.name)
+        this.organization.specializationIds.splice(index, 1);
+      })
+    }
+  }
+
+  updateOrganization(){
+    if(this.organizationId){
+      this.organizationService.updateOrganization(this.organization, this.organizationId).subscribe((data: IOrganization) => {
+        this.router.navigate(['/admin/organizations']).then();
+      }, (error) => {
+        this.errorMessage = error;
+        this.router.navigate([`admin/organizations/${this.organizationId}/specializations`]).then();
+      })
+    }
   }
 }

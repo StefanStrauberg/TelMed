@@ -1,20 +1,58 @@
 {
-    "Organizations": [
-        {
-            "id": "xT78hZ",
-            "published": 20220202,
-            "updated": 20220202,
-            "level": 2,
-            "region": 7,
-            "address": { 
-                "line": "ул. Петруся Бровки 7а, Минск"
-            },
-            "isActive": "true",
-            "organizationName": {
-                "usualName": "РНПЦ МТ",
-                "officialName": "Республиканский научно-практический центр медицинских технологий, информатизации, управления и экономики здравоохранения"
-            },
-            "specializationIds": [""]
-        }
-    ]
+  "Organizations": [
+    {
+      "id": "xT78hZ",
+      "published": 20220202,
+      "updated": 20220202,
+      "level": 0,
+      "region": 1,
+      "address": {
+        "line": "ул. Петруся Бровки 7а, Минск"
+      },
+      "isActive": true,
+      "organizationName": {
+        "usualName": "РНПЦ МТ",
+        "officialName": "Республиканский научно-практический центр медицинских технологий, информатизации, управления и экономики здравоохранения"
+      },
+      "specializationIds": [
+        ""
+      ]
+    },
+    {
+      "organizationName": {
+        "officialName": "Test Org Official Name",
+        "usualName": "Test Usual Name"
+      },
+      "address": {
+        "line": "Test Org Address"
+      },
+      "region": 6,
+      "level": 2,
+      "specializationIds": [
+        "yPh74a"
+      ],
+      "isActive": false,
+      "id": "YVnpClH"
+    }
+  ],
+  "Specializations": [
+    {
+      "id": "yPh74a",
+      "name": "Психиатрия",
+      "isActive": true,
+      "denyConsult": true
+    },
+    {
+      "id": "ki66Np",
+      "name": "Ангиохирургия",
+      "isActive": false,
+      "denyConsult": false
+    },
+    {
+      "isActive": true,
+      "denyConsult": true,
+      "name": "Test Specialization Name",
+      "id": "QjkCujB"
+    }
+  ]
 }

@@ -13,11 +13,11 @@ const routes: Routes = [
   { path: "auth", component: AuthComponent },
   { path: "admin/organizations", component: ViewOrganizationsComponent},
   { path: "admin/organizations/create", component: CreateOrganizationComponent},
-  { path: "admin/organizations/edit/:{id}", component: EditOrganizationComponent},
-  { path: "admin/organizations/:{id}/specializations", component: SetSpecOrganizationComponent},
+  { path: "admin/organizations/edit/:id", component: EditOrganizationComponent},
+  { path: "admin/organizations/:id/specializations", component: SetSpecOrganizationComponent},
   { path: "admin/specializations", component: ViewSpecializationsComponent},
   { path: "admin/specializations/create", component: CreateSpecializationComponent},
-  { path: "admin/specializations/edit/:{id}", component: EditSpecializationComponent},
+  { path: "admin/specializations/edit/:id", component: EditSpecializationComponent},
 ];
 
 @NgModule({

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IOrganization, OrganizationLevel, OrganizationRegion } from 'src/app/models/IOrganization';
+import { ISpecialization } from 'src/app/models/ISpecialization';
 import { OrganizationService } from 'src/app/services/organization.service';
+import { SpecializationService } from 'src/app/services/specialization.service';
 
 @Component({
   selector: 'app-view-organizations',
@@ -13,11 +15,13 @@ export class ViewOrganizationsComponent implements OnInit {
   loading: boolean = false;
   organizations: IOrganization[]= [];
   errorMessage: string | null = null;
-  levOrg = OrganizationLevel;
+  orgLev = OrganizationLevel;
   orgReg = OrganizationRegion;
+  specializations: ISpecialization[] = [];
 
   constructor(
     private organizationService: OrganizationService,
+    private specializationService: SpecializationService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -25,10 +29,12 @@ export class ViewOrganizationsComponent implements OnInit {
   }
 
   getAllOrganizations(){
-    console.log(this.orgReg[2]);
     this.loading = true;
     this.organizationService.getAllOrganizations().subscribe((data: IOrganization[]) => {
       this.organizations = data;
+      this.specializationService.getAllSpecializations().subscribe((data: ISpecialization[]) => {
+        this.specializations = data;
+      });
       this.loading = false;
     }, (error) => {
       this.errorMessage = error;
@@ -37,4 +43,11 @@ export class ViewOrganizationsComponent implements OnInit {
     })
   }
 
+  getSpecializationsName(specs: string[]): string[] {
+    let returnSpecsNames: string[] = [];
+    for(let item of specs){
+      returnSpecsNames.push(this.specializations.find(x => x.id == item)?.name as string);
+    }
+    return returnSpecsNames;
+  }
 }

@@ -1,5 +1,4 @@
 <div class="container">
-    <pre>{{ organizations | json }}</pre>
     <div class="row">
         <div class="col">
             <div class="d-flex justify-content-end mb-2" routerLink="/admin/organizations/create">
@@ -25,18 +24,18 @@
                                 <td>{{ organization.organizationName.officialName }}</td>
                                 <td>{{ organization.organizationName.usualName }}</td>
                                 <td>{{ organization.address.line }}</td>
-                                <td>{{ organization.specializationIds }}</td>
+                                <td>{{ getSpecializationsName(organization.specializationIds) }}</td>
                                 <td>{{ orgReg[organization.region] }}</td>
-                                <td>{{ levOrg[organization.level] }}</td>
+                                <td>{{ orgLev[organization.level] }}</td>
                                 <td>{{ organization.isActive ? "Активна" : "Не активна" }}</td>
                                 <td>
                                     <div class="row">
                                         <div class="col">
                                             <div class="btn-group btn-group-sm">
-                                                <a class="btn btn-primary">
+                                                <a class="btn btn-primary" routerLink="/admin/organizations/edit/{{ organization.id }}">
                                                     <i class="fa-solid fa-pen-to-square"></i> Редактировать
                                                 </a>
-                                                <a class="btn btn-primary">
+                                                <a class="btn btn-primary" routerLink="/admin/organizations/{{ organization.id }}/specializations">
                                                     <i class="fa-solid fa-pencil"></i> Указать специализации
                                                 </a>
                                             </div>

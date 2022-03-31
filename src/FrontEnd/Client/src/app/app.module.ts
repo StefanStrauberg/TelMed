@@ -13,6 +13,8 @@ import { ViewSpecializationsComponent } from './components/specializations/view-
 import { EditSpecializationComponent } from './components/specializations/edit-specialization/edit-specialization.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { OrgRegPipe } from './pipes/org-reg.pipe';
+import { OrgLevPipe } from './pipes/org-lev.pipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { HttpClientModule } from '@angular/common/http';
     SetSpecOrganizationComponent,
     CreateSpecializationComponent,
     ViewSpecializationsComponent,
-    EditSpecializationComponent
+    EditSpecializationComponent,
+    OrgRegPipe,
+    OrgLevPipe,
   ],
   imports: [
     BrowserModule,

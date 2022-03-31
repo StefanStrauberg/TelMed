@@ -1,4 +1,5 @@
 <div class="container">
+    <pre>{{ organization | json }}</pre>
     <div class="row">
         <div class="col">
             <div class="card">
@@ -13,13 +14,19 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <h4>OrganizationName</h4>
+                    <h4>{{ organization.organizationName.usualName }}</h4>
                     <hr/>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="SpecializationIds"/> asdasd
-                            </label>
-                        </div>
+                    <div class="checkbox" *ngFor="let specialization of specializations">
+                        <label>
+                            <input 
+                                type="checkbox"
+                                ng-true-value=""
+                                [checked]="checkSpecializationInOrganization(specialization.id)"
+                                (change)="pushSpecializationInOrganization(specialization.id)"
+                                value="{{ specialization.id }}"
+                                name="SpecializationIds"/> {{ specialization.name }}
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>

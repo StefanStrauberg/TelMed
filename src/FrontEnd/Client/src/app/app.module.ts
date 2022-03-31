@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { OrgRegPipe } from './pipes/org-reg.pipe';
 import { OrgLevPipe } from './pipes/org-lev.pipe';
+import { ContactsComponent } from './components/contacts/contacts.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { OrgLevPipe } from './pipes/org-lev.pipe';
     EditSpecializationComponent,
     OrgRegPipe,
     OrgLevPipe,
+    ContactsComponent,
   ],
   imports: [
     BrowserModule,

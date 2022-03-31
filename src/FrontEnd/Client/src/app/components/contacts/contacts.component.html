@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <table id="referrals" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Полное название</th>
+                        <th>Сокращенное название</th>
+                        <th>Адрес</th>
+                        <th>Специализации</th>
+                        <th>Координаторы</th>
+                        <th>Регион</th>
+                        <th>Уровень</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr *ngFor="let organization of organizations">
+                            <td>{{ organization.organizationName.officialName }}</td>
+                            <td>{{ organization.organizationName.usualName }}</td>
+                            <td>{{ organization.address.line }}</td>
+                            <td>{{ getSpecializationsName(organization.specializationIds) }}</td>
+                            <td>
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                            </td>
+                            <td>{{ orgReg[organization.region] }}</td>
+                            <td>{{ orgLev[organization.level] }}</td>
+                        </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

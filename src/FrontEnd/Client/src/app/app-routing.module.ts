@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './components/auth/auth.component';
+import { ContactsComponent } from './components/contacts/contacts.component';
 import { CreateOrganizationComponent } from './components/organizations/create-organization/create-organization.component';
 import { EditOrganizationComponent } from './components/organizations/edit-organization/edit-organization.component';
 import { SetSpecOrganizationComponent } from './components/organizations/set-spec-organization/set-spec-organization.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: "admin/specializations", component: ViewSpecializationsComponent},
   { path: "admin/specializations/create", component: CreateSpecializationComponent},
   { path: "admin/specializations/edit/:id", component: EditSpecializationComponent},
+  { path: "admin/contacts", component: ContactsComponent}
 ];
 
 @NgModule({

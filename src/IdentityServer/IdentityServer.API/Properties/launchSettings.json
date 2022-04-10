@@ -1,9 +1,10 @@
 ﻿{
   "profiles": {
-    "TelMed.IdentityServer": {
+    "IdentityServer.API": {
       "commandName": "Project",
-      "dotnetRunMessages": "true",
+      "dotnetRunMessages": true,
       "launchBrowser": false,
+      "launchUrl": "swagger",
       "applicationUrl": "http://localhost:5050",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

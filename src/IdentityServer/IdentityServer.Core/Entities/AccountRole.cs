@@ -1,4 +1,4 @@
-namespace TelMed.IdentityServer.Entities
+﻿namespace IdentityServer.Core.Entities
 {
     public enum AccountRole
     {

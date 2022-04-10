@@ -15,7 +15,8 @@
         "officialName": "Республиканский научно-практический центр медицинских технологий, информатизации, управления и экономики здравоохранения"
       },
       "specializationIds": [
-        "yPh74a"
+        "yPh74a",
+        "ki66Np"
       ]
     },
     {
@@ -28,7 +29,9 @@
       },
       "region": 6,
       "level": 2,
-      "specializationIds": [],
+      "specializationIds": [
+        "QjkCujB"
+      ],
       "isActive": false,
       "id": "YVnpClH"
     }

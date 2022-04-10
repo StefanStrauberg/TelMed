@@ -1,11 +1,10 @@
-using System;
+﻿using IdentityServer.Core.Entities.Common;
 using Microsoft.AspNetCore.Identity;
 
-namespace TelMed.IdentityServer.Entities
+namespace IdentityServer.Core.Entities
 {
-    public class Account
+    public class Account : IdentityUser
     {
-        public string Login { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MiddleName { get; set; }

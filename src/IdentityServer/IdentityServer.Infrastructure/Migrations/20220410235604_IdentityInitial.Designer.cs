@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IdentityServer.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220410212536_IdentityInitial")]
+    [Migration("20220410235604_IdentityInitial")]
     partial class IdentityInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,11 +67,8 @@ namespace IdentityServer.Infrastructure.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("OfficePhone")
+                    b.Property<string>("OrganizationId")
                         .HasColumnType("TEXT");
-
-                    b.Property<long>("OrganizationId")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("TEXT");
@@ -85,8 +82,8 @@ namespace IdentityServer.Infrastructure.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("TEXT");
 
-                    b.Property<long?>("SpecializationId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("SpecializationId")
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("INTEGER");

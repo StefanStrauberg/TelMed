@@ -1,20 +1,17 @@
 ﻿using IdentityServer.API.Errors;
+using IdentityServer.API.Helpers;
 using IdentityServer.Core.Interfaces;
-using IdentityServer.Infrastructure.Data;
+using IdentityServer.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace IdentityServer.API.Extensions
 {
     public static class ApplicationServices
     {
-        public static IServiceCollection AddApplicationServices(
-            this IServiceCollection services,
-            IConfiguration config)
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(config.GetConnectionString("DefaultConnection")));
-            services.AddScoped((typeof(IGenericRepository<>)), (typeof(GenericRepository<>)));
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddAutoMapper(typeof(MappingProfiles));
             services.AddControllers();
             services.Configure<ApiBehaviorOptions>(options =>
             {

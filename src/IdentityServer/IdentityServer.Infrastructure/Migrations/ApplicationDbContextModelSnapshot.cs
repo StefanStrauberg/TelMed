@@ -65,11 +65,8 @@ namespace IdentityServer.Infrastructure.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("OfficePhone")
+                    b.Property<string>("OrganizationId")
                         .HasColumnType("TEXT");
-
-                    b.Property<long>("OrganizationId")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("TEXT");
@@ -83,8 +80,8 @@ namespace IdentityServer.Infrastructure.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("TEXT");
 
-                    b.Property<long?>("SpecializationId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("SpecializationId")
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("INTEGER");

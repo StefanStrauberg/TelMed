@@ -3,7 +3,7 @@ using Organizations.Domain;
 
 namespace Organizations.Application.Features.Organization.Requests.Commands
 {
-    public class CreateOrganizationCommand : IRequest<string>
+    public class CreateOrganizationCommand : IRequest
     {
         public OrganizationLevel Level { get; set; }
         public OrganizationRegion Region { get; set; }

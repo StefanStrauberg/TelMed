@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Organizations.Application.Features.Organization.Requests.Commands;
@@ -43,7 +42,6 @@ namespace Organizations.API.Controllers
 
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> UpdateOrganization([FromBody] UpdateOrganizationCommand command)
         {
@@ -52,7 +50,6 @@ namespace Organizations.API.Controllers
 
         [HttpDelete("{id:length(24)}", Name = "DeleteOrganization")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> DeleteOrganization(string id)
         {

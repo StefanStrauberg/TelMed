@@ -6,7 +6,7 @@ using Organizations.Application.Features.Organization.Requests.Commands;
 
 namespace Organizations.Application.Features.Organization.Handlers.Commands
 {
-    public class CreateOrganizationCommandHandler : IRequestHandler<CreateOrganizationCommand, string>
+    public class CreateOrganizationCommandHandler : IRequestHandler<CreateOrganizationCommand>
     {
         private readonly IOrganizationRepository _repository;
         private readonly IMapper _mapper;
@@ -20,12 +20,12 @@ namespace Organizations.Application.Features.Organization.Handlers.Commands
             _mapper = mapper;
             _logger = logger;
         }
-        public async Task<string> Handle(CreateOrganizationCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateOrganizationCommand request, CancellationToken cancellationToken)
         {
             var organizationEntity = _mapper.Map<Domain.Organization>(request);
             await _repository.CreateAsync(organizationEntity);
             _logger.LogInformation($"Organization {organizationEntity.Id} is successfully created.");
-            return organizationEntity.Id;
+            return Unit.Value;
         }
     }
 }

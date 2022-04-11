@@ -50,4 +50,18 @@ export class ViewOrganizationsComponent implements OnInit {
     }
     return returnSpecsNames;
   }
+
+  deleteOrganization(organizationId: string){
+    if(organizationId)
+    {
+      this.organizationService.deleteOrganization(organizationId).subscribe((date: {}) => {
+        this.getAllOrganizations();
+        this.loading = false;
+      }, (error) => {
+        this.errorMessage = error;
+        this.getAllOrganizations();
+        this.loading = false;
+      });
+    }
+  }
 }

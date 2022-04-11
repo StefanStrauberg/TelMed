@@ -22,7 +22,7 @@ export class CreateSpecializationComponent implements OnInit {
   }
 
   createSpecialization(){
-    this.specializationService.createSpecialization(this.specialization).subscribe((data: ISpecialization) => {
+    this.specializationService.createSpecialization(this.specialization).subscribe((data: {}) => {
       this.router.navigate(['/admin/specializations']).then();
     }, (error) => {
       this.errorMessage = error;

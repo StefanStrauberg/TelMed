@@ -73,7 +73,7 @@ export class SetSpecOrganizationComponent implements OnInit {
 
   updateOrganization(){
     if(this.organizationId){
-      this.organizationService.updateOrganization(this.organization, this.organizationId).subscribe((data: IOrganization) => {
+      this.organizationService.updateOrganization(this.organization).subscribe((data: {}) => {
         this.router.navigate(['/admin/organizations']).then();
       }, (error) => {
         this.errorMessage = error;

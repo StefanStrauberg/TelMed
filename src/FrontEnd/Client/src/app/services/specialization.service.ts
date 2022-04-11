@@ -8,32 +8,38 @@ import { ISpecialization } from '../models/ISpecialization';
 })
 export class SpecializationService {
 
-  stringUrl: string = 'http://localhost:3000';
+  stringUrl: string = 'http://localhost:5001/api/specialization';
 
   constructor(private httpClient: HttpClient) { }
 
   //Get All Specialization
   getAllSpecializations(): Observable<ISpecialization[]> {
-    let dataUrl: string = `${this.stringUrl}/specializations`;
+    let dataUrl: string = `${this.stringUrl}`;
     return this.httpClient.get<ISpecialization[]>(dataUrl).pipe(catchError(this.handleError));
   }
 
   //Get Specialization By Id
   getSpecialization(specializationId: string): Observable<ISpecialization>{
-    let dataUrl: string = `${this.stringUrl}/specializations/${specializationId}`;
+    let dataUrl: string = `${this.stringUrl}/${specializationId}`;
     return this.httpClient.get<ISpecialization>(dataUrl).pipe(catchError(this.handleError));
   }
 
   //Create Specialization
-  createSpecialization(specialization: ISpecialization): Observable<ISpecialization>{
-    let dataUrl: string = `${this.stringUrl}/specializations`;
-    return this.httpClient.post<ISpecialization>(dataUrl, specialization).pipe(catchError(this.handleError));
+  createSpecialization(specialization: ISpecialization): Observable<{}>{
+    let dataUrl: string = `${this.stringUrl}`;
+    return this.httpClient.post<{}>(dataUrl, specialization).pipe(catchError(this.handleError));
   }
 
   //Update Specialization
-  updateSpecialization(specialization: ISpecialization, specializationId: string): Observable<ISpecialization>{
-    let dataUrl: string = `${this.stringUrl}/specializations/${specializationId}`;
-    return this.httpClient.put<ISpecialization>(dataUrl, specialization).pipe(catchError(this.handleError));
+  updateSpecialization(specialization: ISpecialization): Observable<{}>{
+    let dataUrl: string = `${this.stringUrl}`;
+    return this.httpClient.put<{}>(dataUrl, specialization).pipe(catchError(this.handleError));
+  }
+
+  //Delete Organization
+  deleteSpecialization(specializationId: string): Observable<{}>{
+    let dataUrl: string = `${this.stringUrl}/${specializationId}`;
+    return this.httpClient.delete<{}>(dataUrl).pipe(catchError(this.handleError));
   }
 
   // Error Handling

@@ -6,7 +6,7 @@ using Specializations.Application.Features.Specialization.Requests.Commands;
 
 namespace Specializations.Application.Features.Specialization.Handlers.Commands
 {
-    public class CreateSpecializationCommandHandler : IRequestHandler<CreateSpecializationCommand, string>
+    public class CreateSpecializationCommandHandler : IRequestHandler<CreateSpecializationCommand>
     {
         private readonly ISpecializationRepository _repository;
         private readonly IMapper _mapper;
@@ -20,12 +20,12 @@ namespace Specializations.Application.Features.Specialization.Handlers.Commands
             _mapper = mapper;
             _logger = logger;
         }
-        public async Task<string> Handle(CreateSpecializationCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateSpecializationCommand request, CancellationToken cancellationToken)
         {
             var specializationEntity = _mapper.Map<Domain.Specialization>(request);
             await _repository.CreateAsync(specializationEntity);
             _logger.LogInformation($"Specialization {specializationEntity.Id} is successfully created.");
-            return specializationEntity.Id;
+            return Unit.Value;
         }
     }
 }

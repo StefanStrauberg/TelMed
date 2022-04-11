@@ -27,6 +27,9 @@
                                             <button class="btn btn-primary" routerLink="/admin/specializations/edit/{{ specialization.id }}">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
+                                            <button class="btn btn-danger" (click)="deleteSpecialization(specialization.id)">
+                                                <i class="fa-regular fa-trash-can"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

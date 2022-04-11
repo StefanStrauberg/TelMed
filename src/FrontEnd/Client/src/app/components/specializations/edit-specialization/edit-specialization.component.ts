@@ -38,7 +38,7 @@ export class EditSpecializationComponent implements OnInit {
 
   updateSpecialization(){
     if(this.specializationId){
-      this.specializationService.updateSpecialization(this.specialization, this.specializationId).subscribe((data: ISpecialization) => {
+      this.specializationService.updateSpecialization(this.specialization).subscribe((data: {}) => {
         this.router.navigate(['/admin/specializations']).then();
       }, (error) => {
         this.errorMessage = error;

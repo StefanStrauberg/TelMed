@@ -38,7 +38,7 @@ export class CreateOrganizationComponent implements OnInit {
   }
 
   createOrganization(){
-    this.organizationService.createOrganization(this.organization).subscribe((data: IOrganization) => {
+    this.organizationService.createOrganization(this.organization).subscribe((data: {}) => {
       this.router.navigate(['/admin/organizations']).then();
     }, (error) => {
       this.errorMessage = error;

@@ -8,32 +8,38 @@ import { IOrganization } from '../models/IOrganization';
 })
 export class OrganizationService {
 
-  stringUrl: string = 'http://localhost:3000';
+  stringUrl: string = 'http://localhost:5000/api/organization';
 
   constructor(private httpClient: HttpClient) { }
 
   //Get All Organizations
   getAllOrganizations(): Observable<IOrganization[]> {
-    let dataUrl: string = `${this.stringUrl}/organizations`;
+    let dataUrl: string = `${this.stringUrl}`;
     return this.httpClient.get<IOrganization[]>(dataUrl).pipe(catchError(this.handleError));
   }
 
   //Get Organizations By Id
   getOrganization(organizationId: string): Observable<IOrganization>{
-    let dataUrl: string = `${this.stringUrl}/organizations/${organizationId}`;
+    let dataUrl: string = `${this.stringUrl}/${organizationId}`;
     return this.httpClient.get<IOrganization>(dataUrl).pipe(catchError(this.handleError));
   }
 
   //Create Organization
-  createOrganization(organization: IOrganization): Observable<IOrganization>{
-    let dataUrl: string = `${this.stringUrl}/organizations`;
-    return this.httpClient.post<IOrganization>(dataUrl, organization).pipe(catchError(this.handleError));
+  createOrganization(organization: IOrganization): Observable<{}>{
+    let dataUrl: string = `${this.stringUrl}`;
+    return this.httpClient.post<{}>(dataUrl, organization).pipe(catchError(this.handleError));
   }
 
   //Update Organization
-  updateOrganization(organization: IOrganization, organizationId: string): Observable<IOrganization>{
-    let dataUrl: string = `${this.stringUrl}/organizations/${organizationId}`;
-    return this.httpClient.put<IOrganization>(dataUrl, organization).pipe(catchError(this.handleError));
+  updateOrganization(organization: IOrganization): Observable<{}>{
+    let dataUrl: string = `${this.stringUrl}`;
+    return this.httpClient.put<{}>(dataUrl, organization).pipe(catchError(this.handleError));
+  }
+
+  //Delete Organization
+  deleteOrganization(organizationId: string): Observable<{}>{
+    let dataUrl: string = `${this.stringUrl}/${organizationId}`;
+    return this.httpClient.delete<{}>(dataUrl).pipe(catchError(this.handleError));
   }
 
   // Error Handling

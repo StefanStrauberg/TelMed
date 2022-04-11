@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ISpecialization } from 'src/app/models/ISpecialization';
 import { SpecializationService } from 'src/app/services/specialization.service';
 
@@ -13,13 +14,15 @@ export class ViewSpecializationsComponent implements OnInit {
   specializations: ISpecialization[] = [];
   errorMessage: string | null = null;
 
-  constructor(private specializationService: SpecializationService) { }
+  constructor(
+    private specializationService: SpecializationService,
+    private router: Router) { }
 
   ngOnInit(): void {
-    this.getAllOrganizations();
+    this.getAllSpecializations();
   }
 
-  getAllOrganizations(){
+  getAllSpecializations(){
     this.loading = true;
     this.specializationService.getAllSpecializations().subscribe((data: ISpecialization[]) => {
       this.specializations = data;
@@ -27,6 +30,18 @@ export class ViewSpecializationsComponent implements OnInit {
     }, (error) => {
       this.errorMessage = error;
       console.log(this.errorMessage);
+      this.loading = false;
+    })
+  }
+
+  deleteSpecialization(specializationId: string){
+    this.loading = true;
+    this.specializationService.deleteSpecialization(specializationId).subscribe((data: {}) => {
+      this.getAllSpecializations();
+      this.loading = false;
+    }, error => {
+      this.errorMessage = error;
+      this.getAllSpecializations();
       this.loading = false;
     })
   }

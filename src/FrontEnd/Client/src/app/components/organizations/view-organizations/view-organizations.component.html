@@ -38,6 +38,9 @@
                                                 <a class="btn btn-primary" routerLink="/admin/organizations/{{ organization.id }}/specializations">
                                                     <i class="fa-solid fa-pencil"></i>
                                                 </a>
+                                                <button class="btn btn-danger" (click)="deleteOrganization(organization.id)">
+                                                    <i class="fa-regular fa-trash-can"></i>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

@@ -47,6 +47,7 @@ namespace Organizations.Infrastructure.Repositories
                 .Set(x => x.Level, entity.Level)
                 .Set(x => x.Region, entity.Region)
                 .Set(x => x.Address, entity.Address)
+                .Set(x => x.IsActive, entity.IsActive)
                 .Set(x => x.OrganizationName, entity.OrganizationName)
                 .Set(x => x.SpecializationIds, entity.SpecializationIds);
             var result = await _context.Organizations.UpdateOneAsync(filter, update);

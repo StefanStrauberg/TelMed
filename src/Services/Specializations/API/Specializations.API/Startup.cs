@@ -30,6 +30,7 @@ namespace Specializations.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Specializations.API", Version = "v1" });
             });
+            services.AddCors();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -42,6 +43,10 @@ namespace Specializations.API
             }
 
             app.UseRouting();
+            
+            app.UseCors(policy => policy.AllowAnyHeader()
+                .AllowAnyMethod()
+                .WithOrigins("http://localhost:4200"));
 
             app.UseAuthorization();
 

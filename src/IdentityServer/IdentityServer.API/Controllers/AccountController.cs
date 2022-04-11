@@ -40,8 +40,7 @@ namespace IdentityServer.API.Controllers
                 return Unauthorized(new ApiResponse(401));
             return new
             {
-                UserName = account.UserName,
-                Token = _tokenService.CreateToken(account),
+                accessToken = _tokenService.CreateToken(account),
             };
         }
         [HttpPost("register")]
@@ -53,8 +52,7 @@ namespace IdentityServer.API.Controllers
                 return BadRequest(new ApiResponse(400));
             return new
             {
-                UserName = account.UserName,
-                Token = _tokenService.CreateToken(account)
+                accessToken = _tokenService.CreateToken(account)
             };
         }
         [HttpGet("CurrentAccount")]

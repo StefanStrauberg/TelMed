@@ -16,6 +16,9 @@ namespace IdentityServer.Infrastructure.Data
                     MiddleName = "Sergeevich",
                     Email = "stefanstrauberg@gmail.com",
                     UserName = "Admin",
+                    OrganizationId = "OrganizationId",
+                    SpecializationId = "SpecializationId",
+                    Role = Role.Developer
                 };
                 await userManager.CreateAsync(account, "!QAZxsw2");
             }

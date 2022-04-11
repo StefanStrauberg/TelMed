@@ -22,8 +22,14 @@ namespace IdentityServer.Infrastructure.Services
         {
             var claims = new List<Claim>
             {
+                new Claim(ClaimTypes.SerialNumber, account.Id),
                 new Claim(ClaimTypes.Email, account.Email),
-                new Claim(ClaimTypes.GivenName, account.FirstName)
+                new Claim(ClaimTypes.NameIdentifier, account.UserName),
+                new Claim(ClaimTypes.GivenName, account.FirstName),
+                new Claim(ClaimTypes.Surname, account.LastName),
+                new Claim(ClaimTypes.Role, account.Role.ToString()),
+                new Claim("SpecializationId" ,account.SpecializationId),
+                new Claim("OrganizationId", account.OrganizationId)
             };
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256Signature);
             var tokenDescriptor = new SecurityTokenDescriptor

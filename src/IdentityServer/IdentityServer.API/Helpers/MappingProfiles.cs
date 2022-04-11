@@ -8,7 +8,8 @@ namespace IdentityServer.API.Helpers
     {
         public MappingProfiles()
         {
-            CreateMap<Account, AccountDto>();
+            CreateMap<Account, AccountDto>().ReverseMap();
+            CreateMap<RegisterDto, Account>();
         }
     }
 }

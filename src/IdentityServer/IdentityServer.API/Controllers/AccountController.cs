@@ -1,7 +1,7 @@
-using System.Security.Claims;
 using AutoMapper;
 using IdentityServer.API.DTOs;
 using IdentityServer.API.Errors;
+using IdentityServer.API.Extensions;
 using IdentityServer.Core.Entities;
 using IdentityServer.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IdentityServer.API.Controllers
 {
+    [Authorize]
     public class AccountController : BaseController
     {
         private readonly UserManager<Account> _userManager;
@@ -28,61 +29,65 @@ namespace IdentityServer.API.Controllers
             _mapper = mapper;
         }
         [HttpPost("login")]
+        [AllowAnonymous]
         public async Task<ActionResult<object>> Login(LoginDto loginDto)
         {
-            var user = await _userManager.FindByEmailAsync(loginDto.Email);
-            if(user is null)
+            var account = await _userManager.FindByEmailAsync(loginDto.Email);
+            if(account is null)
                 return Unauthorized(new ApiResponse(401));
-            var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
+            var result = await _signInManager.CheckPasswordSignInAsync(account, loginDto.Password, false);
             if(!result.Succeeded)
                 return Unauthorized(new ApiResponse(401));
             return new
             {
-                UserName = user.UserName,
-                Token = _tokenService.CreateToken(user),
+                UserName = account.UserName,
+                Token = _tokenService.CreateToken(account),
             };
         }
         [HttpPost("register")]
         public async Task<ActionResult<object>> Register(RegisterDto registerDto)
         {
-            var user = new Account
-            {
-                UserName = registerDto.UserName,
-                FirstName = registerDto.FirstName,
-                LastName = registerDto.LastName,
-                MiddleName = registerDto.MiddleName,
-                Email = registerDto.Email,
-                OrganizationId = registerDto.OrganizationId,
-                PhoneNumber = registerDto.PhoneNumber
-            };
-            var result = await _userManager.CreateAsync(user, registerDto.Password);
+            var account = _mapper.Map<Account>(registerDto);
+            var result = await _userManager.CreateAsync(account, registerDto.Password);
             if(!result.Succeeded)
                 return BadRequest(new ApiResponse(400));
             return new
             {
-                UserName = user.UserName,
-                Token = _tokenService.CreateToken(user)
+                UserName = account.UserName,
+                Token = _tokenService.CreateToken(account)
             };
         }
-        [HttpGet("test")]
-        [Authorize]
-        public ActionResult<string> GetSecretText()
-        {
-            return "You are authorize";
-        }
-        [HttpGet]
-        [Authorize]
+        [HttpGet("CurrentAccount")]
         public async Task<ActionResult<AccountDto>> GetCurentAccount()
         {
-            var email = User.FindFirstValue(ClaimTypes.Email);
-            var user = await _userManager.FindByEmailAsync(email);
-            return _mapper.Map<AccountDto>(user);
+            var account = await _userManager.FindByEmailFromClaimsAsync(User);
+            return _mapper.Map<AccountDto>(account);
         }
-        [HttpGet("emailexists")]
-        [Authorize]
-        public async Task<ActionResult<bool>> CheckEmailExistsAsync([FromQuery] string email)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<AccountDto>> GetAccountById(Guid id)
         {
-            return await _userManager.FindByEmailAsync(email) != null;
+            var account = await _userManager.FindByIdAsync(id.ToString());
+            if(account is null)
+                return BadRequest(new ApiResponse(400));
+            return _mapper.Map<AccountDto>(account);
+        }
+        [HttpGet]
+        [Route("GetAccountSpecializationById/{id}")]
+        public async Task<ActionResult<object>> GetAccountSpecializationById(Guid id)
+        {
+            var account = await _userManager.FindByIdAsync(id.ToString());
+            if(account is null)
+                return BadRequest(new ApiResponse(400));
+            return new { specializationId = account.SpecializationId };
+        }
+        [HttpGet]
+        [Route("GetAccountOrganizationById/{id}")]
+        public async Task<ActionResult<object>> GetAccountOrganizationById(Guid id)
+        {
+            var account = await _userManager.FindByIdAsync(id.ToString());
+            if(account is null)
+                return BadRequest(new ApiResponse(400));
+            return new { organizationId = account.OrganizationId };
         }
     }
 }

@@ -7,9 +7,6 @@ namespace Organizations.Application.Validations
     {
         public UpdateOrganizationDtoValidator()
         {
-            RuleFor(x => x.Id)
-                .NotNull().WithMessage("{PropertyName} not be null.")
-                .NotEmpty().WithMessage("{PropertyName} is required.");
             RuleFor(x => x.model.Level)
                 .IsInEnum();
             RuleFor(x => x.model.Region)

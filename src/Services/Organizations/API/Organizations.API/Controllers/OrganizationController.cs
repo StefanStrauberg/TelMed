@@ -19,7 +19,7 @@ namespace Organizations.API.Controllers
         }
 
         [HttpGet("{id:length(24)}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetByIdOrganization(string id)
         {
@@ -27,6 +27,7 @@ namespace Organizations.API.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateOrganization([FromBody] CreateOrganizationCommand command)
         {
             await _mediator.Send(command);
@@ -34,21 +35,19 @@ namespace Organizations.API.Controllers
         }
 
         [HttpPut]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateOrganization([FromBody] UpdateOrganizationCommand command)
         {
-            await _mediator.Send(command);
-            return StatusCode(201);
+            return Ok(await _mediator.Send(command));
         }
 
         [HttpDelete("{id:length(24)}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteOrganization(string id)
         {
-            await _mediator.Send(new DeleteOrganizationCommand(id));
-            return StatusCode(201);
+            return Ok(await _mediator.Send(new DeleteOrganizationCommand(id)));
         }
     }
 }

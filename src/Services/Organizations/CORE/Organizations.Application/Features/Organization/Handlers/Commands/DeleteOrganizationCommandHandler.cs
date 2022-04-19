@@ -14,7 +14,7 @@ namespace Organizations.Application.Features.Organization.Handlers.Commands
         {
             if(await _repository.DeleteAsync(request.Id))
                 return Unit.Value;
-            throw new OrganizationNotFoundException(request.Id);
+            throw new OrganizationBadRequestException(request.Id);
         }
     }
 }

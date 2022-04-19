@@ -7,11 +7,9 @@ namespace Organizations.Application.Features.Organization.Requests.Commands
         public CreateOrganizationCommandValidator()
         {
             RuleFor(x => x.Level)
-                .NotNull().WithMessage("{PropertyName} not be null.")
-                .NotEmpty().WithMessage("{PropertyName} is required.").IsInEnum();
+                .IsInEnum();
             RuleFor(x => x.Region)
-                .NotNull().WithMessage("{PropertyName} not be null.")
-                .NotEmpty().WithMessage("{PropertyName} is required.").IsInEnum();
+                .IsInEnum();
             RuleFor(x => x.Address.Line)
                 .NotNull().WithMessage("{PropertyName} not be null.")
                 .NotEmpty().WithMessage("{PropertyName} is required.");

@@ -1,18 +1,13 @@
-﻿using FluentValidation.Results;
+﻿using ApplicationException = Organizations.Domain.Exceptions.ApplicationException;
 
 namespace Organizations.Application.Exceptions
 {
-    public class ValidationException : ApplicationException
+    public sealed class ValidationException : ApplicationException
     {
-        public ValidationException() : base("One or more validation failures have occurred.")
-        {
-            Errors = new Dictionary<string, string[]>();
-        }
-        public ValidationException(IEnumerable<ValidationFailure> failures) : this()
-        {
-            Errors = failures.GroupBy(x => x.PropertyName, x => x.ErrorMessage)
-                .ToDictionary(failureGroup => failureGroup.Key, failureGroup => failureGroup.ToArray());
-        }
-        public Dictionary<string, string[]> Errors { get; }
+        public ValidationException(IReadOnlyDictionary<string, string[]> errorsDictionary)
+            : base("Validation Failure", "One or more validation errors occurred")
+            => ErrorsDictionary = errorsDictionary;
+
+        public IReadOnlyDictionary<string, string[]> ErrorsDictionary { get; }
     }
 }

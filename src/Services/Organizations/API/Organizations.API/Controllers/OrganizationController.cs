@@ -3,57 +3,52 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Organizations.Application.Features.Organization.Requests.Commands;
 using Organizations.Application.Features.Organization.Requests.Queries;
-using Organizations.Domain;
-using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace Organizations.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class OrganizationController : ControllerBase
+    public class OrganizationController : BaseController
     {
         private readonly IMediator _mediator;
-        public OrganizationController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-        [HttpGet(Name = "GetAllOrganizations")]
-        [ProducesResponseType(typeof(List<Organization>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<IReadOnlyList<Organization>>> GetAllOrganizations()
+        public OrganizationController(IMediator mediator) => _mediator = mediator;
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllOrganizations()
         {
             return Ok(await _mediator.Send(new GetOrganizationListRequest()));
         }
 
-        [HttpGet("{id:length(24)}", Name = "GetByIdOrganization")]
-        [ProducesResponseType(typeof(Organization), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<Organization>> GetByIdOrganization(string id)
+        [HttpGet("{id:length(24)}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetByIdOrganization(string id)
         {
-            return Ok(await _mediator.Send(new GetOrganizationDetailRequest() { Id = id }));
+            return Ok(await _mediator.Send(new GetOrganizationDetailRequest(id)));
         }
 
         [HttpPost]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<ActionResult<string>> CreateOrganization([FromBody] CreateOrganizationCommand command)
+        public async Task<IActionResult> CreateOrganization([FromBody] CreateOrganizationCommand command)
         {
-            return Ok(await _mediator.Send(command));
+            await _mediator.Send(command);
+            return StatusCode(201);
         }
 
         [HttpPut]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesDefaultResponseType]
-        public async Task<ActionResult> UpdateOrganization([FromBody] UpdateOrganizationCommand command)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> UpdateOrganization([FromBody] UpdateOrganizationCommand command)
         {
-            return Ok(await _mediator.Send(command));
+            await _mediator.Send(command);
+            return StatusCode(201);
         }
 
-        [HttpDelete("{id:length(24)}", Name = "DeleteOrganization")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesDefaultResponseType]
-        public async Task<ActionResult> DeleteOrganization(string id)
+        [HttpDelete("{id:length(24)}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> DeleteOrganization(string id)
         {
-            return Ok(await _mediator.Send(new DeleteOrganizationCommand() { Id = id }));
+            await _mediator.Send(new DeleteOrganizationCommand(id));
+            return StatusCode(201);
         }
     }
 }

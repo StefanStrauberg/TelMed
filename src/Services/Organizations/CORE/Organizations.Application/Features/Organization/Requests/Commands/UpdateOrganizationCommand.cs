@@ -3,7 +3,7 @@ using Organizations.Domain;
 
 namespace Organizations.Application.Features.Organization.Requests.Commands
 {
-    public class UpdateOrganizationCommand : IRequest
+    public record UpdateOrganizationCommand : IRequest
     {
         public string Id { get; set; }
         public OrganizationLevel Level { get; set; }

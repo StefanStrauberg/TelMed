@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Organizations.Application;
+using Organizations.Application.Middleware;
 using Organizations.Infrastructure;
 using Organizations.Infrastructure.Persistence.Config;
 
@@ -39,12 +40,14 @@ namespace Organizations.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Organizations.API v1"));
             }
 
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
+
             app.UseRouting();
 
             app.UseCors(policy => policy.AllowAnyHeader()
                 .AllowAnyMethod()
                 .WithOrigins("http://localhost:4200"));
-            //app.UseAuthentication();
+            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

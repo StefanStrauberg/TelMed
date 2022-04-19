@@ -2,8 +2,8 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Organizations.Application.Contracts.Persistence;
-using Organizations.Application.Exceptions;
 using Organizations.Application.Features.Organization.Requests.Commands;
+using Organizations.Domain.Exceptions;
 
 namespace Organizations.Application.Features.Organization.Handlers.Commands
 {
@@ -23,10 +23,9 @@ namespace Organizations.Application.Features.Organization.Handlers.Commands
         }
         public async Task<Unit> Handle(UpdateOrganizationCommand request, CancellationToken cancellationToken)
         {
-            if (!await _repository.UpdateAsync(_mapper.Map<Domain.Organization>(request)))
-                throw new NotFoundException(nameof(request), request.Id);
-            _logger.LogInformation($"Organization {request.Id} is successfully to updated.");
-            return Unit.Value;
+            if(await _repository.UpdateAsync(_mapper.Map<Domain.Organization>(request)))
+                return Unit.Value;
+            throw new OrganizationNotFoundException(request.Id);
         }
     }
 }

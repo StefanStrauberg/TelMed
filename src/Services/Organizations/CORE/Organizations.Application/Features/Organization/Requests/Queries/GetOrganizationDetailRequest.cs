@@ -2,8 +2,5 @@
 
 namespace Organizations.Application.Features.Organization.Requests.Queries
 {
-    public class GetOrganizationDetailRequest : IRequest<Domain.Organization>
-    {
-        public string Id { get; set; }
-    }
+    public record GetOrganizationDetailRequest(string Id) : IRequest<Domain.Organization>;
 }

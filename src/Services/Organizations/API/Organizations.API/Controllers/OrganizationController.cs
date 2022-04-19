@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Organizations.Application.DTO;
 using Organizations.Application.Features.Organization.Requests.Commands;
 using Organizations.Application.Features.Organization.Requests.Queries;
-using Organizations.Domain;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

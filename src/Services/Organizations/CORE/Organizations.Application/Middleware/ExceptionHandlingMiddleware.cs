@@ -2,10 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Organizations.Application.Exceptions;
 using Organizations.Domain.Exceptions;
-using System;
-using System.Collections.Generic;
 using System.Text.Json;
-using System.Threading.Tasks;
 using ApplicationException = Organizations.Domain.Exceptions.ApplicationException;
 
 namespace Organizations.Application.Middleware

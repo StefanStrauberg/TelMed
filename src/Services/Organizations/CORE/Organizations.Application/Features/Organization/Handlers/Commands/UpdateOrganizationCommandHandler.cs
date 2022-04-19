@@ -11,15 +11,12 @@ namespace Organizations.Application.Features.Organization.Handlers.Commands
     {
         private readonly IOrganizationRepository _repository;
         private readonly IMapper _mapper;
-        private readonly ILogger<UpdateOrganizationCommandHandler> _logger;
         public UpdateOrganizationCommandHandler(
             IOrganizationRepository repository,
-            IMapper mapper,
-            ILogger<UpdateOrganizationCommandHandler> logger)
+            IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _logger = logger;
         }
         public async Task<Unit> Handle(UpdateOrganizationCommand request, 
             CancellationToken cancellationToken)

@@ -1,18 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Organizations.Domain.Exceptions;
+using Specializations.Domain.Exceptions;
 using System.Text.Json;
-using ApplicationException = Organizations.Domain.Exceptions.ApplicationException;
+using ApplicationException = Specializations.Domain.Exceptions.ApplicationException;
 
-namespace Organizations.Application.Middleware
+namespace Specializations.Application.Middleware
 {
     public class ExceptionHandlingMiddleware : IMiddleware
     {
         private readonly ILogger<ExceptionHandlingMiddleware> _logger;
-
-        public ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> logger) 
+        public ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> logger)
             => _logger = logger;
-
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             try
@@ -41,22 +39,6 @@ namespace Organizations.Application.Middleware
             await httpContext.Response.WriteAsync(JsonSerializer.Serialize(response));
         }
 
-        private static int GetStatusCode(Exception exception) =>
-            exception switch
-            {
-                BadRequestException => StatusCodes.Status400BadRequest,
-                NotFoundException => StatusCodes.Status404NotFound,
-                ValidationException => StatusCodes.Status422UnprocessableEntity,
-                _ => StatusCodes.Status500InternalServerError
-            };
-
-        private static string GetTitle(Exception exception) =>
-            exception switch
-            {
-                ApplicationException applicationException => applicationException.Title,
-                _ => "Server Error"
-            };
-
         private static IReadOnlyDictionary<string, string[]> GetErrors(Exception exception)
         {
             IReadOnlyDictionary<string, string[]> errors = null;
@@ -66,5 +48,21 @@ namespace Organizations.Application.Middleware
             }
             return errors;
         }
+
+        private static string GetTitle(Exception exception) =>
+            exception switch
+            {
+                ApplicationException applicationException => applicationException.Title,
+                _ => "Server Error"
+            };
+
+        private static int GetStatusCode(Exception exception) =>
+            exception switch
+            {
+                BadRequestException => StatusCodes.Status400BadRequest,
+                NotFoundException => StatusCodes.Status404NotFound,
+                ValidationException => StatusCodes.Status422UnprocessableEntity,
+                _ => StatusCodes.Status500InternalServerError
+            };
     }
 }

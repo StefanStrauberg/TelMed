@@ -30,29 +30,26 @@ namespace Organizations.API.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateOrganization([FromBody] CreateOrganizationDto model)
         {
-            await _mediator.Send(new CreateOrganizationCommand(model));
-            return StatusCode(201);
+            return Ok(await _mediator.Send(new CreateOrganizationCommand(model)));
         }
 
         [HttpPut("{id:length(24)}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateOrganization([FromBody] UpdateOrganizationDto model, string id)
         {
-            await _mediator.Send(new UpdateOrganizationCommand(model, id));
-            return NoContent();
+            return Ok(await _mediator.Send(new UpdateOrganizationCommand(model, id)));
         }
 
         [HttpDelete("{id:length(24)}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteOrganization(string id)
         {
-            await _mediator.Send(new DeleteOrganizationCommand(id));
-            return NoContent();
+            return Ok(await _mediator.Send(new DeleteOrganizationCommand(id)));
         }
     }
 }

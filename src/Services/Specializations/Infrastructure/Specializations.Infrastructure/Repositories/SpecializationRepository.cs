@@ -19,9 +19,9 @@ namespace Specializations.Infrastructure.Repositories
             await _context.Specializations.InsertOneAsync(entity);
         }
 
-        public async Task<bool> DeleteAsync(string Id)
+        public async Task<bool> DeleteAsync(string id)
         {
-            var filter = Builders<Specialization>.Filter.Eq(x => x.Id, Id);
+            var filter = Builders<Specialization>.Filter.Eq(x => x.Id, id);
             var result = await _context.Specializations.DeleteOneAsync(filter);
             return result.IsAcknowledged && result.DeletedCount > 0;
         }
@@ -36,15 +36,15 @@ namespace Specializations.Infrastructure.Repositories
             return await _context.Specializations.Find(x => true).ToListAsync();
         }
 
-        public async Task<Specialization> GetAsync(string Id)
+        public async Task<Specialization> GetAsync(string id)
         {
-            var filter = Builders<Specialization>.Filter.Eq(x => x.Id, Id);
+            var filter = Builders<Specialization>.Filter.Eq(x => x.Id, id);
             return await _context.Specializations.Find(filter).FirstOrDefaultAsync();
         }
 
-        public async Task<bool> UpdateAsync(Specialization entity)
+        public async Task<bool> UpdateAsync(Specialization entity, string id)
         {
-            var filter = Builders<Specialization>.Filter.Eq(x => x.Id, entity.Id);
+            var filter = Builders<Specialization>.Filter.Eq(x => x.Id, id);
             var update = Builders<Specialization>.Update
                 .Set(x => x.Updated, DateTime.Now)
                 .Set(x => x.Name, entity.Name)

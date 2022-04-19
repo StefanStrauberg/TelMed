@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Specializations.Application.Features.Specialization.Requests.Commands;
+using Specializations.Application.DTO;
 using Specializations.Domain;
 
 namespace Specializations.Application.Mappings
@@ -8,8 +8,9 @@ namespace Specializations.Application.Mappings
     {
         public MappingProfile()
         {
-            CreateMap<Specialization, UpdateSpecializationCommand>().ReverseMap();
-            CreateMap<Specialization, CreateSpecializationCommand>().ReverseMap();
+            CreateMap<Specialization, UpdateSpecializationDto>().ReverseMap();
+            CreateMap<Specialization, CreateSpecializationDto>().ReverseMap();
+            CreateMap<Specialization, SpecializationDto>().ReverseMap();
         }
     }
 }

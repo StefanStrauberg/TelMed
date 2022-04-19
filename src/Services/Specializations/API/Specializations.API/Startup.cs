@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Specializations.Application;
+using Specializations.Application.Middleware;
 using Specializations.Infrastructure;
 using Specializations.Infrastructure.Persistence.Config;
 
@@ -41,6 +42,8 @@ namespace Specializations.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Specializations.API v1"));
             }
+
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseRouting();
             

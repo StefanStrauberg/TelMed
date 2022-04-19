@@ -20,9 +20,9 @@ namespace Organizations.Infrastructure.Repositories
             await _context.Organizations.InsertOneAsync(entity);
         }
 
-        public async Task<bool> DeleteAsync(string Id)
+        public async Task<bool> DeleteAsync(string id)
         {
-            var filter = Builders<Organization>.Filter.Eq(x => x.Id, Id);
+            var filter = Builders<Organization>.Filter.Eq(x => x.Id, id);
             var result = await _context.Organizations.DeleteOneAsync(filter);
             return result.IsAcknowledged && result.DeletedCount > 0;
         }
@@ -33,15 +33,15 @@ namespace Organizations.Infrastructure.Repositories
             return await _context.Organizations.Find(x => true).ToListAsync();
         }
 
-        public async Task<Organization> GetAsync(string Id)
+        public async Task<Organization> GetAsync(string id)
         {
-            var filter = Builders<Organization>.Filter.Eq(x => x.Id, Id);
+            var filter = Builders<Organization>.Filter.Eq(x => x.Id, id);
             return await _context.Organizations.Find(filter).FirstOrDefaultAsync();
         }
 
-        public async Task<bool> UpdateAsync(Organization entity, string Id)
+        public async Task<bool> UpdateAsync(Organization entity, string id)
         {
-            var filter = Builders<Organization>.Filter.Eq(x => x.Id, Id);
+            var filter = Builders<Organization>.Filter.Eq(x => x.Id, id);
             var update = Builders<Organization>.Update
                 .Set(x => x.Updated, DateTime.Now)
                 .Set(x => x.Level, entity.Level)

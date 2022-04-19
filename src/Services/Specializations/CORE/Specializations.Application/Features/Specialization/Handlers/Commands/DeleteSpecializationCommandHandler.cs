@@ -1,28 +1,22 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using Specializations.Application.Contracts.Persistence;
-using Specializations.Application.Exceptions;
 using Specializations.Application.Features.Specialization.Requests.Commands;
+using Specializations.Domain.Exceptions;
 
 namespace Specializations.Application.Features.Specialization.Handlers.Commands
 {
     public class DeleteSpecializationCommandHandler : IRequestHandler<DeleteSpecializationCommand>
     {
         private readonly ISpecializationRepository _repository;
-        private readonly ILogger<DeleteSpecializationCommandHandler> _logger;
-        public DeleteSpecializationCommandHandler(
-            ISpecializationRepository repository,
-            ILogger<DeleteSpecializationCommandHandler> logger)
+        public DeleteSpecializationCommandHandler(ISpecializationRepository repository)
+            => _repository = repository;
+        public async Task<Unit> Handle(DeleteSpecializationCommand request,
+            CancellationToken cancellationToken)
         {
-            _repository = repository;
-            _logger = logger;
-        }
-        public async Task<Unit> Handle(DeleteSpecializationCommand request, CancellationToken cancellationToken)
-        {
-            if(!await _repository.DeleteAsync(request.Id))
-                throw new NotFoundException(nameof(request), request.Id);
-            _logger.LogInformation($"Specialization {request.Id} is successfully deleted.");
-            return Unit.Value;
+            if(await _repository.DeleteAsync(request.id))
+                return Unit.Value;
+            throw new SpecializationBadRequestException(request.id);
         }
     }
 }

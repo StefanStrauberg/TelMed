@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 using MediatR;
-using ValidationException = Organizations.Domain.Exceptions.ValidationException;
+using ValidationException = Specializations.Domain.Exceptions.ValidationException;
 
-namespace Organizations.Application.Behaviors
+namespace Specializations.Application.Behaviors
 {
     public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
     {

@@ -1,9 +1,7 @@
 ﻿using MediatR;
+using Specializations.Application.DTO;
 
 namespace Specializations.Application.Features.Specialization.Requests.Queries
 {
-    public class GetSpecializationDetailRequest : IRequest<Domain.Specialization>
-    {
-        public string Id { get; set; }
-    }
+    public record GetSpecializationDetailRequest(string id) : IRequest<SpecializationDto>;
 }

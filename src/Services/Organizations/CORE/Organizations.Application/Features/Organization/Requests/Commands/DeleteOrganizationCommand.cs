@@ -2,5 +2,5 @@
 
 namespace Organizations.Application.Features.Organization.Requests.Commands
 {
-    public record DeleteOrganizationCommand(string Id) : IRequest;
+    public record DeleteOrganizationCommand(string id) : IRequest;
 }

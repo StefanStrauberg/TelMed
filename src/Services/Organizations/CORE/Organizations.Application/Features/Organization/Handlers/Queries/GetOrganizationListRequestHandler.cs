@@ -10,7 +10,9 @@ namespace Organizations.Application.Features.Organization.Handlers.Queries
     {
         private readonly IOrganizationRepository _repository;
         private readonly IMapper _mapper;
-        public GetOrganizationListRequestHandler(IOrganizationRepository repository, IMapper mapper)
+        public GetOrganizationListRequestHandler(
+            IOrganizationRepository repository,
+            IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;

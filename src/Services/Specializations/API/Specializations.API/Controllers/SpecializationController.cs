@@ -1,61 +1,55 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Specializations.Application.DTO;
 using Specializations.Application.Features.Specialization.Requests.Commands;
 using Specializations.Application.Features.Specialization.Requests.Queries;
-using Specializations.Domain;
 using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace Specializations.API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class SpecializationController : ControllerBase
+    public class SpecializationController : BaseController
     {
         private readonly IMediator _mediator;
-        public SpecializationController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-        [HttpGet(Name = "GetAllSpecializations")]
-        [ProducesResponseType(typeof(IReadOnlyList<Specialization>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<IReadOnlyList<Specialization>>> GetAllSpecializations()
+        public SpecializationController(IMediator mediator) => _mediator = mediator;
+
+        [HttpGet]
+        [ProducesResponseType(typeof(IReadOnlyList<SpecializationDto>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetAllSpecializations()
         {
             return Ok(await _mediator.Send(new GetSpecializationListRequest()));
         }
 
-        [HttpGet("{id:length(24)}", Name = "GetByIdSpecialization")]
-        [ProducesResponseType(typeof(Specialization), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<Specialization>> GetByIdSpecialization(string id)
-        {
-            return Ok(await _mediator.Send(new GetSpecializationDetailRequest() { Id = id }));
-        }
-
-        [HttpPost(Name = "CreateSpecialization")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<ActionResult<string>> CreateSpecialization([FromBody] CreateSpecializationCommand command)
-        {
-            return Ok(await _mediator.Send(command));
-        }
-
-        [HttpPut(Name = "UpdateSpecialization")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpGet("{id:length(24)}")]
+        [ProducesResponseType(typeof(SpecializationDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
-        public async Task<ActionResult> UpdateSpecialization([FromBody] UpdateSpecializationCommand command)
+        public async Task<IActionResult> GetByIdSpecialization(string id)
         {
-            return Ok(await _mediator.Send(command));
+            return Ok(await _mediator.Send(new GetSpecializationDetailRequest(id)));
         }
 
-        [HttpDelete("{id:length(24)}", Name = "DeleteSpecialization")]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
-        public async Task<ActionResult> DeleteSpecialization(string id)
+        public async Task<IActionResult> CreateSpecialization([FromBody] CreateSpecializationDto model)
         {
-            return Ok(await _mediator.Send(new DeleteSpecializationCommand() { Id = id }));
+            return Ok(await _mediator.Send(new CreateSpecializationCommand(model)));
+        }
+
+        [HttpPut("{id:length(24)}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> UpdateSpecialization([FromBody] UpdateSpecializationDto model, string id)
+        {
+            return Ok(await _mediator.Send(new UpdateSpecializationCommand(model, id)));
+        }
+
+        [HttpDelete("{id:length(24)}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> DeleteSpecialization(string id)
+        {
+            return Ok(await _mediator.Send(new DeleteSpecializationCommand(id)));
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using ApplicationException = Organizations.Domain.Exceptions.ApplicationException;
-
-namespace Organizations.Application.Exceptions
+﻿namespace Organizations.Domain.Exceptions
 {
     public sealed class ValidationException : ApplicationException
     {

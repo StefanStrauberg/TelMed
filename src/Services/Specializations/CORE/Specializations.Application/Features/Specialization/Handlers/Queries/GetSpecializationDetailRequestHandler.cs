@@ -1,23 +1,30 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Specializations.Application.Contracts.Persistence;
-using Specializations.Application.Exceptions;
+using Specializations.Application.DTO;
 using Specializations.Application.Features.Specialization.Requests.Queries;
+using Specializations.Domain.Exceptions;
 
 namespace Specializations.Application.Features.Specialization.Handlers.Queries
 {
-    public class GetSpecializationDetailRequestHandler : IRequestHandler<GetSpecializationDetailRequest, Domain.Specialization>
+    public class GetSpecializationDetailRequestHandler : IRequestHandler<GetSpecializationDetailRequest, SpecializationDto>
     {
         private readonly ISpecializationRepository _repository;
-        public GetSpecializationDetailRequestHandler(ISpecializationRepository repository)
+        private readonly IMapper _mapper;
+        public GetSpecializationDetailRequestHandler(
+            ISpecializationRepository repository,
+            IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
-        public async Task<Domain.Specialization> Handle(GetSpecializationDetailRequest request, CancellationToken cancellationToken)
+        public async Task<SpecializationDto> Handle(GetSpecializationDetailRequest request,
+            CancellationToken cancellationToken)
         {
-            var specialization = await _repository.GetAsync(request.Id);
+            var specialization = await _repository.GetAsync(request.id);
             if(specialization is null)
-                throw new NotFoundException(nameof(request), request.Id);
-            return specialization;
+                throw new SpecializationNotFoundException(request.id);
+            return _mapper.Map<SpecializationDto>(specialization);
         }
     }
 }

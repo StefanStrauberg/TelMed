@@ -11,7 +11,9 @@ namespace Organizations.Application.Features.Organization.Handlers.Queries
     {
         private readonly IOrganizationRepository _repository;
         private readonly IMapper _mapper;
-        public GetOrganizationDetailRequestHandler(IOrganizationRepository repository, IMapper mapper)
+        public GetOrganizationDetailRequestHandler(
+            IOrganizationRepository repository,
+            IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -19,9 +21,9 @@ namespace Organizations.Application.Features.Organization.Handlers.Queries
         public async Task<OrganizationDto> Handle(GetOrganizationDetailRequest request, 
             CancellationToken cancellationToken)
         {
-            var organization = await _repository.GetAsync(request.Id);
+            var organization = await _repository.GetAsync(request.id);
             if (organization is null)
-                throw new OrganizationNotFoundException(request.Id);
+                throw new OrganizationNotFoundException(request.id);
             return _mapper.Map<OrganizationDto>(organization);
         }
     }

@@ -21,9 +21,10 @@ namespace Organizations.Application.Features.Organization.Handlers.Commands
             _mapper = mapper;
             _logger = logger;
         }
-        public async Task<Unit> Handle(UpdateOrganizationCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateOrganizationCommand request, 
+            CancellationToken cancellationToken)
         {
-            if(await _repository.UpdateAsync(_mapper.Map<Domain.Organization>(request)))
+            if(await _repository.UpdateAsync(_mapper.Map<Domain.Organization>(request.model), request.Id))
                 return Unit.Value;
             throw new OrganizationNotFoundException(request.Id);
         }

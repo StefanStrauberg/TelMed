@@ -39,9 +39,9 @@ namespace Organizations.Infrastructure.Repositories
             return await _context.Organizations.Find(filter).FirstOrDefaultAsync();
         }
 
-        public async Task<bool> UpdateAsync(Organization entity)
+        public async Task<bool> UpdateAsync(Organization entity, string Id)
         {
-            var filter = Builders<Organization>.Filter.Eq(x => x.Id, entity.Id);
+            var filter = Builders<Organization>.Filter.Eq(x => x.Id, Id);
             var update = Builders<Organization>.Update
                 .Set(x => x.Updated, DateTime.Now)
                 .Set(x => x.Level, entity.Level)

@@ -1,22 +1,23 @@
 ﻿using FluentValidation;
+using Organizations.Application.Features.Organization.Requests.Commands;
 
-namespace Organizations.Application.Features.Organization.Requests.Commands
+namespace Organizations.Application.Validations
 {
     public class CreateOrganizationCommandValidator : AbstractValidator<CreateOrganizationCommand>
     {
         public CreateOrganizationCommandValidator()
         {
-            RuleFor(x => x.Level)
+            RuleFor(x => x.model.Level)
                 .IsInEnum();
-            RuleFor(x => x.Region)
+            RuleFor(x => x.model.Region)
                 .IsInEnum();
-            RuleFor(x => x.Address.Line)
+            RuleFor(x => x.model.Address.Line)
                 .NotNull().WithMessage("{PropertyName} not be null.")
                 .NotEmpty().WithMessage("{PropertyName} is required.");
-            RuleFor(x => x.OrganizationName.OfficialName)
+            RuleFor(x => x.model.OrganizationName.OfficialName)
                 .NotNull().WithMessage("{PropertyName} not be null.")
                 .NotEmpty().WithMessage("{PropertyName} is required.");
-            RuleFor(x => x.OrganizationName.OfficialName)
+            RuleFor(x => x.model.OrganizationName.OfficialName)
                 .NotNull().WithMessage("{PropertyName} not be null.")
                 .NotEmpty().WithMessage("{PropertyName} is required.");
         }

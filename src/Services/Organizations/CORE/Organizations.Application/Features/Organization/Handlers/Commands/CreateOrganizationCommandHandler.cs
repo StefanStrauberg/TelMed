@@ -16,9 +16,10 @@ namespace Organizations.Application.Features.Organization.Handlers.Commands
             _repository = repository;
             _mapper = mapper;
         }
-        public async Task<Unit> Handle(CreateOrganizationCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateOrganizationCommand request, 
+            CancellationToken cancellationToken)
         {
-            await _repository.CreateAsync(_mapper.Map<Domain.Organization>(request));
+            await _repository.CreateAsync(_mapper.Map<Domain.Organization>(request.model));
             return Unit.Value;
         }
     }

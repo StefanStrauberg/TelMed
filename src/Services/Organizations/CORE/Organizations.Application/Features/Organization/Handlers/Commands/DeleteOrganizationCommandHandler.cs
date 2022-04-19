@@ -10,7 +10,8 @@ namespace Organizations.Application.Features.Organization.Handlers.Commands
     {
         private readonly IOrganizationRepository _repository;
         public DeleteOrganizationCommandHandler(IOrganizationRepository repository) => _repository = repository;
-        public async Task<Unit> Handle(DeleteOrganizationCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteOrganizationCommand request, 
+            CancellationToken cancellationToken)
         {
             if(await _repository.DeleteAsync(request.Id))
                 return Unit.Value;

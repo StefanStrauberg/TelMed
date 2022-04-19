@@ -1,13 +1,7 @@
 ﻿using MediatR;
-using Organizations.Domain;
+using Organizations.Application.DTO;
 
 namespace Organizations.Application.Features.Organization.Requests.Commands
 {
-    public record CreateOrganizationCommand : IRequest
-    {
-        public OrganizationLevel Level { get; set; }
-        public OrganizationRegion Region { get; set; }
-        public Address Address { get; set; }
-        public OrganizationName OrganizationName { get; set; }
-    }
+    public record CreateOrganizationCommand(CreateOrganizationDto model) : IRequest;
 }

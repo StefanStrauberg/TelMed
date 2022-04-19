@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Organizations.Application.Features.Organization.Requests.Commands;
+using Organizations.Application.DTO;
 using Organizations.Domain;
 
 namespace Organizations.Application.Mappings
@@ -8,8 +8,9 @@ namespace Organizations.Application.Mappings
     {
         public MappingProfile()
         {
-            CreateMap<Organization, CreateOrganizationCommand>().ReverseMap();
-            CreateMap<Organization, UpdateOrganizationCommand>().ReverseMap();
+            CreateMap<Organization, CreateOrganizationDto>().ReverseMap();
+            CreateMap<Organization, UpdateOrganizationDto>().ReverseMap();
+            CreateMap<Organization, OrganizationDto>().ReverseMap();
         }
     }
 }

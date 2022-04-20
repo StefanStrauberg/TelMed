@@ -1,0 +1,54 @@
+{
+	"Routes": [
+		//Organization API -- https://localhost:5000/api/organization
+		{
+			"DownstreamPathTemplate": "/api/organization",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5000
+				}
+			],
+			"UpstreamPathTemplate": "/organization",
+			"UpstreamHttpMethod": [ "GET", "POST" ]
+		},
+		{
+			"DownstreamPathTemplate": "/api/organization/{id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5000
+				}
+			],
+			"UpstreamPathTemplate": "/organization/{id}",
+			"UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+		},
+		//Specialization API -- https://localhost:5001/api/specialization
+		{
+			"DownstreamPathTemplate": "/api/specialization",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5001
+				}
+			],
+			"UpstreamPathTemplate": "/specialization",
+			"UpstreamHttpMethod": [ "GET", "POST" ]
+		},
+		{
+			"DownstreamPathTemplate": "/api/specialization/{id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5001
+				}
+			],
+			"UpstreamPathTemplate": "/specialization/{id}",
+			"UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+		}
+	]
+}

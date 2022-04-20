@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { enumValues } from 'src/app/helpers/enum.helper';
 import { IOrganization, OrganizationLevel, OrganizationRegion } from 'src/app/shared/models/organization';
+import { ISpecialization } from 'src/app/shared/models/specialization';
+import { SpecializationsService } from 'src/app/specializations/specializations.service';
 import { OrganizationsService } from '../organizations.service';
 
 @Component({
-  selector: 'app-update-organization',
-  templateUrl: './update-organization.component.html',
-  styleUrls: ['./update-organization.component.scss']
+  selector: 'app-spec-organization',
+  templateUrl: './spec-organization.component.html',
+  styleUrls: ['./spec-organization.component.scss']
 })
-export class UpdateOrganizationComponent implements OnInit {
-  orgReg = OrganizationRegion;
-  orgLev = OrganizationLevel;
+export class SpecOrganizationComponent implements OnInit {
   organizationId: string | null = null;
+  specializations: ISpecialization[] = [];
   organization: IOrganization = { 
     organizationName: { 
       officialName: '',
@@ -26,9 +26,10 @@ export class UpdateOrganizationComponent implements OnInit {
     specializationIds: [""],
     isActive: true
   } as IOrganization;
-  enumValuse = enumValues;
-
-  constructor(private activatedRoute: ActivatedRoute,
+  
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private specializationsService: SpecializationsService,
     private organizationsService: OrganizationsService,
     private router: Router) { }
 
@@ -39,8 +40,29 @@ export class UpdateOrganizationComponent implements OnInit {
     if(this.organizationId){
       this.organizationsService.getOrganization(this.organizationId).subscribe((data: IOrganization) => {
         this.organization = data;
+        this.specializationsService.getSpecializations().subscribe((data: ISpecialization[]) => {
+          this.specializations = data;
+        }, (error) => {
+          this.router.navigate([`/admin/organizations/`]).then();
+        });
       }, (error) => {
         this.router.navigate([`/admin/organizations/`]).then();
+      });
+    }
+  }
+
+  checkSpecializationInOrganization(specializationId: string): boolean {
+    if(this.organization.specializationIds.find(x => x == specializationId)) return true;
+      return false;
+  }
+
+  pushSpecializationInOrganization(event: any){
+    if (event.target?.checked){
+      this.organization.specializationIds.push(event.target.name);
+    } else {
+      this.organization.specializationIds.forEach((item, index) => {
+        if(item === event.target.name)
+        this.organization.specializationIds.splice(index, 1);
       })
     }
   }
@@ -50,7 +72,7 @@ export class UpdateOrganizationComponent implements OnInit {
       this.organizationsService.updateOrganization(this.organization, this.organizationId).subscribe((data: {}) => {
         this.router.navigate(['/admin/organizations']).then();
       }, (error) => {
-        this.router.navigate([`/admin/organizations/edit/${this.organizationId}`]).then();
+        this.router.navigate([`admin/organizations/${this.organizationId}/specializations`]).then();
       })
     }
   }

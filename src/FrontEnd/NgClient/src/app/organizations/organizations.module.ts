@@ -4,6 +4,10 @@ import { CreateOrganizationComponent } from './create-organization/create-organi
 import { UpdateOrganizationComponent } from './update-organization/update-organization.component';
 import { ViewOrganizationsComponent } from './view-organizations/view-organizations.component';
 import { OrganizationsRoutingModule } from './organizations-routing.module';
+import { SpecOrganizationComponent } from './spec-organization/spec-organization.component';
+import { FormsModule } from '@angular/forms';
+import { OrgRegPipe } from '../pipes/org-reg.pipe';
+import { OrgLevPipe } from '../pipes/org-lev.pipe';
 
 
 
@@ -11,11 +15,15 @@ import { OrganizationsRoutingModule } from './organizations-routing.module';
   declarations: [
     CreateOrganizationComponent,
     UpdateOrganizationComponent,
-    ViewOrganizationsComponent
+    ViewOrganizationsComponent,
+    SpecOrganizationComponent,
+    OrgRegPipe,
+    OrgLevPipe
   ],
   imports: [
     CommonModule,
-    OrganizationsRoutingModule
+    OrganizationsRoutingModule,
+    FormsModule
   ]
 })
 export class OrganizationsModule { }

@@ -1,43 +1,43 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { IOrganization } from '../shared/models/organization';
 import { catchError } from 'rxjs/operators';
+import { ISpecialization } from '../shared/models/specialization';
 
 @Injectable({
   providedIn: 'root'
 })
-export class OrganizationsService {
-  baseUrl = 'http://localhost:5010/organization';
+export class SpecializationsService {
+  baseUrl = 'http://localhost:5010/specialization';
 
   constructor(private http: HttpClient) { }
 
-  // Get All Organizations
-  getOrganizations(): Observable<IOrganization[]> {
-    return this.http.get<IOrganization[]>(this.baseUrl)
+  // Get All Specializations
+  getSpecializations(): Observable<ISpecialization[]> {
+    return this.http.get<ISpecialization[]>(this.baseUrl)
       .pipe(catchError(this.handleError));
   }
 
-  // Get By Id Organization
-  getOrganization(id: string): Observable<IOrganization> {
-    return this.http.get<IOrganization>(this.baseUrl + `/${id}`)
+  // Get By Id Specialization
+  getSpecialization(id: string): Observable<ISpecialization> {
+    return this.http.get<ISpecialization>(this.baseUrl + `/${id}`)
     .pipe(catchError(this.handleError));
   }
 
-  // Create Organization
-  createOrganization(model: IOrganization): Observable<{}> {
+  // Create Specialization
+  createSpecialization(model: ISpecialization): Observable<{}> {
     return this.http.post<{}>(this.baseUrl, model)
       .pipe(catchError(this.handleError));
   }
 
-  // Update Organization
-  updateOrganization(model: IOrganization, id: string): Observable<{}> {
+  // Update Specialization
+  updateSpecialization(model: ISpecialization, id: string): Observable<{}> {
     return this.http.put<{}>(this.baseUrl + `/${id}`, model)
       .pipe(catchError(this.handleError));
   }
 
-  // Delete Organization
-  deleteOrganization(id: string): Observable<{}> {
+  // Delete Specialization
+  deleteSpecialization(id: string): Observable<{}> {
     return this.http.delete<{}>(this.baseUrl + `/${id}`)
       .pipe(catchError(this.handleError));
   }
@@ -55,4 +55,5 @@ export class OrganizationsService {
       return errorMessage;
     });
   }
+  
 }

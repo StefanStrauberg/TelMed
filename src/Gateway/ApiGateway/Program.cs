@@ -8,11 +8,20 @@ IConfiguration configuration = new ConfigurationBuilder()
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOcelot(configuration);
+builder.Services.AddCors(options => {
+    options.AddPolicy("CorsPolicy", policy => {
+        policy.AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowAnyOrigin();
+    });
+});
 
 var app = builder.Build();
 
 
 app.UseRouting();
+
+app.UseCors("CorsPolicy");
 
 app.UseEndpoints(edpoint =>
 {

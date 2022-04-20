@@ -1,1 +1,53 @@
-<p>create-organization works!</p>
+<pre>{{ organization | json }}</pre>
+<div class="card">
+    <div class="card-header bg-primary">
+        <div class="d-flex justify-content-end">
+            <a class="btn btn-secondary" routerLink="/admin/organizations">
+                <i class="fa-solid fa-xmark"></i> Отмена
+            </a>
+            <button type="submit" form="createForm" class="btn btn-success">
+                <i class="fa-solid fa-check"></i> Создать
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <h4>Организация</h4>
+        <hr />
+        <form class="form-group" id="createForm" (submit)="createOrganization()">
+            <div class="mb-2">
+                <input 
+                    [(ngModel)]="organization.organizationName.officialName"
+                    name="officialName"
+                    type="text" class="form-control" placeholder="OfficialName">
+            </div>
+            <div class="mb-2">
+                <input 
+                    [(ngModel)]="organization.organizationName.usualName"
+                    name="usualName"
+                    type="text" class="form-control" placeholder="UsualName">
+            </div>
+            <div class="mb-2">
+                <input 
+                    [(ngModel)]="organization.address.line"
+                    name="line"
+                    type="text" class="form-control" placeholder="Address">
+            </div>
+            <div class="mb-2">
+                <select
+                    [(ngModel)]="organization.region"
+                    name="region"
+                    class="form-select">
+                    <option *ngFor="let region of enumValuse(orgReg)" [ngValue]="region">{{ region | orgReg }}</option>
+                </select>
+            </div>
+            <div class="mb-2">
+                <select
+                    [(ngModel)]="organization.level"
+                    name="level"
+                    class="form-select">
+                    <option *ngFor="let level of enumValuse(orgLev)" [ngValue]="level">{{ level | orgLev }}</option>
+                </select>
+            </div>
+        </form>
+    </div>
+</div>

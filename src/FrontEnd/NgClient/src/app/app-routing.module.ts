@@ -10,6 +10,8 @@ const routes: Routes = [
     .then(mod => mod.SpecializationsModule) },
   { path: 'admin/reports', loadChildren: () => import('./reports/reports.module')
     .then(mod => mod.ReportsModule) },
+  { path: 'admin/contacts', loadChildren: () => import('./contacts/contacts.module')
+    .then(mod => mod.ContactsModule) },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 

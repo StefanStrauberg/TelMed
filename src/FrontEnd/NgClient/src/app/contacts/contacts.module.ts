@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContactsComponent } from './contacts/contacts.component';
+import { ContactsRoutingModule } from './contacts-routing.module';
 
 
 
@@ -9,7 +10,8 @@ import { ContactsComponent } from './contacts/contacts.component';
     ContactsComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ContactsRoutingModule
   ]
 })
 export class ContactsModule { }

@@ -1,0 +1,29 @@
+<table id="form5" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th rowspan="2">Регион</th>
+            <th rowspan="2">Наименование консультирующей организации</th>
+            <th colspan="4" class="text-center">
+                Количество запросов
+            </th>
+            <th rowspan="2">Всего направлено консультативных заключений</th>
+        </tr>
+        <tr>
+            <th>Полученных на консультирование</th>
+            <th>Из них проконсультировано</th>
+            <th>Из них аннулировано</th>
+            <th class="last-th-colspan">Из них в статусе "Требует дополнение"</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@row.Region.GetDisplayName()</td>
+            <td>@row.Organization</td>
+            <td>@row.TotalRequests</td>
+            <td>@row.RequestResponse</td>
+            <td>@row.RequestCanceled</td>
+            <td>@row.RequestNeedAttention</td>
+            <td>@row.TotalResponses</td>
+        </tr>
+    </tbody>
+</table>

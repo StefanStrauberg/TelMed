@@ -4,17 +4,22 @@
         <div class="col">
             <div class="card">
                 <div class="card-header bg-primary">
-                    <div class="d-flex justify-content-end">
-                        <a class="btn btn-secondary" routerLink="/admin/organizations">
-                            <i class="fa-solid fa-xmark"></i> Отмена
-                        </a>
-                        <button type="submit" form="updateSpecForm" class="btn btn-success">
-                            <i class="fa-solid fa-check"></i> Сохранить
-                        </button>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="fw-normal" style="color: white;">Прикрепление специализаций</p>
+                        </div>
+                        <div>
+                            <a class="btn btn-secondary" routerLink="/admin/organizations">
+                                <i class="fa-solid fa-xmark"></i> Отмена
+                            </a>
+                            <button type="submit" form="updateSpecForm" class="btn btn-success">
+                                <i class="fa-solid fa-check"></i> Сохранить
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <h4>{{ organization.organizationName.usualName }}</h4>
+                    <h5>{{ organization.organizationName.officialName }}</h5>
                     <hr/>
                     <form class="form-group" id="updateSpecForm" (submit)="updateOrganization()">
                         <div class="col" *ngFor="let specialization of specializations">

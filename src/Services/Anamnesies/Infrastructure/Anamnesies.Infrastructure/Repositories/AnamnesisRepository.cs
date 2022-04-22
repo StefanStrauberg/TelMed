@@ -43,9 +43,9 @@ namespace Referrals.Infrastructure.Repositories
             return await _context.Anamnesies.Find(filter).FirstOrDefaultAsync();
         }
 
-        public async Task<bool> UpdateAsync(Anamnesis entity)
+        public async Task<bool> UpdateAsync(Anamnesis entity, string Id)
         {
-            var filter = Builders<Anamnesis>.Filter.Eq(x => x.Id, entity.Id);
+            var filter = Builders<Anamnesis>.Filter.Eq(x => x.Id, Id);
             var update = Builders<Anamnesis>.Update
                 .Set(x => x.Updated, DateTime.Now)
                 .Set(x => x.CategoryId, entity.CategoryId)

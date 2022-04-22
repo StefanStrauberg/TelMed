@@ -1,10 +1,9 @@
 ﻿using Anamnesies.Application.Contracts.Persistence;
-using Anamnesies.Application.Exceptions;
 using Anamnesies.Application.Features.Referral.Requests.Commands;
 using Anamnesies.Domain;
+using Anamnesies.Domain.Exceptions;
 using AutoMapper;
 using MediatR;
-using Microsoft.Extensions.Logging;
 
 namespace Anamnesies.Application.Features.Referral.Handlers.Commands
 {
@@ -12,22 +11,19 @@ namespace Anamnesies.Application.Features.Referral.Handlers.Commands
     {
         private readonly IAnamnesisRepository _repository;
         private readonly IMapper _mapper;
-        private readonly ILogger<UpdateAnamnesisCommandHandler> _logger;
         public UpdateAnamnesisCommandHandler(
             IAnamnesisRepository repository,
-            IMapper mapper,
-            ILogger<UpdateAnamnesisCommandHandler> logger)
+            IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _logger = logger;
         }
-        public async Task<Unit> Handle(UpdateAnamnesisCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateAnamnesisCommand request,
+            CancellationToken cancellationToken)
         {
-            if (!await _repository.UpdateAsync(_mapper.Map<Anamnesis>(request)))
-                throw new NotFoundException(nameof(request), request.Id);
-            _logger.LogInformation($"Anamnesis {request.Id} in Referral {request.ReferralId} is successfully updated.");
-            return Unit.Value;
+            if (await _repository.UpdateAsync(_mapper.Map<Anamnesis>(request.model), request.id))
+                return Unit.Value;
+            throw new AnamnesisBadRequestException(request.id);
         }
     }
 }

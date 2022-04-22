@@ -1,9 +1,7 @@
-﻿using Anamnesies.Domain;
+﻿using Anamnesies.Application.DTO;
 using MediatR;
 
 namespace Anamnesies.Application.Features.Referral.Requests.Queries
 {
-    public class GetAnamnesisListRequest : IRequest<IReadOnlyList<Anamnesis>>
-    {
-    }
+    public record GetAnamnesisListRequest : IRequest<IReadOnlyList<AnamnesisDto>>;
 }

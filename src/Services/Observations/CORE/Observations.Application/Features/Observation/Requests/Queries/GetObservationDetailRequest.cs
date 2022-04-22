@@ -1,9 +1,7 @@
 ﻿using MediatR;
+using Observations.Application.DTO;
 
 namespace Observations.Application.Features.Observation.Requests.Queries
 {
-    public class GetObservationDetailRequest : IRequest<Domain.Observation>
-    {
-        public string Id { get; set; }
-    }
+    public record GetObservationDetailRequest(string id) : IRequest<ObservationDto>;
 }

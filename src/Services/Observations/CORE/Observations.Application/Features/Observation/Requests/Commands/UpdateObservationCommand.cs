@@ -1,14 +1,7 @@
 ﻿using MediatR;
-using Observations.Domain;
+using Observations.Application.DTO;
 
 namespace Observations.Application.Features.Observation.Requests.Commands
 {
-    public class UpdateObservationCommand : IRequest
-    {
-        public string Id { get; set; }
-        public string ReferralId { get; set; }
-        public DateTime ObservationDate { get; set; }
-        public string Description { get; set; }
-        public List<Attachment> Attachments { get; set; }
-    }
+    public record UpdateObservationCommand(UpdateObservationDto model, string id) : IRequest;
 }

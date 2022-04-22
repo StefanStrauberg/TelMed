@@ -1,28 +1,21 @@
 ﻿using MediatR;
-using Microsoft.Extensions.Logging;
 using Observations.Application.Contracts.Persistence;
-using Observations.Application.Exceptions;
 using Observations.Application.Features.Observation.Requests.Commands;
+using Observations.Domain.Exceptions;
 
 namespace Observations.Application.Features.Observation.Handlers.Commands
 {
     public class DeleteObservationCommandHandler : IRequestHandler<DeleteObservationCommand>
     {
         private readonly IObservationsRepository _repository;
-        private readonly ILogger<DeleteObservationCommandHandler> _logger;
-        public DeleteObservationCommandHandler(
-            IObservationsRepository repository,
-            ILogger<DeleteObservationCommandHandler> logger)
+        public DeleteObservationCommandHandler(IObservationsRepository repository)
+            => _repository = repository;
+        public async Task<Unit> Handle(DeleteObservationCommand request,
+            CancellationToken cancellationToken)
         {
-            _repository = repository;
-            _logger = logger;
-        }
-        public async Task<Unit> Handle(DeleteObservationCommand request, CancellationToken cancellationToken)
-        {
-            if (!await _repository.DeleteAsync(request.Id))
-                throw new NotFoundException(nameof(request), request.Id);
-            _logger.LogInformation($"Observation {request.Id} is successfully deleted.");
-            return Unit.Value;
+            if (await _repository.DeleteAsync(request.id))
+                return Unit.Value;
+            throw new ObservationBadRequestException(request.id);
         }
     }
 }

@@ -43,9 +43,9 @@ namespace Observations.Infrastructure.Repositories
             return await _context.Observations.Find(filter).FirstOrDefaultAsync();
         }
 
-        public async Task<bool> UpdateAsync(Observation entity)
+        public async Task<bool> UpdateAsync(Observation entity, string Id)
         {
-            var filter = Builders<Observation>.Filter.Eq(x => x.Id, entity.Id);
+            var filter = Builders<Observation>.Filter.Eq(x => x.Id, Id);
             var update = Builders<Observation>.Update
                 .Set(x => x.Updated, DateTime.Now)
                 .Set(x => x.Description, entity.Description)

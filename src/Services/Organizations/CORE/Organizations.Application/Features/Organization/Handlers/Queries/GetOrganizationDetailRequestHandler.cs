@@ -23,7 +23,7 @@ namespace Organizations.Application.Features.Organization.Handlers.Queries
         {
             var organization = await _repository.GetAsync(request.id);
             if (organization is null)
-                throw new OrganizationNotFoundException(request.id);
+                throw new OrganizationBadRequestException(request.id);
             return _mapper.Map<OrganizationDto>(organization);
         }
     }

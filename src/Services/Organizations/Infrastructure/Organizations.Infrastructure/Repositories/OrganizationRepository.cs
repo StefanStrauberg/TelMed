@@ -53,6 +53,7 @@ namespace Organizations.Infrastructure.Repositories
             var result = await _context.Organizations.UpdateOneAsync(filter, update);
             return result.IsAcknowledged && result.ModifiedCount > 0;
         }
+        
         public void Dispose()
         {
             GC.SuppressFinalize(this);

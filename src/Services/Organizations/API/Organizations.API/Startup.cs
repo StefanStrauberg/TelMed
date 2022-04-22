@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Organizations.Application;
 using Organizations.Application.Middleware;
@@ -14,6 +12,7 @@ namespace Organizations.API
     public class Startup
     {
         public IConfiguration Configuration { get; }
+        private readonly string _policyName = "CorsPolicy";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -29,27 +28,23 @@ namespace Organizations.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Organizations.API", Version = "v1" });
             });
             services.AddCors();
+            services.AddCors(options => 
+                {
+                    options.AddPolicy(name: _policyName,
+                    builder => builder.AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .WithOrigins(Configuration["ServiceUrls:Angular"]));
+                });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Organizations.API v1"));
-            }
-
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Organizations.API v1"));
             app.UseMiddleware<ExceptionHandlingMiddleware>();
-
             app.UseRouting();
-
-            app.UseCors(policy => policy.AllowAnyHeader()
-                .AllowAnyMethod()
-                .WithOrigins("http://localhost:4200"));
-            
+            app.UseCors(_policyName);
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

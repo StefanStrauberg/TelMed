@@ -5,7 +5,6 @@
         protected ApplicationException(string title, string message)
             : base(message) =>
             Title = title;
-
         public string Title { get; }
     }
 }

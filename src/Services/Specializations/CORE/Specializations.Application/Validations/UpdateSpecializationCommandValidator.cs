@@ -10,10 +10,8 @@ namespace Specializations.Application.Validations
             RuleFor(x => x.model.Name)
                 .NotNull().WithMessage("{PropertyName} is cannot be null.")
                 .NotEmpty().WithMessage("{PropertyName} is required.");
-
             RuleFor(x => x.model.IsActive)
                 .Must(x => x == false || x == true).WithMessage("{PropertyName} must be true or false.");
-
             RuleFor(x => x.model.DenyConsult)
                 .Must(x => x == false || x == true).WithMessage("{PropertyName} must be true or false.");
         }

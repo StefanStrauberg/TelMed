@@ -23,7 +23,6 @@ namespace Specializations.Application.Middleware
                 await HandleExceptionAsync(context, ex);
             }
         }
-
         private static async Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
         {
             var statusCode = GetStatusCode(exception);
@@ -38,7 +37,6 @@ namespace Specializations.Application.Middleware
             httpContext.Response.StatusCode = statusCode;
             await httpContext.Response.WriteAsync(JsonSerializer.Serialize(response));
         }
-
         private static IReadOnlyDictionary<string, string[]> GetErrors(Exception exception)
         {
             IReadOnlyDictionary<string, string[]> errors = null;
@@ -48,14 +46,12 @@ namespace Specializations.Application.Middleware
             }
             return errors;
         }
-
         private static string GetTitle(Exception exception) =>
             exception switch
             {
                 ApplicationException applicationException => applicationException.Title,
                 _ => "Server Error"
             };
-
         private static int GetStatusCode(Exception exception) =>
             exception switch
             {

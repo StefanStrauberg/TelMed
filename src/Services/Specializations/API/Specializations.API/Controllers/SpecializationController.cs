@@ -23,7 +23,7 @@ namespace Specializations.API.Controllers
 
         [HttpGet("{id:length(24)}")]
         [ProducesResponseType(typeof(SpecializationDto), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetByIdSpecialization(string id)
         {
             return Ok(await _mediator.Send(new GetSpecializationDetailRequest(id)));

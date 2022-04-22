@@ -23,7 +23,7 @@ namespace Specializations.Application.Features.Specialization.Handlers.Queries
         {
             var specialization = await _repository.GetAsync(request.id);
             if(specialization is null)
-                throw new SpecializationNotFoundException(request.id);
+                throw new SpecializationBadRequestException(request.id);
             return _mapper.Map<SpecializationDto>(specialization);
         }
     }

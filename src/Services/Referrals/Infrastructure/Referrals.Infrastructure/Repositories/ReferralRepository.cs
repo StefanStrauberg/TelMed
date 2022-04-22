@@ -43,9 +43,9 @@ namespace Referrals.Infrastructure.Repositories
             return await _context.Referrals.Find(filter).FirstOrDefaultAsync();
         }
 
-        public async Task<bool> UpdateAsync(Referral entity)
+        public async Task<bool> UpdateAsync(Referral entity, string Id)
         {
-            var filter = Builders<Referral>.Filter.Eq(x => x.Id, entity.Id);
+            var filter = Builders<Referral>.Filter.Eq(x => x.Id, Id);
             var update = Builders<Referral>.Update
                 .Set(x => x.Updated, DateTime.Now)
                 .Set(x => x.Patient.FullName, entity.Patient.FullName)

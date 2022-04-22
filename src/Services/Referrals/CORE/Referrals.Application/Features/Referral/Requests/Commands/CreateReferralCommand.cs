@@ -1,12 +1,7 @@
 ﻿using MediatR;
-using Referrals.Domain;
+using Referrals.Application.DTO;
 
 namespace Referrals.Application.Features.Referral.Requests.Commands
 {
-    public class CreateReferralCommand : IRequest<string>
-    {
-        public Patient Patient { get; set; }
-        public Guid AuthorId { get; set; }
-
-    }
+    public record CreateReferralCommand(CreateReferralDto model) : IRequest;
 }

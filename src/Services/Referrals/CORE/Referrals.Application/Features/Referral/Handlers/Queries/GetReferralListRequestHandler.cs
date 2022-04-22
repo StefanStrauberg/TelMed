@@ -1,19 +1,24 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Referrals.Application.Contracts.Persistence;
+using Referrals.Application.DTO;
 using Referrals.Application.Features.Referral.Requests.Queries;
 
 namespace Referrals.Application.Features.Referral.Handlers.Queries
 {
-    public class GetReferralListRequestHandler : IRequestHandler<GetReferralListRequest, IReadOnlyList<Domain.Referral>>
+    public class GetReferralListRequestHandler : IRequestHandler<GetReferralListRequest, IReadOnlyList<ReferralDto>>
     {
         private readonly IReferralRepository _repository;
-        public GetReferralListRequestHandler(IReferralRepository repository)
+        private readonly IMapper _mapper;
+        public GetReferralListRequestHandler(
+            IReferralRepository repository,
+            IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
-        public async Task<IReadOnlyList<Domain.Referral>> Handle(GetReferralListRequest request, CancellationToken cancellationToken)
-        {
-            return await _repository.GetAllAsync(); ;
-        }
+        public async Task<IReadOnlyList<ReferralDto>> Handle(GetReferralListRequest request,
+            CancellationToken cancellationToken) 
+            => _mapper.Map<IReadOnlyList<ReferralDto>>(await _repository.GetAllAsync());
     }
 }

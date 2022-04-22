@@ -1,11 +1,7 @@
 ﻿using MediatR;
-using Referrals.Domain;
+using Referrals.Application.DTO;
 
 namespace Referrals.Application.Features.Referral.Requests.Commands
 {
-    public class UpdateReferralCommand : IRequest
-    {
-        public string Id { get; set; }
-        public Patient Patient { get; set; }
-    }
+    public record UpdateReferralCommand(UpdateReferralDto model, string id) : IRequest;
 }

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Referrals.Application.Features.Referral.Requests.Commands;
+using Referrals.Application.DTO;
 using Referrals.Domain;
 
 namespace Referrals.Application.Mappings
@@ -8,8 +8,10 @@ namespace Referrals.Application.Mappings
     {
         public MappingProfile()
         {
-            CreateMap<Referral, CreateReferralCommand>().ReverseMap();
-            CreateMap<Referral, UpdateReferralCommand>().ReverseMap();
+            CreateMap<Referral, CreateReferralDto>().ReverseMap();
+            CreateMap<Referral, UpdateReferralDto>().ReverseMap();
+            CreateMap<Referral, ReferralDto>().ReverseMap();
         }
+        
     }
 }

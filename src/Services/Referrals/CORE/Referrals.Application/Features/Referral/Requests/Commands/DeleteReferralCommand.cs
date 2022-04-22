@@ -2,8 +2,5 @@
 
 namespace Referrals.Application.Features.Referral.Requests.Commands
 {
-    public class DeleteReferralCommand : IRequest
-    {
-        public string Id { get; set; }
-    }
+    public record DeleteReferralCommand(string id) : IRequest;
 }

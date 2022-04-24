@@ -19,6 +19,6 @@ namespace Observations.Application.Features.Observation.Handlers.Queries
         }
         public async Task<IReadOnlyList<ObservationDto>> Handle(GetObservationListRequest request,
             CancellationToken cancellationToken)
-            => _mapper.Map<IReadOnlyList<ObservationDto>>(await _repository.GetAllAsync());
+            => _mapper.Map<IReadOnlyList<ObservationDto>>(await _repository.GetAllAsync(request.querySpecParams));
     }
 }

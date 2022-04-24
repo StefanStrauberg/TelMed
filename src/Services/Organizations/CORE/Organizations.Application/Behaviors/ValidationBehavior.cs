@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
-using ValidationException = Organizations.Domain.Exceptions.ValidationException;
+using ValidationException = Organizations.Application.Errors.ValidationException;
 
 namespace Organizations.Application.Behaviors
 {

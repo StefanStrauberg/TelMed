@@ -3,7 +3,7 @@ using MediatR;
 using Observations.Application.Contracts.Persistence;
 using Observations.Application.DTO;
 using Observations.Application.Features.Observation.Requests.Queries;
-using Observations.Domain.Exceptions;
+using Observations.Application.Errors;
 
 namespace Observations.Application.Features.Observation.Handlers.Queries
 {

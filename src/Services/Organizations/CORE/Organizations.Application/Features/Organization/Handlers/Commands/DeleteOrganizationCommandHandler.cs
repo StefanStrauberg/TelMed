@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Organizations.Application.Contracts.Persistence;
 using Organizations.Application.Features.Organization.Requests.Commands;
-using Organizations.Domain.Exceptions;
+using Organizations.Application.Errors;
 
 namespace Organizations.Application.Features.Organization.Handlers.Commands
 {

@@ -1,4 +1,4 @@
-﻿namespace Organizations.Domain.Exceptions
+﻿namespace Organizations.Application.Errors
 {
     public class OrganizationNotFoundException : NotFoundException
     {

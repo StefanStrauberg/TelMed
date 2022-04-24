@@ -19,6 +19,6 @@ namespace Specializations.Application.Features.Specialization.Handlers.Queries
         }
         public async Task<IReadOnlyList<SpecializationDto>> Handle(GetSpecializationListRequest request,
             CancellationToken cancellationToken)
-            => _mapper.Map<IReadOnlyList<SpecializationDto>>(await _repository.GetAllAsync());
+            => _mapper.Map<IReadOnlyList<SpecializationDto>>(await _repository.GetAllAsync(request.querySpecParams));
     }
 }

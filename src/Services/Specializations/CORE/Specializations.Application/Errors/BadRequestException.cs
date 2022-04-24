@@ -1,4 +1,4 @@
-namespace Specializations.Domain.Exceptions
+namespace Specializations.Application.Errors
 {
     public class BadRequestException : ApplicationException
     {

@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Observations.Application.Contracts.Persistence;
 using Observations.Application.Features.Observation.Requests.Commands;
-using Observations.Domain.Exceptions;
+using Observations.Application.Errors;
 
 namespace Observations.Application.Features.Observation.Handlers.Commands
 {

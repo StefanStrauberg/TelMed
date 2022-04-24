@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Specializations.Domain.Exceptions;
+using Specializations.Application.Errors;
 using System.Text.Json;
-using ApplicationException = Specializations.Domain.Exceptions.ApplicationException;
+using ApplicationException = Specializations.Application.Errors.ApplicationException;
 
 namespace Specializations.Application.Middleware
 {

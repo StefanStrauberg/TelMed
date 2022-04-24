@@ -1,6 +1,6 @@
 using FluentValidation;
 using MediatR;
-using ValidationException = Observations.Domain.Exceptions.ValidationException;
+using ValidationException = Observations.Application.Errors.ValidationException;
 
 namespace Observations.Application.Behaviours
 {

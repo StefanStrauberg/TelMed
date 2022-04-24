@@ -1,4 +1,4 @@
-namespace Observations.Domain.Exceptions
+﻿namespace Specializations.Application.Errors
 {
     public class ValidationException : ApplicationException
     {

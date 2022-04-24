@@ -1,11 +1,12 @@
 ﻿using FluentValidation;
+using Specializations.Application.Contracts.Persistence;
 using Specializations.Application.Features.Specialization.Requests.Commands;
 
 namespace Specializations.Application.Validations
 {
     public class UpdateSpecializationCommandValidator : AbstractValidator<UpdateSpecializationCommand>
     {
-        public UpdateSpecializationCommandValidator()
+        public UpdateSpecializationCommandValidator(ISpecializationRepository repository)
         {
             RuleFor(x => x.model.Name)
                 .NotNull().WithMessage("{PropertyName} is cannot be null.")

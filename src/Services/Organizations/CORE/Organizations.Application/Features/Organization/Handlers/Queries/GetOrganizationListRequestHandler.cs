@@ -19,6 +19,6 @@ namespace Organizations.Application.Features.Organization.Handlers.Queries
         }
         public async Task<IReadOnlyList<OrganizationDto>> Handle(GetOrganizationListRequest request,
             CancellationToken cancellationToken) 
-            => _mapper.Map<IReadOnlyList<OrganizationDto>>(await _repository.GetAllAsync());
+            => _mapper.Map<IReadOnlyList<OrganizationDto>>(await _repository.GetAllAsync(request.querySpecParams));
     }
 }

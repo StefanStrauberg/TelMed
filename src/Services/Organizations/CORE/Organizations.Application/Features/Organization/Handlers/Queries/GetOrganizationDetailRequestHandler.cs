@@ -3,7 +3,7 @@ using MediatR;
 using Organizations.Application.Contracts.Persistence;
 using Organizations.Application.DTO;
 using Organizations.Application.Features.Organization.Requests.Queries;
-using Organizations.Domain.Exceptions;
+using Organizations.Application.Errors;
 
 namespace Organizations.Application.Features.Organization.Handlers.Queries
 {

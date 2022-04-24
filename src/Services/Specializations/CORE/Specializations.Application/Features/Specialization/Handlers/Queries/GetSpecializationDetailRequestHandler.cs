@@ -3,7 +3,7 @@ using MediatR;
 using Specializations.Application.Contracts.Persistence;
 using Specializations.Application.DTO;
 using Specializations.Application.Features.Specialization.Requests.Queries;
-using Specializations.Domain.Exceptions;
+using Specializations.Application.Errors;
 
 namespace Specializations.Application.Features.Specialization.Handlers.Queries
 {

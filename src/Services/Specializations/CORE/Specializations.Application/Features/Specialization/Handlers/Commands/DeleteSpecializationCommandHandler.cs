@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Specializations.Application.Contracts.Persistence;
 using Specializations.Application.Features.Specialization.Requests.Commands;
-using Specializations.Domain.Exceptions;
+using Specializations.Application.Errors;
 
 namespace Specializations.Application.Features.Specialization.Handlers.Commands
 {

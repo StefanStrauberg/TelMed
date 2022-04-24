@@ -1,4 +1,4 @@
-namespace Observations.Domain.Exceptions
+namespace Observations.Application.Errors
 {
     public class ObservationNotFoundException : NotFoundException
     {

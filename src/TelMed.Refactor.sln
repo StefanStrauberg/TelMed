@@ -119,6 +119,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{90F0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "Gateway\ApiGateway\ApiGateway.csproj", "{2EA85D50-2A60-4D48-83AC-48D3D3787146}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer", "IdentityServer\IdentityServer.csproj", "{C3B97E2C-A397-4029-99DA-7B50F6D09CC4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -225,6 +227,10 @@ Global
 		{2EA85D50-2A60-4D48-83AC-48D3D3787146}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EA85D50-2A60-4D48-83AC-48D3D3787146}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EA85D50-2A60-4D48-83AC-48D3D3787146}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3B97E2C-A397-4029-99DA-7B50F6D09CC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3B97E2C-A397-4029-99DA-7B50F6D09CC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3B97E2C-A397-4029-99DA-7B50F6D09CC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3B97E2C-A397-4029-99DA-7B50F6D09CC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

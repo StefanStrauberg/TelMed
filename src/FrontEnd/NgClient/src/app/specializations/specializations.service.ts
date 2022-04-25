@@ -1,7 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError,map } from 'rxjs/operators';
+import { IPagination } from '../shared/models/pagination';
+import { Params } from '../shared/models/params';
 import { ISpecialization } from '../shared/models/specialization';
 
 @Injectable({
@@ -13,9 +15,19 @@ export class SpecializationsService {
   constructor(private http: HttpClient) { }
 
   // Get All Specializations
-  getSpecializations(): Observable<ISpecialization[]> {
-    return this.http.get<ISpecialization[]>(this.baseUrl)
-      .pipe(catchError(this.handleError));
+  getSpecializations(specParams: Params) {
+    let params = new HttpParams();
+    if(specParams.search){
+      params = params.append('search', specParams.search);
+    }
+    params = params.append('pageIndex', specParams.pageNumber.toString());
+    params = params.append('pageSize', specParams.pageSize.toString());
+    return this.http.get<IPagination>(this.baseUrl, {observe: 'response', params})
+      .pipe(
+        map(response => {
+          return response.body;
+        })
+      );
   }
 
   // Get By Id Specialization

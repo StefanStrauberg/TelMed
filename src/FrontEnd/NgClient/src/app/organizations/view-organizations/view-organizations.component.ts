@@ -26,14 +26,14 @@ export class ViewOrganizationsComponent implements OnInit {
   }
 
   getOrganizations() {
-    this.organizationsService.getOrganizations().subscribe((response: IOrganization[]) => {
-      this.organizations = response;
-      this.specializationsService.getSpecializations().subscribe((data: ISpecialization[]) => {
-        this.specializations = data;
-      });
-    }, error => {
-      this.router.navigate(['/']).then();
-    });
+    // this.organizationsService.getOrganizations().subscribe((response: IOrganization[]) => {
+    //   this.organizations = response;
+    //   this.specializationsService.getSpecializations().subscribe((data: ISpecialization[]) => {
+    //     this.specializations = data;
+    //   });
+    // }, error => {
+    //   this.router.navigate(['/']).then();
+    // });
   }
 
   deleteOrganization(organizationId: string){

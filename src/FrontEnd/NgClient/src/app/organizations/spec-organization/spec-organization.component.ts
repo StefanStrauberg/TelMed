@@ -34,21 +34,21 @@ export class SpecOrganizationComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe((param: ParamMap) => {
-      this.organizationId = param.get('id');
-    });
-    if(this.organizationId){
-      this.organizationsService.getOrganization(this.organizationId).subscribe((data: IOrganization) => {
-        this.organization = data;
-        this.specializationsService.getSpecializations().subscribe((data: ISpecialization[]) => {
-          this.specializations = data;
-        }, (error) => {
-          this.router.navigate([`/admin/organizations/`]).then();
-        });
-      }, (error) => {
-        this.router.navigate([`/admin/organizations/`]).then();
-      });
-    }
+    // this.activatedRoute.paramMap.subscribe((param: ParamMap) => {
+    //   this.organizationId = param.get('id');
+    // });
+    // if(this.organizationId){
+    //   this.organizationsService.getOrganization(this.organizationId).subscribe((data: IOrganization) => {
+    //     this.organization = data;
+    //     this.specializationsService.getSpecializations().subscribe((data: ISpecialization[]) => {
+    //       this.specializations = data;
+    //     }, (error) => {
+    //       this.router.navigate([`/admin/organizations/`]).then();
+    //     });
+    //   }, (error) => {
+    //     this.router.navigate([`/admin/organizations/`]).then();
+    //   });
+    // }
   }
 
   checkSpecializationInOrganization(specializationId: string): boolean {

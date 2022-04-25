@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Params } from 'src/app/shared/models/params';
 import { ISpecialization } from 'src/app/shared/models/specialization';
 import { SpecializationsService } from '../specializations.service';
 
@@ -10,6 +11,7 @@ import { SpecializationsService } from '../specializations.service';
 })
 export class ViewSpecializationsComponent implements OnInit {
   specializations: ISpecialization[] = [];
+  specParams = new Params();
   
   constructor(
     private specializationsService: SpecializationsService,
@@ -20,8 +22,8 @@ export class ViewSpecializationsComponent implements OnInit {
   }
 
   getAllSpecializations(){
-    this.specializationsService.getSpecializations().subscribe((data: ISpecialization[]) => {
-      this.specializations = data;
+    this.specializationsService.getSpecializations(this.specParams).subscribe(response => {
+      this.specializations = <ISpecialization[]>response?.data;
     }, (error) => {
       this.router.navigate(['/']).then();
     })

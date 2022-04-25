@@ -22,16 +22,16 @@ export class ContactsComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.organizationsService.getOrganizations().subscribe((data: IOrganization[]) => {
-      this.organizations = data;
-      this.specializationsService.getSpecializations().subscribe((data: ISpecialization[]) => {
-        this.specializations = data;
-      }, (error) => {
-        this.router.navigate(['/']).then();
-      });
-    }, (error) => {
-      this.router.navigate(['/']).then();
-    })
+    // this.organizationsService.getOrganizations().subscribe((data: IOrganization[]) => {
+    //   this.organizations = data;
+    //   this.specializationsService.getSpecializations().subscribe((data: ISpecialization[]) => {
+    //     this.specializations = data;
+    //   }, (error) => {
+    //     this.router.navigate(['/']).then();
+    //   });
+    // }, (error) => {
+    //   this.router.navigate(['/']).then();
+    // })
   }
 
   getSpecializationsName(specs: string[]): string[] {

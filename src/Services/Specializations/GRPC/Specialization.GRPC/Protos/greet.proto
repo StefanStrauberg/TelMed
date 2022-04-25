@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option csharp_namespace = "Specialization.GRPC";
+
+service SpecializationProtoService {
+	rpc GetDiscount (GetSpecRequest) returns (SpecName);
+}
+
+message GetSpecRequest {
+	string Id = 1;
+}
+
+message SpecName {
+	string Name = 1;
+}

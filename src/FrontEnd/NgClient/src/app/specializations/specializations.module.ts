@@ -5,6 +5,7 @@ import { UpdateSpecializationComponent } from './update-specialization/update-sp
 import { ViewSpecializationsComponent } from './view-specializations/view-specializations.component';
 import { SpecializationsRoutingModule } from './specializations-routing.module';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -12,10 +13,11 @@ import { FormsModule } from '@angular/forms';
   declarations: [
     CreateSpecializationComponent,
     UpdateSpecializationComponent,
-    ViewSpecializationsComponent
+    ViewSpecializationsComponent,
   ],
   imports: [
     CommonModule,
+    SharedModule,
     SpecializationsRoutingModule,
     FormsModule
   ]

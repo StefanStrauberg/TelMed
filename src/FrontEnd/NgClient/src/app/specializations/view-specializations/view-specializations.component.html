@@ -3,6 +3,19 @@
         <i class="fa-solid fa-plus"></i> Создать
     </button>
 </div>
+<div class="d-flex justify-content-between align-items-center">
+    <app-pager-header
+        [totalCount]="totalCount"
+        [pageSize]="this.specParams.pageSize"
+        [pageNumber]="this.specParams.pageNumber">
+    </app-pager-header>
+    <div class="form-inline">
+        <input (keyup.enter)="onSearch()" class="form-control me-2" #search style="width: 300px;" placeholder="Search"
+        type="text">
+        <button (click)="onSearch()" class="btn btn-outline-primary my-2">Search</button>
+        <button (click)="onReset()" class="btn btn-outline-success ms-2 my-2">Reset</button>
+    </div>
+</div>
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
@@ -34,3 +47,10 @@
             </tr>
     </tbody>
 </table>
+<div class="d-flex justify-content-center" *ngIf="totalCount > 0">
+    <app-pager
+        [pageSize]="specParams.pageSize"
+        [totalCount]="totalCount"
+        (pageChanged)="onPageChange($event)">
+    </app-pager>
+</div>

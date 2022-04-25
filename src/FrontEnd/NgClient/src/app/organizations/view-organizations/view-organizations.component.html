@@ -22,7 +22,7 @@
             <td> {{ organization.organizationName.officialName }} </td>
             <td> {{ organization.organizationName.usualName }} </td>
             <td> {{ organization.address.line }} </td>
-            <td> {{ getSpecializationsName(organization.specializationIds) }} </td>
+            <td> {{ organization.specializationIds }} </td>
             <td> {{ orgReg[organization.region] }} </td>
             <td> {{ orgLev[organization.level] }} </td>
             <td> {{ organization.isActive ? "Активна" : "Не активна" }} </td>

@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IOrganization, OrganizationLevel, OrganizationRegion } from 'src/app/shared/models/organization';
-import { ISpecialization } from 'src/app/shared/models/specialization';
-import { SpecializationsService } from 'src/app/specializations/specializations.service';
+import { Params } from 'src/app/shared/models/params';
 import { OrganizationsService } from '../organizations.service';
 
 @Component({
@@ -14,44 +13,58 @@ export class ViewOrganizationsComponent implements OnInit {
   organizations: IOrganization[] = [];
   orgLev = OrganizationLevel;
   orgReg = OrganizationRegion;
-  specializations: ISpecialization[] = [];
+  @ViewChild('search', {static: false}) searchTerm!: ElementRef;
+  orgParams = new Params();
+  totalCount!: number;
   
   constructor(
     private organizationsService: OrganizationsService,
-    private specializationsService: SpecializationsService,
     private router: Router) { }
 
   ngOnInit(): void {
-    this.getOrganizations()
+    this.getAllOrganizations()
   }
 
-  getOrganizations() {
-    // this.organizationsService.getOrganizations().subscribe((response: IOrganization[]) => {
-    //   this.organizations = response;
-    //   this.specializationsService.getSpecializations().subscribe((data: ISpecialization[]) => {
-    //     this.specializations = data;
-    //   });
-    // }, error => {
-    //   this.router.navigate(['/']).then();
-    // });
+  getAllOrganizations() {
+    this.organizationsService.getOrganizations(this.orgParams).subscribe(response => {
+      this.organizations = <IOrganization[]>response?.data;
+      this.orgParams.pageNumber = response!.pageIndex;
+      this.orgParams.pageSize = response!.pageSize;
+      this.totalCount = response!.count;
+    }, (error) => {
+      this.router.navigate(['/']).then();
+      console.log(error);
+    })
   }
 
   deleteOrganization(organizationId: string){
     if(organizationId)
     {
       this.organizationsService.deleteOrganization(organizationId).subscribe((date: {}) => {
-        this.getOrganizations();
+        this.getAllOrganizations();
       }, (error) => {
-        this.getOrganizations();
+        this.getAllOrganizations();
       });
     }
   }
 
-  getSpecializationsName(specs: string[]): string[] {
-    let returnSpecsNames: string[] = [];
-    for(let item of specs){
-      returnSpecsNames.push(this.specializations.find(x => x.id == item)?.name as string);
+  onSearch() {
+    this.orgParams.search = this.searchTerm.nativeElement.value;
+    this.orgParams.pageNumber = 1;
+    this.getAllOrganizations();
+  }
+
+  onPageChange(event: any) {
+    if(this.orgParams.pageNumber !== event)
+    {
+      this.orgParams.pageNumber = event;
+      this.getAllOrganizations();
     }
-    return returnSpecsNames;
+  }
+
+  onReset() {
+    this.searchTerm.nativeElement.value = '';
+    this.orgParams = new Params();
+    this.getAllOrganizations();
   }
 }

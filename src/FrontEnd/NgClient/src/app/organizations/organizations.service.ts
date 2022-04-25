@@ -1,8 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { IOrganization } from '../shared/models/organization';
-import { catchError } from 'rxjs/operators';
+import { catchError,map } from 'rxjs/operators';
+import { Params } from '../shared/models/params';
+import { IPagination } from '../shared/models/pagination';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +15,19 @@ export class OrganizationsService {
   constructor(private http: HttpClient) { }
 
   // Get All Organizations
-  getOrganizations(): Observable<IOrganization[]> {
-    return this.http.get<IOrganization[]>(this.baseUrl)
-      .pipe(catchError(this.handleError));
+  getOrganizations(orgParams: Params) {
+    let params = new HttpParams();
+    if(orgParams.search){
+      params = params.append('search', orgParams.search);
+    }
+    params = params.append('pageIndex', orgParams.pageNumber.toString());
+    params = params.append('pageSize', orgParams.pageSize.toString());
+    return this.http.get<IPagination>(this.baseUrl, {observe: 'response', params})
+    .pipe(
+      map(response => {
+        return response.body;
+      })
+    );
   }
 
   // Get By Id Organization

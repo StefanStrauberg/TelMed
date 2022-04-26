@@ -1,41 +1,32 @@
-<pre>{{ organization | json }}</pre>
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-header bg-primary">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <p class="fw-normal" style="color: white;">Прикрепление специализаций</p>
-                        </div>
-                        <div>
-                            <a class="btn btn-secondary" routerLink="/admin/organizations">
-                                <i class="fa-solid fa-xmark"></i> Отмена
-                            </a>
-                            <button type="submit" form="updateSpecForm" class="btn btn-success">
-                                <i class="fa-solid fa-check"></i> Сохранить
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <h5>{{ organization.organizationName.officialName }}</h5>
-                    <hr/>
-                    <form class="form-group" id="updateSpecForm" (submit)="updateOrganization()">
-                        <div class="col" *ngFor="let specialization of specializations">
-                            <label>
-                                <input 
-                                type="checkbox"
-                                ng-true-value=""
-                                [checked]="checkSpecializationInOrganization(specialization.id)"
-                                (change)="pushSpecializationInOrganization($event)"
-                                value="{{ specialization.id }}"
-                                name="{{ specialization.id }}"/> {{ specialization.name }}
-                            </label>
-                        </div>
-                    </form>
-                </div>
+<div class="card">
+    <div class="card-header bg-primary">
+        <div class="d-flex justify-content-between" style="align-items: center;">
+            <h6 style="color: white;">Прикрепление специализаций</h6>
+            <div>
+                <a class="btn btn-secondary" routerLink="/admin/organizations">
+                    <i class="fa-solid fa-xmark"></i> Отмена
+                </a>
+                <button type="submit" form="updateSpecForm" class="btn btn-success">
+                    <i class="fa-solid fa-check"></i> Сохранить
+                </button>
             </div>
         </div>
+    </div>
+    <div class="card-body bg-light">
+        <h5>{{ organization.organizationName.officialName }}</h5>
+        <hr/>
+        <form class="form-group" id="updateSpecForm" (submit)="updateOrganization()">
+            <div class="col" *ngFor="let specialization of specializations">
+                <label>
+                    <input 
+                    type="checkbox"
+                    ng-true-value=""
+                    [checked]="checkSpecializationInOrganization(specialization.id)"
+                    (change)="pushSpecializationInOrganization($event)"
+                    value="{{ specialization.id }}"
+                    name="{{ specialization.id }}"/> {{ specialization.name }}
+                </label>
+            </div>
+        </form>
     </div>
 </div>

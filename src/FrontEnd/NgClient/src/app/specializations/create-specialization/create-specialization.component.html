@@ -1,40 +1,33 @@
-<pre>{{ specialization | json }}</pre>
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-header bg-primary">
-                    <div class="d-flex justify-content-end">
-                        <a class="btn btn-secondary" routerLink="/admin/specializations">
-                            <i class="fa-solid fa-xmark"></i> Отмена
-                        </a>
-                        <button type="submit" form="createForm" class="btn btn-success">
-                            <i class="fa-solid fa-check"></i> Создать
-                        </button>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <h4>Специализация</h4>
-                    <hr />
-                    <form class="form-group" id="createForm" (submit)="createSpecialization()">
-                        <div class="mb-2">
-                            <input 
-                                [(ngModel)]="specialization.name"
-                                name="name"
-                                type="text" class="form-control" placeholder="Name">
-                        </div>
-                        <div class="mb-2">
-                            <select
-                                [(ngModel)]="specialization.denyConsult"
-                                name="denyConsult"
-                                class="form-select">
-                                <option [ngValue]="true">Разрешено</option>
-                                <option [ngValue]="false">Запрещено</option>
-                            </select>
-                        </div>
-                    </form>
-                </div>
-            </div>
+<div class="card">
+    <div class="card-header bg-primary">
+        <div class="d-flex justify-content-end">
+            <a class="btn btn-secondary" routerLink="/admin/specializations">
+                <i class="fa-solid fa-xmark"></i> Отмена
+            </a>
+            <button type="submit" form="createForm" class="btn btn-success">
+                <i class="fa-solid fa-check"></i> Создать
+            </button>
         </div>
+    </div>
+    <div class="card-body bg-light">
+        <h4>Специализация</h4>
+        <hr />
+        <form class="form-group" id="createForm" (submit)="createSpecialization()">
+            <div class="mb-2">
+                <input 
+                    [(ngModel)]="specialization.name"
+                    name="name"
+                    type="text" class="form-control" placeholder="Name">
+            </div>
+            <div class="mb-2">
+                <select
+                    [(ngModel)]="specialization.denyConsult"
+                    name="denyConsult"
+                    class="form-select">
+                    <option [ngValue]="true">Разрешено</option>
+                    <option [ngValue]="false">Запрещено</option>
+                </select>
+            </div>
+        </form>
     </div>
 </div>

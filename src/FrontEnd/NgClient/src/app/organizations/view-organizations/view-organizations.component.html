@@ -1,51 +1,93 @@
-
 <div class="d-flex justify-content-end mb-2" routerLink="/admin/organizations/create">
     <button class="btn btn-primary">
         <i class="fa-solid fa-plus"></i> Создать
     </button>
 </div>
-<table class="table table-striped table-bordered">
+<div class="d-flex justify-content-between align-items-center">
+    <app-pager-header
+        [totalCount]="totalCount"
+        [pageSize]="this.orgParams.pageSize"
+        [pageNumber]="this.orgParams.pageNumber">
+    </app-pager-header>
+    <div class="form-inline">
+        <input (keyup.enter)="onSearch()" class="form-control me-2" #search style="width: 300px;" placeholder="Search"
+        type="text">
+        <button (click)="onSearch()" class="btn btn-outline-primary my-2">Search</button>
+        <button (click)="onReset()" class="btn btn-outline-success ms-2 my-2">Reset</button>
+    </div>
+</div>
+<table class="table table-striped table-hover table-dark fixed">
     <thead>
         <tr>
-            <th>Полное название</th>
-            <th>Сокращенное название</th>
-            <th>Адрес</th>
-            <th>Специализации</th>
-            <th>Регион</th>
-            <th>Уровень</th>
-            <th>Статус</th>
-            <th style="width: 67px"></th>
+            <th scope="col" style="width: 250px">Полное название</th>
+            <th scope="col" style="width: 250px">Сокращенное название</th>
+            <th scope="col" style="width: 210px">Адрес</th>
+            <th scope="col">Специализации</th>
+            <th scope="col" style="width: 100px">Регион</th>
+            <th scope="col" style="width: 100px">Уровень</th>
+            <th scope="col" style="width: 90px">Статус</th>
+            <th scope="col" style="width: 110px"></th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let organization of organizations">
-            <td> {{ organization.organizationName.officialName }} </td>
-            <td> {{ organization.organizationName.usualName }} </td>
-            <td> {{ organization.address.line }} </td>
-            <td> {{ organization.specializationIds }} </td>
-            <td> {{ orgReg[organization.region] }} </td>
-            <td> {{ orgLev[organization.level] }} </td>
-            <td> {{ organization.isActive ? "Активна" : "Не активна" }} </td>
-            <td>
-                <div class="row">
-                    <div class="col">
-                        <div class="btn-group btn-group-sm">
-                            <a class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Редактировать"
-                            routerLink="/admin/organizations/edit/{{ organization.id }}">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                            <a class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Указать специализации"
-                            routerLink="/admin/organizations/{{ organization.id }}/specializations">
-                                <i class="fa-solid fa-pencil"></i>
-                            </a>
-                            <button class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Удалить"
-                            (click)="deleteOrganization(organization.id)">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>
+            <ng-container *ngIf="organization.isActive">
+                <td scope="row"> {{ organization.organizationName.officialName }} </td>
+                <td scope="row"> {{ organization.organizationName.usualName }} </td>
+                <td scope="row"> {{ organization.address.line }} </td>
+                <td scope="row">  </td>
+                <td scope="row"> {{ orgReg[organization.region] }} </td>
+                <td scope="row"> {{ orgLev[organization.level] }} </td>
+                <td scope="row"> {{ organization.isActive ? "Активна" : "Не активна" }} </td>
+                <td scope="row">
+                    <div class="btn-group btn-group-sm">
+                        <a class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Редактировать"
+                        routerLink="/admin/organizations/edit/{{ organization.id }}">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        <a class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Указать специализации"
+                        routerLink="/admin/organizations/{{ organization.id }}/specializations">
+                            <i class="fa-solid fa-pencil"></i>
+                        </a>
+                        <button class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Удалить"
+                        (click)="deleteOrganization(organization.id)">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
                     </div>
-                </div>
-            </td>
+                </td>
+            </ng-container>
+            <ng-container *ngIf="!organization.isActive">
+                <td class="table-danger"> {{ organization.organizationName.officialName }} </td>
+                <td class="table-danger"> {{ organization.organizationName.usualName }} </td>
+                <td class="table-danger"> {{ organization.address.line }} </td>
+                <td class="table-danger">  </td>
+                <td class="table-danger"> {{ orgReg[organization.region] }} </td>
+                <td class="table-danger"> {{ orgLev[organization.level] }} </td>
+                <td class="table-danger"> {{ organization.isActive ? "Активна" : "Не активна" }} </td>
+                <td class="table-danger">
+                    <div class="btn-group btn-group-sm">
+                        <a class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Редактировать"
+                        routerLink="/admin/organizations/edit/{{ organization.id }}">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        <a class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Указать специализации"
+                        routerLink="/admin/organizations/{{ organization.id }}/specializations">
+                            <i class="fa-solid fa-pencil"></i>
+                        </a>
+                        <button class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Удалить"
+                        (click)="deleteOrganization(organization.id)">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            </ng-container>
         </tr>
     </tbody>
 </table>
+<div class="d-flex justify-content-center" *ngIf="totalCount > 0">
+    <app-pager
+        [pageSize]="orgParams.pageSize"
+        [totalCount]="totalCount"
+        (pageChanged)="onPageChange($event)">
+    </app-pager>
+</div>

@@ -16,34 +16,51 @@
         <button (click)="onReset()" class="btn btn-outline-success ms-2 my-2">Reset</button>
     </div>
 </div>
-<table class="table table-striped table-bordered">
+<table class="table table-striped table-hover table-dark">
     <thead>
         <tr>
             <th>Специализация</th>
-            <th>Статус</th>
-            <th>Консультирование</th>
+            <th style="width: 100px">Статус</th>
+            <th style='width: 150px'>Консультирование</th>
             <th style="width: 45px"></th>
         </tr>
     </thead>
     <tbody>
             <tr *ngFor="let specialization of specializations">
-                <td>{{ specialization.name }}</td>
-                <td>{{ specialization.isActive ? "Активна" : "Не активна"}}</td>
-                <td>{{ specialization.denyConsult ? "Разрешено" : "Запрещено"}}</td>
-                <td>
-                    <div class="row">
-                        <div class="col">
-                            <div class="btn-group btn-group-sm">
-                                <button class="btn btn-primary" routerLink="/admin/specializations/edit/{{ specialization.id }}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </button>
-                                <button class="btn btn-danger" (click)="deleteSpecialization(specialization.id)">
-                                    <i class="fa-regular fa-trash-can"></i>
-                                </button>
-                            </div>
+                <ng-container *ngIf="specialization.isActive">
+                    <td>{{ specialization.name }}</td>
+                    <td>{{ specialization.isActive ? "Активна" : "Не активна"}}</td>
+                    <td>{{ specialization.denyConsult ? "Разрешено" : "Запрещено"}}</td>
+                    <td>
+                        <div class="btn-group btn-group-sm">
+                            <button class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Редактировать" 
+                            routerLink="/admin/specializations/edit/{{ specialization.id }}">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                            <button class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Удалить"
+                            (click)="deleteSpecialization(specialization.id)">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
                         </div>
-                    </div>
-                </td>
+                    </td>
+                </ng-container>
+                <ng-container *ngIf="!specialization.isActive">
+                    <td class="table-danger">{{ specialization.name }}</td>
+                    <td class="table-danger">{{ specialization.isActive ? "Активна" : "Не активна"}}</td>
+                    <td class="table-danger">{{ specialization.denyConsult ? "Разрешено" : "Запрещено"}}</td>
+                    <td class="table-danger">
+                        <div class="btn-group btn-group-sm">
+                            <button class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Редактировать"
+                            routerLink="/admin/specializations/edit/{{ specialization.id }}">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                            <button class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Удалить"
+                            (click)="deleteSpecialization(specialization.id)">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
             </tr>
     </tbody>
 </table>

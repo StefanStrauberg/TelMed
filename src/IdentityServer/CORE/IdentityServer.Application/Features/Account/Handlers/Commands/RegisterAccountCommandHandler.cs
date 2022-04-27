@@ -24,7 +24,7 @@ namespace IdentityServer.Application.Features.Account.Handlers.Commands
             {
                 var errors = result.Errors.Select(e => e.Description);
 
-                //TODO throw new Validation Exception
+                //TODO throw new Validation Exception();
             }
             await _userManager.AddToRoleAsync(user, request.model.Role.ToString());
             throw new NotImplementedException();

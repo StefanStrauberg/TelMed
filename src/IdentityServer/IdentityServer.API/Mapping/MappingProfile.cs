@@ -8,6 +8,7 @@ namespace IdentityServer.API.Mapping
         public MappingProfile()
         {
             CreateMap<AccountForRegistrationDto, Account>();
+            CreateMap<Account, AccountDto>();
         }
     }
 }

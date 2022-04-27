@@ -50,7 +50,7 @@ namespace IdentityServer.API.Controllers
         }
         [HttpGet]
         public async Task<IActionResult> GetUsers()
-            => Ok(await _userManager.Users.ToListAsync());
+            => Ok(_mapper.Map<IEnumerable<AccountDto>>(await _userManager.Users.ToListAsync()));
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(string id)
             => Ok(await _userManager.FindByIdAsync(id));

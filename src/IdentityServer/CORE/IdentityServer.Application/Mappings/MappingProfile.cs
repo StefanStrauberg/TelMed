@@ -9,6 +9,7 @@ namespace IdentityServer.Application.Mappings
         public MappingProfile()
         {
             CreateMap<AccountForRegistrationDto, Account>();
+            CreateMap<AccountForUpdateDto, Account>();
             CreateMap<Account, AccountDto>();
         }
     }

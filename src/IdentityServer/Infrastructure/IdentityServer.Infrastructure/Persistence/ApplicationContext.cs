@@ -1,5 +1,6 @@
-﻿using IdentityServer.Infrastructure.Configurations;
-using IdentityServer.Domain;
+﻿using IdentityServer.Domain;
+using IdentityServer.Infrastructure.Configurations;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

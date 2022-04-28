@@ -1,8 +1,8 @@
 ﻿namespace IdentityServer.Application.Errors
 {
-    public class AccountBadRequest : BadRequestException
+    public class AccountBadRequestException : BadRequestException
     {
-        protected AccountBadRequest(string id) 
+        public AccountBadRequestException(string id) 
             : base($"The account with the identifier {id} was not found.")
         {
         }

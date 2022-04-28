@@ -19,15 +19,9 @@ namespace IdentityServer.Application.Features.Account.Handlers.Commands
         public async Task<Unit> Handle(RegisterAccountCommand request, CancellationToken cancellationToken)
         {
             var user = _mapper.Map<IdentityServer.Domain.Account>(request.model);
-            var result = await _userManager.CreateAsync(user, request.model.Password);
-            if (!result.Succeeded)
-            {
-                var errors = result.Errors.Select(e => e.Description);
-
-                //TODO throw new Validation Exception();
-            }
-            await _userManager.AddToRoleAsync(user, request.model.Role.ToString());
-            throw new NotImplementedException();
+            await _userManager.CreateAsync(user, request.model.Password);
+            await _userManager.AddToRoleAsync(user, request.model.Role);
+            return Unit.Value;
         }
     }
 }

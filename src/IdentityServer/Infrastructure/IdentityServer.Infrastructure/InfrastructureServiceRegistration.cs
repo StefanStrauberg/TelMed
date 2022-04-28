@@ -1,5 +1,7 @@
-﻿using IdentityServer.Domain;
+﻿using IdentityServer.Application.Contracts.Persistence;
+using IdentityServer.Domain;
 using IdentityServer.Infrastructure.Persistence;
+using IdentityServer.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +17,7 @@ namespace IdentityServer.Infrastructure
                 opt.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<Account, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationContext>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
             return services;
         }
     }

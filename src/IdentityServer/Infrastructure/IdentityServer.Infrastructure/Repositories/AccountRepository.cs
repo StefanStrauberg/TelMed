@@ -1,4 +1,4 @@
-using IdentityServer.Application.Contracts.Persistence;
+﻿using IdentityServer.Application.Contracts.Persistence;
 using IdentityServer.Domain;
 using IdentityServer.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -26,5 +26,32 @@ namespace IdentityServer.Infrastructure.Repositories
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
 
+        public async Task<string> GetHashByIdAsync(string id)
+            => await _context.Set<Account>()
+                .Where(x => x.Id == id)
+                .Select(x => x.PasswordHash)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+
+        public async Task<string> GetSaltByOdAsync(string id)
+            => await _context.Set<Account>()
+                .Where(x => x.Id == id)
+                .Select(x => x.PasswordSalt)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+
+        public async Task SеtHashByAccount(Account model)
+        {
+            _context.Attach(model);
+            _context.Entry(model).Property(x => x.PasswordHash).IsModified = true;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task SеtSaltByAccount(Account model)
+        {
+            _context.Attach(model);
+            _context.Entry(model).Property(x => x.PasswordSalt).IsModified = true;
+            await _context.SaveChangesAsync();
+        }
     }
 }

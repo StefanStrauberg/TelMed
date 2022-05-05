@@ -1,5 +1,7 @@
 <div class="d-flex justify-content-end mb-2">
-    <button class="btn btn-primary" routerLink="/admin/organizations/create">
+    <button mat-raised-button color="primary"
+    data-toggle="tooltip" data-placement="bottom" title="Создать"
+    routerLink="/admin/organizations/create">
         <i class="fa-solid fa-plus"></i> Создать
     </button>
 </div>
@@ -10,79 +12,71 @@
         [pageNumber]="this.orgParams.pageNumber">
     </app-pager-header>
     <div class="form-inline">
-        <input (keyup.enter)="onSearch()" class="form-control me-2" #search style="width: 300px;" placeholder="Search"
-        type="text">
-        <button (click)="onSearch()" class="btn btn-outline-primary my-2">Search</button>
-        <button (click)="onReset()" class="btn btn-outline-success ms-2 my-2">Reset</button>
+        <mat-form-field class="me-2" style="width: 300px;" appearance="fill">
+            <mat-label>Поиск</mat-label>
+            <input matInput (keyup.enter)="onSearch()" #search maxlength="256" placeholder="Оф. название организации">
+        </mat-form-field>
+        <button mat-stroked-button color="primary" 
+        data-toggle="tooltip" data-placement="bottom" title="Поиск"
+        (click)="onSearch()">
+            Поиск
+        </button>
+        <button mat-stroked-button color="warn" 
+        data-toggle="tooltip" data-placement="bottom" title="Очистить"
+        (click)="onReset()">
+            Очистить
+        </button>
     </div>
 </div>
-<table class="table table-striped table-hover table-dark fixed">
-    <thead>
-        <tr>
-            <th scope="col" style="width: 250px">Полное название</th>
-            <th scope="col" style="width: 250px">Сокращенное название</th>
-            <th scope="col" style="width: 210px">Адрес</th>
-            <th scope="col">Специализации</th>
-            <th scope="col" style="width: 100px">Регион</th>
-            <th scope="col" style="width: 100px">Уровень</th>
-            <th scope="col" style="width: 90px">Статус</th>
-            <th scope="col" style="width: 110px"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let organization of organizations">
-            <ng-container *ngIf="organization.isActive">
-                <td scope="row"> {{ organization.organizationName.officialName }} </td>
-                <td scope="row"> {{ organization.organizationName.usualName }} </td>
-                <td scope="row"> {{ organization.address.line }} </td>
-                <td scope="row">  </td>
-                <td scope="row"> {{ orgReg[organization.region] }} </td>
-                <td scope="row"> {{ orgLev[organization.level] }} </td>
-                <td scope="row"> {{ organization.isActive ? "Активна" : "Не активна" }} </td>
-                <td scope="row">
-                    <div class="btn-group btn-group-sm">
-                        <a class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Редактировать"
-                        routerLink="/admin/organizations/edit/{{ organization.id }}">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
-                        <a class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Указать специализации"
-                        routerLink="/admin/organizations/{{ organization.id }}/specializations">
-                            <i class="fa-solid fa-pencil"></i>
-                        </a>
-                        <button class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Удалить"
-                        (click)="deleteOrganization(organization.id)">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </div>
-                </td>
-            </ng-container>
-            <ng-container *ngIf="!organization.isActive">
-                <td class="table-danger"> {{ organization.organizationName.officialName }} </td>
-                <td class="table-danger"> {{ organization.organizationName.usualName }} </td>
-                <td class="table-danger"> {{ organization.address.line }} </td>
-                <td class="table-danger">  </td>
-                <td class="table-danger"> {{ orgReg[organization.region] }} </td>
-                <td class="table-danger"> {{ orgLev[organization.level] }} </td>
-                <td class="table-danger"> {{ organization.isActive ? "Активна" : "Не активна" }} </td>
-                <td class="table-danger">
-                    <div class="btn-group btn-group-sm">
-                        <a class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Редактировать"
-                        routerLink="/admin/organizations/edit/{{ organization.id }}">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
-                        <a class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Указать специализации"
-                        routerLink="/admin/organizations/{{ organization.id }}/specializations">
-                            <i class="fa-solid fa-pencil"></i>
-                        </a>
-                        <button class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Удалить"
-                        (click)="deleteOrganization(organization.id)">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </div>
-                </td>
-            </ng-container>
-        </tr>
-    </tbody>
+<table mat-table [dataSource]="organizations" class="mat-elevation-z8">
+    <ng-container matColumnDef="officialName">
+      <th mat-header-cell *matHeaderCellDef> Полное название </th>
+      <td mat-cell *matCellDef="let element"> {{element.organizationName.officialName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="usualName">
+      <th mat-header-cell *matHeaderCellDef> Сокращенное название </th>
+      <td mat-cell *matCellDef="let element"> {{element.organizationName.usualName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="line">
+      <th mat-header-cell *matHeaderCellDef> Адрес </th>
+      <td mat-cell *matCellDef="let element"> {{element.address.line}} </td>
+    </ng-container>
+    <ng-container matColumnDef="region">
+      <th mat-header-cell *matHeaderCellDef> Регион </th>
+      <td mat-cell *matCellDef="let element"> {{orgReg[element.region]}} </td>
+    </ng-container>
+    <ng-container matColumnDef="level">
+        <th mat-header-cell *matHeaderCellDef> Уровень </th>
+        <td mat-cell *matCellDef="let element"> {{orgLev[element.level]}} </td>
+    </ng-container>
+    <ng-container matColumnDef="isActive">
+        <th mat-header-cell *matHeaderCellDef> Статус </th>
+        <td mat-cell *matCellDef="let element"> {{element.isActive ? "Активна" : "Не активна"}} </td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Действия </th>
+        <td mat-cell *matCellDef="let element">
+        <div class="btn-group btn-group-sm">
+            <button mat-stroked-button color="primary" 
+                routerLink="/admin/organizations/edit/{{ element.id }}"
+                data-toggle="tooltip" data-placement="bottom" title="Редактировать">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+            <button mat-stroked-button color="primary" 
+                routerLink="/admin/organizations/{{ element.id }}/specializations"
+                data-toggle="tooltip" data-placement="bottom" title="Указать специализации">
+                <i class="fa-solid fa-pencil"></i>
+            </button>
+            <button mat-stroked-button color="warn" 
+                (click)="deleteOrganization(element.id)"
+                data-toggle="tooltip" data-placement="bottom" title="Удалить">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+        </div>
+        </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 <div class="d-flex justify-content-center" *ngIf="totalCount > 0">
     <app-pager
@@ -91,3 +85,8 @@
         (pageChanged)="onPageChange($event)">
     </app-pager>
 </div>
+<mat-paginator [length]="totalCount"
+            [pageSize]="orgParams.pageSize"
+            [pageSizeOptions]="[5, 10, 25, 100]"
+            aria-label="Select page">
+</mat-paginator>

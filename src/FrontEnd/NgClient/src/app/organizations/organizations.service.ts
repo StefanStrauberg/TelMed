@@ -1,70 +1,56 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
 import { IOrganization } from '../shared/models/organization';
-import { catchError,map } from 'rxjs/operators';
 import { Params } from '../shared/models/params';
 import { IPagination } from '../shared/models/pagination';
+import { EnvironmentUrlService } from '../shared/services/environment-url.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrganizationsService {
-  baseUrl = 'http://localhost:5010/organization';
 
-  constructor(private http: HttpClient) { }
+  baseUrl: string = 'Organization';
+
+  constructor(private http: HttpClient, private envUrl: EnvironmentUrlService) { }
 
   // Get All Organizations
-  getOrganizations(orgParams: Params) {
+  getOrganizations = (orgParams: Params) => {
     let params = new HttpParams();
     if(orgParams.search){
       params = params.append('search', orgParams.search);
     }
     params = params.append('pageIndex', orgParams.pageNumber.toString());
     params = params.append('pageSize', orgParams.pageSize.toString());
-    return this.http.get<IPagination>(this.baseUrl, {observe: 'response', params})
-    .pipe(
-      map(response => {
-        return response.body;
-      })
-    );
+    return this.http.get<IPagination>(this.createCompleteRoute(this.baseUrl, this.envUrl.urlAddress), {observe: 'response', params});
   }
 
   // Get By Id Organization
-  getOrganization(id: string): Observable<IOrganization> {
-    return this.http.get<IOrganization>(this.baseUrl + `/${id}`)
-    .pipe(catchError(this.handleError));
+  getOrganization = (id: string) => {
+    return this.http.get<IOrganization>(this.createCompleteRoute(this.baseUrl + `/${id}`, this.envUrl.urlAddress));
   }
 
   // Create Organization
-  createOrganization(model: IOrganization): Observable<{}> {
-    return this.http.post<{}>(this.baseUrl, model)
-      .pipe(catchError(this.handleError));
+  createOrganization = (model: IOrganization) => {
+    return this.http.post<{}>(this.createCompleteRoute(this.baseUrl, this.envUrl.urlAddress), model);
   }
 
   // Update Organization
-  updateOrganization(model: IOrganization, id: string): Observable<{}> {
-    return this.http.put<{}>(this.baseUrl + `/${id}`, model)
-      .pipe(catchError(this.handleError));
+  updateOrganization = (model: IOrganization, id: string) => {
+    return this.http.put<{}>(this.createCompleteRoute(this.baseUrl + `/${id}`, this.envUrl.urlAddress), model);
   }
 
   // Delete Organization
-  deleteOrganization(id: string): Observable<{}> {
-    return this.http.delete<{}>(this.baseUrl + `/${id}`)
-      .pipe(catchError(this.handleError));
+  deleteOrganization = (id: string) => {
+    return this.http.delete<{}>(this.createCompleteRoute(this.baseUrl + `/${id}`, this.envUrl.urlAddress));
   }
 
-  // Error handling
-  handleError(error: any) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = error.error.message;
-    } else {
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+  private createCompleteRoute = (route: string, envAddress: string) => {
+    return `${envAddress}/${route}`;
+  }
+  private generateHeaders = () => {
+    return {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }
-    window.alert(errorMessage);
-    return throwError(() => {
-      return errorMessage;
-    });
   }
 }

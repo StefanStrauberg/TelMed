@@ -16,6 +16,7 @@ export class ViewOrganizationsComponent implements OnInit {
   @ViewChild('search', {static: false}) searchTerm!: ElementRef;
   orgParams = new Params();
   totalCount!: number;
+  displayedColumns: string[] = ['officialName', 'usualName', 'line', 'region', 'level', 'isActive', 'actions'];
   
   constructor(
     private organizationsService: OrganizationsService,
@@ -27,10 +28,10 @@ export class ViewOrganizationsComponent implements OnInit {
 
   getAllOrganizations() {
     this.organizationsService.getOrganizations(this.orgParams).subscribe(response => {
-      this.organizations = <IOrganization[]>response?.data;
-      this.orgParams.pageNumber = response!.pageIndex;
-      this.orgParams.pageSize = response!.pageSize;
-      this.totalCount = response!.count;
+      this.organizations = <IOrganization[]>response.body?.data;
+      this.orgParams.pageNumber = response.body!.pageIndex;
+      this.orgParams.pageSize = response.body!.pageSize;
+      this.totalCount = response.body!.count;
     }, (error) => {
       this.router.navigate(['/']).then();
       console.log(error);

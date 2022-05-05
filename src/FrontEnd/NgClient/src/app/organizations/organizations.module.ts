@@ -9,8 +9,11 @@ import { FormsModule } from '@angular/forms';
 import { OrgRegPipe } from '../pipes/org-reg.pipe';
 import { OrgLevPipe } from '../pipes/org-lev.pipe';
 import { SharedModule } from '../shared/shared.module';
-
-
+import { MatTableModule } from '@angular/material/table'
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,12 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     OrganizationsRoutingModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    MatTableModule,
+    MatIconModule,
+    MatButtonModule,
+    MatInputModule,
+    MatPaginatorModule
   ]
 })
 export class OrganizationsModule { }

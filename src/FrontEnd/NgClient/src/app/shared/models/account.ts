@@ -4,6 +4,7 @@ export interface IAccount {
     lastName: string;
     firstName: string;
     middleName: string;
+    roleId: string;
     organizationId: string;
     phoneNumber: string;
     officePhone: string;

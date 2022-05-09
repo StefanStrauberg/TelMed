@@ -10,6 +10,7 @@ import { AccountService } from '../account.service';
 })
 export class ViewAccountsComponent implements OnInit {
   accounts: IAccount[] = [];
+  displayedColumns: string[] = ['userName', 'fullName', 'roleId', 'specializationId', 'organizationId', 'contacts', 'isActive', 'actions'];
 
   constructor(private accountService: AccountService,
     private router: Router) { }

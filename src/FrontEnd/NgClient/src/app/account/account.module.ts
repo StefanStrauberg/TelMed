@@ -7,8 +7,8 @@ import { SharedModule } from '../shared/shared.module';
 import { AccountRoutingModule } from './account-routing.module';
 import { FormsModule } from '@angular/forms';
 import { RolesPipe } from '../pipes/roles.pipe';
-
-
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,9 @@ import { RolesPipe } from '../pipes/roles.pipe';
     CommonModule,
     SharedModule,
     AccountRoutingModule,
-    FormsModule
+    FormsModule,
+    MatButtonModule,
+    MatTableModule
   ]
 })
 export class AccountModule { }

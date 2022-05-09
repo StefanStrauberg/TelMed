@@ -4,8 +4,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
-
-
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -15,12 +14,13 @@ import { FooterComponent } from './footer/footer.component';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    MatButtonModule
   ],
   exports: [
     NavBarComponent,
     SideBarComponent,
-    FooterComponent
+    FooterComponent,
   ]
 })
 export class CoreModule { }

@@ -1,18 +1,17 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError,map } from 'rxjs/operators';
 import { IPagination } from '../shared/models/pagination';
 import { Params } from '../shared/models/params';
 import { ISpecialization } from '../shared/models/specialization';
+import { EnvironmentUrlService } from '../shared/services/environment-url.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpecializationsService {
-  baseUrl = 'http://localhost:5010/specialization';
+  baseUrl: string = 'Specialization';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private envUrl: EnvironmentUrlService) { }
 
   // Get All Specializations
   getSpecializations(specParams: Params) {
@@ -22,50 +21,36 @@ export class SpecializationsService {
     }
     params = params.append('pageIndex', specParams.pageNumber.toString());
     params = params.append('pageSize', specParams.pageSize.toString());
-    return this.http.get<IPagination>(this.baseUrl, {observe: 'response', params})
-      .pipe(
-        map(response => {
-          return response.body;
-        })
-      );
+    return this.http.get<IPagination>(this.createCompleteRoute(this.baseUrl, this.envUrl.urlAddress), {observe: 'response', params});
   }
 
   // Get By Id Specialization
-  getSpecialization(id: string): Observable<ISpecialization> {
-    return this.http.get<ISpecialization>(this.baseUrl + `/${id}`)
-    .pipe(catchError(this.handleError));
+  getSpecialization = (id: string) => {
+    return this.http.get<ISpecialization>(this.createCompleteRoute(this.baseUrl + `/${id}`, this.envUrl.urlAddress));
   }
 
   // Create Specialization
-  createSpecialization(model: ISpecialization): Observable<{}> {
-    return this.http.post<{}>(this.baseUrl, model)
-      .pipe(catchError(this.handleError));
+  createSpecialization = (model: ISpecialization) => {
+    return this.http.post<{}>(this.createCompleteRoute(this.baseUrl, this.envUrl.urlAddress), model);
   }
 
   // Update Specialization
-  updateSpecialization(model: ISpecialization, id: string): Observable<{}> {
-    return this.http.put<{}>(this.baseUrl + `/${id}`, model)
-      .pipe(catchError(this.handleError));
+  updateSpecialization = (model: ISpecialization, id: string) => {
+    return this.http.put<{}>(this.createCompleteRoute(this.baseUrl + `/${id}`, this.envUrl.urlAddress), model);
   }
 
   // Delete Specialization
-  deleteSpecialization(id: string): Observable<{}> {
-    return this.http.delete<{}>(this.baseUrl + `/${id}`)
-      .pipe(catchError(this.handleError));
+  deleteSpecialization = (id: string) => {
+    return this.http.delete<{}>(this.createCompleteRoute(this.baseUrl + `/${id}`, this.envUrl.urlAddress));
   }
 
-  // Error handling
-  handleError(error: any) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = error.error.message;
-    } else {
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+  private createCompleteRoute = (route: string, envAddress: string) => {
+    return `${envAddress}/${route}`;
+  }
+  private generateHeaders = () => {
+    return {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }
-    window.alert(errorMessage);
-    return throwError(() => {
-      return errorMessage;
-    });
   }
   
 }

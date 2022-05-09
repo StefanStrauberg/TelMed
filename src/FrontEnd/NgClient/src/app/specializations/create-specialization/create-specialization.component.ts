@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ISpecialization } from 'src/app/shared/models/specialization';
 import { SpecializationsService } from '../specializations.service';
 
 @Component({
@@ -9,20 +9,22 @@ import { SpecializationsService } from '../specializations.service';
   styleUrls: ['./create-specialization.component.scss']
 })
 export class CreateSpecializationComponent implements OnInit {
-  specialization: ISpecialization = { 
-    isActive: true,
-    denyConsult: false
-  } as ISpecialization;
+  ownerForm!: FormGroup;
 
   constructor(
+    private formBuilder: FormBuilder,
     private specializationsService: SpecializationsService,
     private router: Router) { }
 
   ngOnInit(): void {
+    this.ownerForm = this.formBuilder.group({
+      name: new FormControl('', Validators.required),
+      denyConsult : new FormControl(null, Validators.required)
+    });
   }
 
   createSpecialization(){
-    this.specializationsService.createSpecialization(this.specialization).subscribe((data: {}) => {
+    this.specializationsService.createSpecialization(this.ownerForm.value).subscribe((data: {}) => {
       this.router.navigate(['/admin/specializations']).then();
     }, (error) => {
       this.router.navigate(['/admin/specializations/create']).then();

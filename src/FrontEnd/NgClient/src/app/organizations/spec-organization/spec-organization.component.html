@@ -1,32 +1,30 @@
-<div class="card">
-    <div class="card-header bg-primary">
-        <div class="d-flex justify-content-between" style="align-items: center;">
-            <h6 style="color: white;">Прикрепление специализаций</h6>
-            <div>
-                <a class="btn btn-secondary" routerLink="/admin/organizations">
-                    <i class="fa-solid fa-xmark"></i> Отмена
-                </a>
-                <button type="submit" form="updateSpecForm" class="btn btn-success">
-                    <i class="fa-solid fa-check"></i> Сохранить
-                </button>
-            </div>
+<mat-card class="example-form">
+    <mat-card-title class="d-flex justify-content-between">
+        <div class="col">
+            <h3>{{ orgName }}</h3>
         </div>
-    </div>
-    <div class="card-body bg-light">
-        <h5>{{ organization.organizationName.officialName }}</h5>
-        <hr/>
-        <form class="form-group" id="updateSpecForm" (submit)="updateOrganization()">
+        <div>
+            <a mat-raised-button routerLink="/admin/organizations">
+                <i class="fa-solid fa-xmark"></i> Отмена
+            </a>
+            <button mat-raised-button color="primary" type="submit" form="updateSpecForm">
+                <i class="fa-solid fa-check"></i> Сохранить
+            </button>
+        </div>
+    </mat-card-title>
+    <mat-divider inset></mat-divider>
+    <mat-card-content *ngIf="ownerForm">
+        <form (ngSubmit)="updateOrganization()" id="updateSpecForm">
             <div class="col" *ngFor="let specialization of specializations">
-                <label>
-                    <input 
-                    type="checkbox"
-                    ng-true-value=""
-                    [checked]="checkSpecializationInOrganization(specialization.id)"
+                <mat-checkbox #checkbox
+                    [checked]="checkSpecializationInOrganization(specialization.id)" 
                     (change)="pushSpecializationInOrganization($event)"
+                    color="primary"
                     value="{{ specialization.id }}"
-                    name="{{ specialization.id }}"/> {{ specialization.name }}
-                </label>
+                    name="{{ specialization.id }}">
+                    {{ specialization.name }}
+                </mat-checkbox>
             </div>
         </form>
-    </div>
-</div>
+    </mat-card-content>
+</mat-card>

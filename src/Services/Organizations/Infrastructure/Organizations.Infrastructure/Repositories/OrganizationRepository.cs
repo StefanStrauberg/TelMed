@@ -33,7 +33,7 @@ namespace Organizations.Infrastructure.Repositories
 
         public async Task<IReadOnlyList<Organization>> GetAllAsync(QuerySpecParams querySpecParams)
             => await _context.Organizations.Find(GetFilter(querySpecParams.Search))
-                .Skip((querySpecParams.PageIndex - 1) * querySpecParams.PageSize)
+                .Skip((querySpecParams.PageIndex) * querySpecParams.PageSize)
                 .Limit(querySpecParams.PageSize)
                 .Sort(GetSort(querySpecParams.Sort))
                 .ToListAsync();

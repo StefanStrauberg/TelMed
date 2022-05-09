@@ -1,33 +1,30 @@
-<div class="card">
-    <div class="card-header bg-primary">
-        <div class="d-flex justify-content-end">
-            <a class="btn btn-secondary" routerLink="/admin/specializations">
+<mat-card class="example-form">
+    <mat-card-title class="d-flex justify-content-between">
+        <div class="col">
+            <h3>Специализация</h3>
+        </div>
+        <div>
+            <a mat-raised-button routerLink="/admin/specializations">
                 <i class="fa-solid fa-xmark"></i> Отмена
             </a>
-            <button type="submit" form="createForm" class="btn btn-success">
+            <button mat-raised-button color="primary" type="submit" form="createForm" [disabled]="ownerForm.invalid">
                 <i class="fa-solid fa-check"></i> Создать
             </button>
         </div>
-    </div>
-    <div class="card-body bg-light">
-        <h4>Специализация</h4>
-        <hr />
-        <form class="form-group" id="createForm" (submit)="createSpecialization()">
-            <div class="mb-2">
-                <input 
-                    [(ngModel)]="specialization.name"
-                    name="name"
-                    type="text" class="form-control" placeholder="Name">
-            </div>
-            <div class="mb-2">
-                <select
-                    [(ngModel)]="specialization.denyConsult"
-                    name="denyConsult"
-                    class="form-select">
-                    <option [ngValue]="true">Разрешено</option>
-                    <option [ngValue]="false">Запрещено</option>
-                </select>
-            </div>
+    </mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="ownerForm" id="createForm" (submit)="createSpecialization()">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Полное наименование организации</mat-label>
+                <input matInput required formControlName="name" type="text" placeholder="Name">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Активность организации</mat-label>
+                <mat-select formControlName="denyConsult">
+                    <mat-option [value]="true">Разрешено</mat-option>
+                    <mat-option [value]="false">Запрещено</mat-option>
+                </mat-select>
+            </mat-form-field>
         </form>
-    </div>
-</div>
+    </mat-card-content>
+</mat-card>

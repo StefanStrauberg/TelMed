@@ -1,16 +1,16 @@
-<header>
+<mat-toolbar class="mat-elevation-z8">
+    <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon> menu </mat-icon>
+    </button>
     <app-nav-bar></app-nav-bar>
-</header>
-<main class="bg-light" style="margin-top: 3.5rem;">
-    <div class="row">
-        <div class="col-sm-2">
-            <app-side-bar></app-side-bar>
-        </div>
-        <div class="col">
-            <router-outlet></router-outlet>
-        </div>
+</mat-toolbar>
+<mat-sidenav-container>
+    <mat-sidenav #sidenav="matSidenav">
+        <app-side-bar></app-side-bar>
+    </mat-sidenav>
+    <mat-sidenav-content>
+    <div class="content mat-elevation-z8">
+        <router-outlet></router-outlet>
     </div>
-</main>
-<footer class="footer mt-auto py-3 bg-dark">
-    <app-footer></app-footer>
-</footer>
+    </mat-sidenav-content>
+</mat-sidenav-container>

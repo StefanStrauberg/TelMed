@@ -5,15 +5,18 @@ import { UpdateOrganizationComponent } from './update-organization/update-organi
 import { ViewOrganizationsComponent } from './view-organizations/view-organizations.component';
 import { OrganizationsRoutingModule } from './organizations-routing.module';
 import { SpecOrganizationComponent } from './spec-organization/spec-organization.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrgRegPipe } from '../pipes/org-reg.pipe';
 import { OrgLevPipe } from '../pipes/org-lev.pipe';
 import { SharedModule } from '../shared/shared.module';
 import { MatTableModule } from '@angular/material/table'
-import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -30,10 +33,14 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     FormsModule,
     SharedModule,
     MatTableModule,
-    MatIconModule,
     MatButtonModule,
     MatInputModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatCardModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatCheckboxModule,
+    MatDividerModule
   ]
 })
 export class OrganizationsModule { }

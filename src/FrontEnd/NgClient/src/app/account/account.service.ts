@@ -1,57 +1,47 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
 import { IAccount } from '../shared/models/account';
+import { EnvironmentUrlService } from '../shared/services/environment-url.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-  baseUrl: string = "http://localhost:5050/api/Account";
+  baseUrl: string = 'api/Account';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private envUrl: EnvironmentUrlService) { }
 
   // Get All Accounts
-  getAccounts(): Observable<IAccount[]> {
-    return this.http.get<IAccount[]>(this.baseUrl)
-      .pipe(catchError(this.handleError));
+  getAccounts = () => {
+    return this.http.get<IAccount[]>(this.createCompleteRoute(this.baseUrl, this.envUrl.identityServer));
   }
 
   // Get By Id Account
-  getAccount(id: string): Observable<IAccount> {
-    return this.http.get<IAccount>(this.baseUrl + `/${id}`)
-    .pipe(catchError(this.handleError));
+  getAccount = (id: string) => {
+    return this.http.get<IAccount>(this.createCompleteRoute(this.baseUrl + `/${id}`, this.envUrl.urlAddress));
   }
 
   // Create Account
-  createAccount(model: IAccount): Observable<{}> {
-    return this.http.post<{}>(this.baseUrl, model)
-      .pipe(catchError(this.handleError));
+  createAccount = (model: IAccount) => {
+    return this.http.post<{}>(this.baseUrl, model);
   }
 
   // Update Account
-  updateAccount(model: IAccount, id: string): Observable<{}> {
-    return this.http.put<{}>(this.baseUrl + `/${id}`, model)
-      .pipe(catchError(this.handleError));
+  updateAccount = (model: IAccount, id: string) => {
+    return this.http.put<{}>(this.baseUrl + `/${id}`, model);
   }
 
   // Delete Account
-  deleteAccount(id: string): Observable<{}> {
-    return this.http.delete<{}>(this.baseUrl + `/${id}`)
-      .pipe(catchError(this.handleError));
+  deleteAccount = (id: string) => {
+    return this.http.delete<{}>(this.baseUrl + `/${id}`);
   }
 
-  // Error handling
-  handleError(error: any) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = error.error.message;
-    } else {
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+  private createCompleteRoute = (route: string, envAddress: string) => {
+    return `${envAddress}/${route}`;
+  }
+  private generateHeaders = () => {
+    return {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     }
-    window.alert(errorMessage);
-    return throwError(() => {
-      return errorMessage;
-    });
   }
 }

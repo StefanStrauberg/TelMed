@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { IOrganization, OrganizationLevel, OrganizationRegion } from 'src/app/shared/models/organization';
 import { Params } from 'src/app/shared/models/params';
@@ -51,14 +52,19 @@ export class ViewOrganizationsComponent implements OnInit {
 
   onSearch() {
     this.orgParams.search = this.searchTerm.nativeElement.value;
-    this.orgParams.pageNumber = 1;
+    this.orgParams.pageNumber = 0;
     this.getAllOrganizations();
   }
 
-  onPageChange(event: any) {
-    if(this.orgParams.pageNumber !== event)
+  onPageChange(event: PageEvent) {
+    if(this.orgParams.pageSize !== event.pageSize)
     {
-      this.orgParams.pageNumber = event;
+      this.orgParams.pageSize = event.pageSize;
+      this.getAllOrganizations();
+    }
+    if(this.orgParams.pageNumber !== event.pageIndex)
+    {
+      this.orgParams.pageNumber = event.pageIndex;
       this.getAllOrganizations();
     }
   }

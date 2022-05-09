@@ -6,5 +6,6 @@ import { environment } from 'src/environments/environment';
 })
 export class EnvironmentUrlService {
   public urlAddress: string = environment.urlAddress;
+  public identityServer: string = environment.identityServer;
   constructor() { }
 }

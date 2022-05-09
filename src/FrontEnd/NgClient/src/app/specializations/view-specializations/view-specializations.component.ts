@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { Params } from 'src/app/shared/models/params';
 import { ISpecialization } from 'src/app/shared/models/specialization';
@@ -14,7 +15,8 @@ export class ViewSpecializationsComponent implements OnInit {
   specializations: ISpecialization[] = [];
   specParams = new Params();
   totalCount!: number;
-  
+  displayedColumns: string[] = ['name', 'isActive', 'denyConsult', 'actions'];
+
   constructor(
     private specializationsService: SpecializationsService,
     private router: Router) { }
@@ -25,10 +27,10 @@ export class ViewSpecializationsComponent implements OnInit {
 
   getAllSpecializations(){
     this.specializationsService.getSpecializations(this.specParams).subscribe(response => {
-      this.specializations = <ISpecialization[]>response?.data;
-      this.specParams.pageNumber = response!.pageIndex;
-      this.specParams.pageSize = response!.pageSize;
-      this.totalCount = response!.count;
+      this.specializations = <ISpecialization[]>response.body?.data;
+      this.specParams.pageNumber = response.body!.pageIndex;
+      this.specParams.pageSize = response.body!.pageSize;
+      this.totalCount = response.body!.count;
     }, (error) => {
       this.router.navigate(['/']).then();
       console.log(error);
@@ -49,10 +51,15 @@ export class ViewSpecializationsComponent implements OnInit {
     this.getAllSpecializations();
   }
 
-  onPageChange(event: any) {
-    if(this.specParams.pageNumber !== event)
+  onPageChange(event: PageEvent) {
+    if(this.specParams.pageSize !== event.pageSize)
     {
-      this.specParams.pageNumber = event;
+      this.specParams.pageSize = event.pageSize;
+      this.getAllSpecializations();
+    }
+    if(this.specParams.pageNumber !== event.pageIndex)
+    {
+      this.specParams.pageNumber = event.pageIndex;
       this.getAllSpecializations();
     }
   }

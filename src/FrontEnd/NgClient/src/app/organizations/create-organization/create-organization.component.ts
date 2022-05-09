@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { enumValues } from 'src/app/helpers/enum.helper';
-import { IOrganization, OrganizationLevel, OrganizationRegion } from 'src/app/shared/models/organization';
+import { OrganizationLevel, OrganizationRegion } from 'src/app/shared/models/organization';
 import { OrganizationsService } from '../organizations.service';
 
 @Component({
@@ -12,32 +13,36 @@ import { OrganizationsService } from '../organizations.service';
 export class CreateOrganizationComponent implements OnInit {
   orgReg = OrganizationRegion;
   orgLev = OrganizationLevel;
-  organization: IOrganization = {
-    organizationName: { 
-      officialName: '',
-      usualName: ''
-    },
-    address: { 
-      line: ''
-    },
-    region: OrganizationRegion['г. Минск'],
-    level: OrganizationLevel['Республиканский уровень'],
-    specializationIds: [""],
-  } as IOrganization;
   enumValuse = enumValues;
+  ownerForm!: FormGroup;
 
   constructor(
+    private formBuilder: FormBuilder,
     private organizationsService: OrganizationsService,
     public router: Router) { }
 
   ngOnInit(): void {
+    this.ownerForm = this.formBuilder.group({
+      organizationName: this.formBuilder.group({
+        officialName: new FormControl('', Validators.required),
+        usualName: new FormControl('', Validators.required),
+      }),
+      address: this.formBuilder.group({
+        line: new FormControl('', Validators.required),
+      }),
+      region : new FormControl(null, Validators.required),
+      level : new FormControl(null, Validators.required)
+    });
   }
 
   createOrganization(){
-    this.organizationsService.createOrganization(this.organization).subscribe((data: {}) => {
-      this.router.navigate(['/admin/organizations']).then();
-    }, (error) => {
-      this.router.navigate(['/admin/organizations/create']).then();
-    })
+    if(this.ownerForm.valid)
+    {
+      this.organizationsService.createOrganization(this.ownerForm.value).subscribe((data: {}) => {
+        this.router.navigate(['/admin/organizations']).then();
+      }, (error) => {
+        this.router.navigate(['/admin/organizations/create']).then();
+      })
+    }
   }
 }

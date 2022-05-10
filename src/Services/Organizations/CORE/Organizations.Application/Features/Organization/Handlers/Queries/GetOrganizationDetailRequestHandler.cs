@@ -4,6 +4,7 @@ using Organizations.Application.Contracts.Persistence;
 using Organizations.Application.DTO;
 using Organizations.Application.Features.Organization.Requests.Queries;
 using Organizations.Application.Errors;
+using Organizations.Application.GrpcServices;
 
 namespace Organizations.Application.Features.Organization.Handlers.Queries
 {
@@ -11,12 +12,15 @@ namespace Organizations.Application.Features.Organization.Handlers.Queries
     {
         private readonly IOrganizationRepository _repository;
         private readonly IMapper _mapper;
+        private readonly SpecializationGrpcService _specializationGrpcService;
         public GetOrganizationDetailRequestHandler(
             IOrganizationRepository repository,
-            IMapper mapper)
+            IMapper mapper,
+            SpecializationGrpcService specializationGrpcService)
         {
             _repository = repository;
             _mapper = mapper;
+            _specializationGrpcService = specializationGrpcService;
         }
         public async Task<OrganizationDto> Handle(GetOrganizationDetailRequest request, 
             CancellationToken cancellationToken)

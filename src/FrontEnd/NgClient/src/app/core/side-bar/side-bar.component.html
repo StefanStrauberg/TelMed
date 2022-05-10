@@ -1,54 +1,92 @@
-<button mat-button class="menu-button">
-  Направления
-</button>
-<button mat-button class="menu-button">
-  Направления организации
-</button>
-<button mat-button class="menu-button">
-  Консультативные заключения
-</button>
-<button mat-button class="menu-button">
-  Консультативные заключения организации
-</button>
-<button mat-button class="menu-button">
-  Запросы на консультацию
-</button>
-<button mat-button class="menu-button">
-  Аннулированные запросы на консультацию
-</button>
-<button mat-button class="menu-button">
-  Заключения со статусом "Требует дополнения"
-</button>
-<button mat-button class="menu-button">
-  Заключения организации "Требует дополнения"
-</button>
-<button mat-button class="menu-button">
-  Архив собственных заключений
-</button>
-<button mat-button class="menu-button">
-  Архив заключений организации
-</button>
-<button mat-button class="menu-button">
-  Панель управления
-</button>
-<button mat-button class="menu-button" routerLink="/admin/accounts">
-  Пользователи
-</button>
-<button mat-button class="menu-button" routerLink="/admin/organizations">
-  Организации
-</button>
-<button mat-button class="menu-button" routerLink="/admin/specializations">
-  Специализации
-</button>
-<button mat-button class="menu-button" routerLink="/admin/reports">
-  Отчеты
-</button>
-<button mat-button class="menu-button">
-  Отчет по консультирующей организации
-</button>
-<button mat-button class="menu-button">
-  Отчет по консультирующейся организации
-</button>
-<button mat-button class="menu-button" routerLink="/admin/contacts">
-  Контакты
-</button>
+<mat-nav-list>
+  <a mat-list-item>
+    <button type="button" class="btn btn-dark btn-sm menu-button" routerLink="/ereferral" routerLinkActive="active">
+      Направления
+    </button>
+  </a>
+  <a mat-list-item>
+    <button type="button" class="btn btn-dark btn-sm menu-button">
+      Направления организации
+    </button>
+  </a>
+  <a mat-list-item>
+    <button type="button" class="btn btn-dark btn-sm menu-button">
+      Консультативные заключения
+    </button>
+  </a>
+  <a mat-list-item>
+    <button type="button" class="btn btn-dark btn-sm menu-button">
+      Консультативные заключения организации
+    </button>
+  </a>
+  <a mat-list-item>
+    <button type="button" class="btn btn-dark btn-sm menu-button">
+      Запросы на консультацию
+    </button>
+  </a>
+  <a mat-list-item>
+    <button type="button" class="btn btn-dark btn-sm menu-button">
+      Аннулированные запросы на консультацию
+    </button>
+  </a>
+  <a mat-list-item>
+    <button type="button" class="btn btn-dark btn-sm menu-button">
+      Заключения со статусом "Требует дополнения"
+    </button>
+  </a>
+  <a mat-list-item>
+    <button type="button" class="btn btn-dark btn-sm menu-button">
+      Заключения организации "Требует дополнения"
+    </button>
+  </a>
+  <a mat-list-item>
+    <button type="button" class="btn btn-dark btn-sm menu-button">
+      Архив собственных заключений
+    </button>
+  </a>
+  <a mat-list-item>
+    <button type="button" class="btn btn-dark btn-sm menu-button">
+      Архив заключений организации
+    </button>
+  </a>
+  <a mat-list-item>
+    <button type="button" class="btn btn-dark btn-sm menu-button">
+      Панель управления
+    </button>
+  </a>
+  <a mat-list-item>
+    <button type="button" class="btn btn-dark btn-sm menu-button" routerLink="admin/accounts" routerLinkActive="active">
+      Пользователи
+    </button>
+  </a>
+  <a mat-list-item>
+    <button type="button" class="btn btn-dark btn-sm menu-button" routerLink="admin/organizations" routerLinkActive="active">
+      Организации
+    </button>
+  </a>
+  <a mat-list-item>
+    <button type="button" class="btn btn-dark btn-sm menu-button" routerLink="admin/specializations" routerLinkActive="active">
+      Специализации
+    </button>
+  </a>
+  <a mat-list-item>
+    <button type="button" class="btn btn-dark btn-sm menu-button">
+      Отчеты
+    </button>
+  </a>
+  <a mat-list-item>
+    <button type="button" class="btn btn-dark btn-sm menu-button">
+      Отчет по консультирующей организации
+    </button>
+  </a>
+  <a mat-list-item>
+    <button type="button" class="btn btn-dark btn-sm menu-button">
+      Отчет по консультирующейся организации
+    </button>
+  </a>
+  <a mat-list-item>
+    <button type="button" class="btn btn-dark btn-sm menu-button">
+      Контакты
+    </button>
+  </a>
+</mat-nav-list>

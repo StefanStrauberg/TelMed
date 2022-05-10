@@ -14,6 +14,8 @@ const routes: Routes = [
     .then(mod => mod.ContactsModule) },
   { path: 'admin/accounts', loadChildren: () => import('./account/account.module')
     .then(mod => mod.AccountModule) },
+  { path: 'ereferral', loadChildren: () => import('./referrals/referrals.module')
+    .then(mod => mod.ReferralsModule) },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 

@@ -49,6 +49,31 @@
 			],
 			"UpstreamPathTemplate": "/specialization/{id}",
 			"UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+		},
+		// Referral API -- https://localhost:5001/api/Referral
+		{
+			"DownstreamPathTemplate": "/api/referral",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5002
+				}
+			],
+			"UpstreamPathTemplate": "/referral",
+			"UpstreamHttpMethod": [ "GET", "POST" ]
+		},
+		{
+			"DownstreamPathTemplate": "/api/referral/{id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5002
+				}
+			],
+			"UpstreamPathTemplate": "/referral/{id}",
+			"UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
 		}
 	]
 }

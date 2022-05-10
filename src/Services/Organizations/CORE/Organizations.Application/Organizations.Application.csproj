@@ -13,7 +13,8 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.4.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.0.1" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.45.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.1" />
@@ -21,6 +22,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Organizations.Domain\Organizations.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Protos\greet.proto" GrpcServices="Client" />
   </ItemGroup>
 
 </Project>

@@ -1,18 +1,17 @@
-﻿using MongoDB.Driver;
+﻿using Microsoft.Extensions.Options;
+using MongoDB.Driver;
+using Specialization.GRPC.DbContexts.Config;
 
 namespace Specialization.GRPC.DbContexts
 {
     public class MongoSpecContext : IMongoSpecContext
     {
-        private readonly IConfiguration _configuration;
         public IMongoCollection<Specialization.GRPC.Entities.Specialization> Specializations { get; }
-        public MongoSpecContext(IConfiguration configuration)
+        public MongoSpecContext(IOptions<DatabaseSettings> dbOptions)
         {
-            _configuration = configuration;
-            var Client = new MongoClient(_configuration["SpecializationDbSettings:ConnectionString"]);
-            var Databse = Client.GetDatabase(_configuration["SpecializationDbSettings:DatabaseName"]);
-            Specializations = Databse.GetCollection<Specialization.GRPC.Entities.Specialization>
-                (_configuration["SpecializationDbSettings:CollectionName"]);
+            var Client = new MongoClient(dbOptions.Value.ConnectionString);
+            var Databse = Client.GetDatabase(dbOptions.Value.DatabaseName);
+            Specializations = Databse.GetCollection<Specialization.GRPC.Entities.Specialization>(dbOptions.Value.CollectionName);
         }
     }
 }

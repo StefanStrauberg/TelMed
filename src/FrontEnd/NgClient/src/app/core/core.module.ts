@@ -5,6 +5,7 @@ import { SideBarComponent } from './side-bar/side-bar.component';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 import { MatButtonModule } from '@angular/material/button';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [
     CommonModule,
     RouterModule,
-    MatButtonModule
+    MatButtonModule,
+    MatListModule
   ],
   exports: [
     NavBarComponent,

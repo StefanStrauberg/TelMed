@@ -3,5 +3,5 @@ using Microsoft.AspNetCore.Identity;
 
 namespace IdentityServer.Application.Features.Account.Requests.Queries
 {
-    public record GetRolesRequest : IRequest<List<IdentityRole>>;
+    public record GetRoleListRequest : IRequest<List<IdentityRole>>;
 }

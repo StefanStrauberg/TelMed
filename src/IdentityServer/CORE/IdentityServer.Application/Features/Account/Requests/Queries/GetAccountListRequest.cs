@@ -3,5 +3,5 @@ using MediatR;
 
 namespace IdentityServer.Application.Features.Account.Requests.Queries
 {
-    public record GetAccountListRequest : IRequest<IReadOnlyList<AccountDto>>;
+    public record GetAccountListRequest : IRequest<List<AccountDto>>;
 }

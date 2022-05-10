@@ -26,6 +26,10 @@ namespace Organizations.API.Controllers
                 data: await _mediator.Send(new GetOrganizationListRequest(querySpecParams))
             ));
 
+        [HttpGet("GetShort")]
+        public async Task<IActionResult> GetShort()
+            => Ok(await _mediator.Send(new GetShortAllOrganizationsRequest()));
+
         [HttpGet("{id:length(24)}")]
         [ProducesResponseType(typeof(OrganizationDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

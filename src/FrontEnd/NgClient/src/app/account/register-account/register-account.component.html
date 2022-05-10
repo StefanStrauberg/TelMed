@@ -1,91 +1,61 @@
-<pre>{{ account | json }}</pre>
-<div class="card">
-    <div class="card-header bg-primary">
+<pre>{{ ownerForm.value | json }}</pre>
+<mat-card class="example-form">
+    <mat-card-title class="card-header bg-primary">
         <div class="d-flex justify-content-end">
-            <a class="btn btn-secondary" routerLink="/admin/accounts">
+            <a mat-raised-button routerLink="/admin/accounts">
                 <i class="fa-solid fa-xmark"></i> Отмена
             </a>
-            <button type="submit" form="createForm" class="btn btn-success">
+            <button mat-raised-button color="primary" form="createForm" [disabled]="ownerForm.invalid">
                 <i class="fa-solid fa-check"></i> Создать
             </button>
         </div>
-    </div>
-    <div class="card-body bg-light">
-        <form class="form-group" id="createForm">
-            <div class="mb-2">
-                <label>Имя пользователя</label>
-                <input 
-                    [(ngModel)]="account.userName"
-                    name="userName"
-                    type="text" class="form-control" placeholder="Укажите имя пользователя">
-            </div>
-            <div class="mb-2">
-                <label>Пароль</label>
-                <input 
-                    [(ngModel)]="account.password"
-                    name="password"
-                    type="password" class="form-control" placeholder="Пароль">
-            </div>
-            <div class="mb-2">
-                <label>Подтверждение пароля</label>
-                <input 
-                    [(ngModel)]="account.confirmPassword"
-                    name="confirmPassword"
-                    type="password" class="form-control" placeholder="Подтвердите пароль">
-            </div>
-            <div class="mb-2">
-                <label>Фамилия</label>
-                <input 
-                    [(ngModel)]="account.lastName"
-                    name="lastName"
-                    type="text" class="form-control" placeholder="Укажите фамилию">
-            </div>
-            <div class="mb-2">
-                <label>Имя</label>
-                <input 
-                    [(ngModel)]="account.firstName"
-                    name="firstName"
-                    type="text" class="form-control" placeholder="Укажите имя">
-            </div>
-            <div class="mb-2">
-                <label>Отчество</label>
-                <input 
-                    [(ngModel)]="account.middleName"
-                    name="middleName"
-                    type="text" class="form-control" placeholder="Укажите отчество">
-            </div>
-            <div class="mb-2">
-                <label>Роль</label>
-                <select
-                    [(ngModel)]="account.role"
-                    name="role"
-                    class="form-select">
-                    <option *ngFor="let role of enumValuse(roles)" [ngValue]="role">{{ role | roles }}</option>
-                </select>
-            </div>
-            <div class="mb-2">
-                <label>Организация</label>
-                <select
-                    [(ngModel)]="account.organizationId"
-                    name="organizationId"
-                    class="form-select">
-                    <option>123</option>
-                </select>
-            </div>
-            <div class="mb-2">
-                <label>Номер мобильного телефона</label>
-                <input 
-                    [(ngModel)]="account.phoneNumber"
-                    name="phoneNumber"
-                    type="text" mask='(000) 000-0000' class="form-control" placeholder="Укажите номер телефона">
-            </div>
-            <div class="mb-2">
-                <label>Номер городского телефона</label>
-                <input 
-                    [(ngModel)]="account.officePhone"
-                    name="officePhone"
-                    type="text" mask='(000) 000-0000' class="form-control" placeholder="Укажите номер телефона">
-            </div>
+    </mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="ownerForm" class="createForm" id="createForm">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Имя пользователя</mat-label>
+                <input matInput required formControlName="userName" type="text" placeholder="userName">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Пароль</mat-label>
+                <input matInput required formControlName="password" type="password" placeholder="password">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Подтверждение пароля</mat-label>
+                <input matInput required formControlName="confirmPassword" type="password" placeholder="confirmPassword">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Фамилия</mat-label>
+                <input matInput required formControlName="lastName" type="text" placeholder="lastName">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Имя</mat-label>
+                <input matInput required formControlName="firstName" type="text" placeholder="firstName">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Отчество</mat-label>
+                <input matInput required formControlName="middleName" type="text" placeholder="middleName">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Роль</mat-label>
+                <mat-select formControlName="role">
+                    <mat-option *ngFor="let role of roles" [value]="role.name">{{role.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Организация</mat-label>
+                <mat-select formControlName="organizationId">
+                    <mat-option *ngFor="let shortOrganization of shortOrganizations" [value]="shortOrganization.id">{{ shortOrganization.name }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Номер мобильного телефона</mat-label>
+                <input matInput required formControlName="phoneNumber" type="number" placeholder="phoneNumber">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Номер городского телефона</mat-label>
+                <input matInput required formControlName="officePhone" type="number" placeholder="officePhone">
+            </mat-form-field>
         </form>
-    </div>
-</div>
+    </mat-card-content>
+</mat-card>

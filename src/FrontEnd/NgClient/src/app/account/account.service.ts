@@ -1,39 +1,45 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IAccount } from '../shared/models/account';
+import { IAccount, IRole } from '../shared/models/account';
 import { EnvironmentUrlService } from '../shared/services/environment-url.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-  baseUrl: string = 'api/Account';
+  baseAccountUrl: string = 'api/Account';
+  baseRoleUrl: string = 'api/Role';
 
   constructor(private http: HttpClient, private envUrl: EnvironmentUrlService) { }
 
+  // Get All Roles
+  getRoles = () => {
+    return this.http.get<IRole[]>(this.createCompleteRoute(this.baseRoleUrl, this.envUrl.identityServer));
+  }
+
   // Get All Accounts
   getAccounts = () => {
-    return this.http.get<IAccount[]>(this.createCompleteRoute(this.baseUrl, this.envUrl.identityServer));
+    return this.http.get<IAccount[]>(this.createCompleteRoute(this.baseAccountUrl, this.envUrl.identityServer));
   }
 
   // Get By Id Account
   getAccount = (id: string) => {
-    return this.http.get<IAccount>(this.createCompleteRoute(this.baseUrl + `/${id}`, this.envUrl.urlAddress));
+    return this.http.get<IAccount>(this.createCompleteRoute(this.baseAccountUrl + `/${id}`, this.envUrl.urlAddress));
   }
 
   // Create Account
   createAccount = (model: IAccount) => {
-    return this.http.post<{}>(this.baseUrl, model);
+    return this.http.post<{}>(this.baseAccountUrl, model);
   }
 
   // Update Account
   updateAccount = (model: IAccount, id: string) => {
-    return this.http.put<{}>(this.baseUrl + `/${id}`, model);
+    return this.http.put<{}>(this.baseAccountUrl + `/${id}`, model);
   }
 
   // Delete Account
   deleteAccount = (id: string) => {
-    return this.http.delete<{}>(this.baseUrl + `/${id}`);
+    return this.http.delete<{}>(this.baseAccountUrl + `/${id}`);
   }
 
   private createCompleteRoute = (route: string, envAddress: string) => {

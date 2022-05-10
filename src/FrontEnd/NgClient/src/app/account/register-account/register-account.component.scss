@@ -1,12 +1,8 @@
-em{
-    color: #e71515;
-    font-weight: bold;
+.example-form {
+    min-width: 500px;
+    max-width: 50%;
+    width: 100%;
 }
-.ng-invalid.ng-touched{
-    border-color: red;
-}
-.card{
-    margin-top: 10px;
-    background-color: #fff;
-    box-shadow: 1px 1px 1px #cabcbc;
+.example-full-width {
+    width: 100%;
 }

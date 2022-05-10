@@ -78,5 +78,13 @@ namespace Organizations.Infrastructure.Repositories
                 "OrderByDescending" => Builders<Organization>.Sort.Descending(x => x.OrganizationName.OfficialName),
                 _ => Builders<Organization>.Sort.Ascending(x => x.OrganizationName.OfficialName)
             };
+
+        public async Task<object> GetShortOrganizationsAsync()
+        => await _context.Organizations.Find(x => true)
+                .Project(x => new {
+                    id = x.Id,
+                    name = x.OrganizationName.OfficialName
+                })
+                .ToListAsync();
     }
 }

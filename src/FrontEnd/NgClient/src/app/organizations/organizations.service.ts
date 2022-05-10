@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IOrganization } from '../shared/models/organization';
+import { IOrganization, IShortOrganization } from '../shared/models/organization';
 import { Params } from '../shared/models/params';
 import { IPagination } from '../shared/models/pagination';
 import { EnvironmentUrlService } from '../shared/services/environment-url.service';
@@ -23,6 +23,11 @@ export class OrganizationsService {
     params = params.append('pageIndex', orgParams.pageNumber.toString());
     params = params.append('pageSize', orgParams.pageSize.toString());
     return this.http.get<IPagination>(this.createCompleteRoute(this.baseUrl, this.envUrl.urlAddress), {observe: 'response', params});
+  }
+
+  // Get All Organizations
+  getShortOrganizations = () => {
+    return this.http.get<IShortOrganization[]>(this.createCompleteRoute(this.baseUrl + '/GetShort', this.envUrl.urlAddress));
   }
 
   // Get By Id Organization

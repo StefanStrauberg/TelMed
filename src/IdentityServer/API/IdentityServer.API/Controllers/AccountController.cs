@@ -24,14 +24,9 @@ namespace IdentityServer.API.Controllers
         public async Task<IActionResult> GetAllAccounts()
             => Ok(await _mediatR.Send(new GetAccountListRequest()));
         
-        [HttpGet("Roles")]
-        public async Task<IActionResult> GetAllRoles()
-            => Ok(await _mediatR.Send(new GetRolesRequest()));
-        
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAccountById(string id)
             => Ok(await _mediatR.Send(new GetAccountDetailRequest(id)));
-
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAccountById(string id)

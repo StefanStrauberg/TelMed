@@ -4,13 +4,13 @@ export interface IAccount {
     lastName: string;
     firstName: string;
     middleName: string;
-    roleId: string;
+    role: string;
     organizationId: string;
     phoneNumber: string;
     officePhone: string;
     email: string;
     specializationId: string;
-    isActive: boolean
+    isActive: boolean;
 }
 
 export interface IRegisterAccount {
@@ -20,7 +20,7 @@ export interface IRegisterAccount {
     lastName: string;
     firstName: string;
     middleName: string;
-    role: Role;
+    role: string;
     organizationId: string;
     phoneNumber: string;
     officePhone: string;
@@ -28,11 +28,9 @@ export interface IRegisterAccount {
     specializationId: string;
 }
 
-export enum Role {
-    "Врач" = 1,
-    "Консультант" = 2,
-    "Администратор" = 3,
-    "Координатор-консультант" = 4,
-    "Координатор-врач" = 5,
-    "Разработчик [Exception]" = 9,
+export interface IRole {
+    id: string;
+    name: string,
+    normalizedName: string;
+    concurrencyStamp: string;
 }

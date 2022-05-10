@@ -8,6 +8,11 @@ export interface IOrganization {
     specializationIds: string[]
 }
 
+export interface IShortOrganization {
+    id: string;
+    name: string;
+}
+
 export interface IAddress {
     line: string
 }

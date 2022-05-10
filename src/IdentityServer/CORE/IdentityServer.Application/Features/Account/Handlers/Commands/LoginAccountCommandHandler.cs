@@ -1,5 +1,4 @@
-﻿using IdentityServer.Application.Contracts.Persistence;
-using IdentityServer.Application.DTOs;
+﻿using IdentityServer.Application.DTOs;
 using IdentityServer.Application.Errors;
 using IdentityServer.Application.Features.Account.Requests.Commands;
 using IdentityServer.Application.Security;
@@ -13,27 +12,20 @@ namespace IdentityServer.Application.Features.Account.Handlers.Commands
     {
         private readonly UserManager<IdentityServer.Domain.Account> _userManager;
         private readonly JwtHandler _jwtHandler;
-        private readonly IAccountRepository _accountRepository;
         public LoginAccountCommandHandler(
             UserManager<Domain.Account> userManager,
-            JwtHandler jwtHandler,
-            IAccountRepository accountRepository)
+            JwtHandler jwtHandler)
         {
             _userManager = userManager;
             _jwtHandler = jwtHandler;
-            _accountRepository = accountRepository;
         }
         public async Task<AuthResponseDto> Handle(LoginAccountCommand request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByNameAsync(request.model.Login);
             if (user is null)
                 throw new AccountUnauthorizedException("Invalid login.");
-            //if (!await _userManager.CheckPasswordAsync(user, request.model.Password))
-            //    throw new AccountUnauthorizedException("Invalid password.");
-            var hasher = new PasswordHasher(request.model.Password, user.PasswordSalt);
-            if (user.PasswordHash != hasher.Hash)
+            if (!await _userManager.CheckPasswordAsync(user, request.model.Password))
                 throw new AccountUnauthorizedException("Invalid password.");
-
             var signingCredentials = _jwtHandler.GetSigningCredentials();
             var claims = await _jwtHandler.GetClaims(user);
             var tokenOptions = _jwtHandler.GenerateTokenOptions(signingCredentials, claims);

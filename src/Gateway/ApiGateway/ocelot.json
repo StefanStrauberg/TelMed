@@ -1,6 +1,5 @@
 {
 	"Routes": [
-		//Organization API -- https://localhost:5000/api/organization
 		{
 			"DownstreamPathTemplate": "/api/organization",
 			"DownstreamScheme": "http",
@@ -25,7 +24,6 @@
 			"UpstreamPathTemplate": "/organization/{id}",
 			"UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
 		},
-		//Specialization API -- https://localhost:5001/api/specialization
 		{
 			"DownstreamPathTemplate": "/api/specialization",
 			"DownstreamScheme": "http",
@@ -50,7 +48,6 @@
 			"UpstreamPathTemplate": "/specialization/{id}",
 			"UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
 		},
-		// Referral API -- https://localhost:5001/api/Referral
 		{
 			"DownstreamPathTemplate": "/api/referral",
 			"DownstreamScheme": "http",

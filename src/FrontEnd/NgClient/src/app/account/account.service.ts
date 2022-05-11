@@ -34,12 +34,12 @@ export class AccountService {
 
   // Update Account
   updateAccount = (model: IAccount, id: string) => {
-    return this.http.put<{}>(this.baseAccountUrl + `/${id}`, model);
+    return this.http.put<{}>(this.createCompleteRoute(this.baseAccountUrl + `/${id}`, this.envUrl.identityServer), model);
   }
 
   // Delete Account
   deleteAccount = (id: string) => {
-    return this.http.delete<{}>(this.baseAccountUrl + `/${id}`);
+    return this.http.delete<{}>(this.createCompleteRoute(this.baseAccountUrl + `/${id}`, this.envUrl.identityServer));
   }
 
   private createCompleteRoute = (route: string, envAddress: string) => {

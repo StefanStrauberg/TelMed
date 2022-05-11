@@ -27,4 +27,15 @@ export class ViewAccountsComponent implements OnInit {
       console.log(error);
     })
   }
+
+  deleteAccount(accountId: string){
+    if(accountId)
+    {
+      this.accountService.deleteAccount(accountId).subscribe((date: {}) => {
+        this.getAllSpecializations();
+      }, (error) => {
+        this.getAllSpecializations();
+      });
+    }
+  }
 }

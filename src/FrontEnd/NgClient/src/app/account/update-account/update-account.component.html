@@ -1,1 +1,62 @@
-<p>update-account works!</p>
+<mat-card class="example-form">
+    <mat-card-title class="card-header bg-primary">
+        <div class="d-flex justify-content-end">
+            <a mat-raised-button routerLink="/admin/accounts">
+                <i class="fa-solid fa-xmark"></i> Отмена
+            </a>
+            <button mat-raised-button color="primary" form="updateForm" [disabled]="ownerForm.invalid">
+                <i class="fa-solid fa-check"></i> Сохранить
+            </button>
+        </div>
+    </mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="ownerForm" id="updateForm">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Имя пользователя</mat-label>
+                <input matInput required formControlName="userName" type="text" placeholder="Укажите логин пользователя">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Фамилия</mat-label>
+                <input matInput required formControlName="lastName" type="text" placeholder="Укажите фамилию пользователя">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Имя</mat-label>
+                <input matInput required formControlName="firstName" type="text" placeholder="Укажите имя пользователя">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Отчество</mat-label>
+                <input matInput required formControlName="middleName" type="text" placeholder="Укажите отчество пользователя">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Роль</mat-label>
+                <mat-select formControlName="role">
+                    <mat-option *ngFor="let role of roles" [value]="role.id">{{role.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Организация</mat-label>
+                <mat-select formControlName="organizationId">
+                    <mat-option *ngFor="let shortOrganization of shortOrganizations" [value]="shortOrganization.id">{{ shortOrganization.name }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Номер мобильного телефона</mat-label>
+                <input matInput required formControlName="phoneNumber" type="text" placeholder="Укажите мобильного номер пользователя">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Номер городского телефона</mat-label>
+                <input matInput required formControlName="officePhone" type="text" placeholder="Укажите городской номер пользователя">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Электронная почта</mat-label>
+                <input matInput required formControlName="email" type="email" placeholder="Укажите E-Mail пользователя">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Специализации</mat-label>
+                <mat-select formControlName="specializationId">
+                    <mat-option *ngFor="let shortSpecialization of shortSpecializations" [value]="shortSpecialization.id">{{ shortSpecialization.name }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+    </mat-card-content>
+</mat-card>

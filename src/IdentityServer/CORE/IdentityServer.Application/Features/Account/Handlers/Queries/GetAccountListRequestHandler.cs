@@ -21,10 +21,6 @@ namespace IdentityServer.Application.Features.Account.Handlers.Queries
             _roleManager = roleManager;
         }
         public Task<List<AccountDto>> Handle(GetAccountListRequest request, CancellationToken cancellationToken)
-        {
-            var users = _mapper.Map<List<AccountDto>>(_userManager.Users.ToList());
-            users.ForEach(x => x.Role = _roleManager.FindByIdAsync(x.Role).GetAwaiter().GetResult().Name);
-            return Task.FromResult(users);
-        } 
+            => Task.FromResult(_mapper.Map<List<AccountDto>>(_userManager.Users.ToList()));
     }
 }

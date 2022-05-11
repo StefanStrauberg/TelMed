@@ -12,7 +12,7 @@ namespace IdentityServer.Application.Mappings
             CreateMap<AccountForUpdateDto, ApplicationUser>();
             CreateMap<ApplicationRole, RoleDto>();
             CreateMap<ApplicationUser, AccountDto>()
-                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => string.Join(", ", src.Roles)));
+                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Roles.FirstOrDefault()));
         }
     }
 }

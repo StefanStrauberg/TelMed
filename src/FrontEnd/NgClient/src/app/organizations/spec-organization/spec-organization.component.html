@@ -1,5 +1,5 @@
 <mat-card class="example-form">
-    <mat-card-title class="d-flex justify-content-between">
+    <mat-card-title class="card-header bg-primary d-flex justify-content-between" style="align-items: center;">
         <div class="col">
             <h3>{{ orgName }}</h3>
         </div>
@@ -14,7 +14,7 @@
     </mat-card-title>
     <mat-divider inset></mat-divider>
     <mat-card-content *ngIf="ownerForm">
-        <form (ngSubmit)="updateOrganization()" id="updateSpecForm">
+        <form (ngSubmit)="setSpecializationIds()" id="updateSpecForm">
             <div class="col" *ngFor="let specialization of specializations">
                 <mat-checkbox #checkbox
                     [checked]="checkSpecializationInOrganization(specialization.id)" 

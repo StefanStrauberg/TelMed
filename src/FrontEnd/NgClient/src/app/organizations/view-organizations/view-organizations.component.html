@@ -45,6 +45,10 @@
       <th mat-header-cell *matHeaderCellDef> Адрес </th>
       <td mat-cell *matCellDef="let element"> {{element.address.line}} </td>
     </ng-container>
+    <ng-container matColumnDef="specializationIds">
+      <th mat-header-cell *matHeaderCellDef> Специализации </th>
+      <td mat-cell *matCellDef="let element"> {{element.specializationIds}} </td>
+    </ng-container>
     <ng-container matColumnDef="region">
       <th mat-header-cell *matHeaderCellDef> Регион </th>
       <td mat-cell *matCellDef="let element"> {{orgReg[element.region]}} </td>

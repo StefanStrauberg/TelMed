@@ -44,6 +44,11 @@ export class OrganizationsService {
   updateOrganization = (model: IOrganization, id: string) => {
     return this.http.put<{}>(this.createCompleteRoute(this.baseUrl + `/${id}`, this.envUrl.urlAddress), model);
   }
+  
+  // Update Organization SetSpecializations
+  setSetSpecializations = (model: string[], id: string) => {
+    return this.http.put<{}>(this.createCompleteRoute(this.baseUrl + `/SetSpecializations/${id}`, this.envUrl.urlAddress), model);
+  }
 
   // Delete Organization
   deleteOrganization = (id: string) => {

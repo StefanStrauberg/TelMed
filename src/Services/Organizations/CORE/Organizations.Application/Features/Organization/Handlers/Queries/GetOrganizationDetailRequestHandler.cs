@@ -8,7 +8,7 @@ using Organizations.Application.GrpcServices;
 
 namespace Organizations.Application.Features.Organization.Handlers.Queries
 {
-    public class GetOrganizationDetailRequestHandler : IRequestHandler<GetOrganizationDetailRequest, OrganizationDto>
+    public class GetOrganizationDetailRequestHandler : IRequestHandler<GetOrganizationDetailRequest, OrganizationDetailDto>
     {
         private readonly IOrganizationRepository _repository;
         private readonly IMapper _mapper;
@@ -22,13 +22,13 @@ namespace Organizations.Application.Features.Organization.Handlers.Queries
             _mapper = mapper;
             _specializationGrpcService = specializationGrpcService;
         }
-        public async Task<OrganizationDto> Handle(GetOrganizationDetailRequest request, 
+        public async Task<OrganizationDetailDto> Handle(GetOrganizationDetailRequest request, 
             CancellationToken cancellationToken)
         {
             var organization = await _repository.GetAsync(request.id);
             if (organization is null)
                 throw new OrganizationBadRequestException(request.id);
-            return _mapper.Map<OrganizationDto>(organization);
+            return _mapper.Map<OrganizationDetailDto>(organization);
         }
     }
 }

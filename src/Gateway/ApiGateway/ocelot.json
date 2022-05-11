@@ -25,6 +25,18 @@
 			"UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
 		},
 		{
+			"DownstreamPathTemplate": "/api/organization/SetSpecializations/{id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5000
+				}
+			],
+			"UpstreamPathTemplate": "/organization/SetSpecializations/{id}",
+			"UpstreamHttpMethod": [ "PUT" ]
+		},
+		{
 			"DownstreamPathTemplate": "/api/specialization",
 			"DownstreamScheme": "http",
 			"DownstreamHostAndPorts": [

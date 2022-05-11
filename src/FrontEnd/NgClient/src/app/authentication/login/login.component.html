@@ -1,0 +1,28 @@
+<div class="card">
+    <div class="card-body">
+        <h1 class="card-title">Login</h1>
+        <div *ngIf="showError" class="alert alert-danger" role="alert">
+            {{errorMessage}}
+        </div>
+        <form [formGroup]="loginForm" autocomplete="off" novalidate (ngSubmit)="loginUser()">
+            <div class="form-group row">
+                <label for="username" class="col-form-label col-sm-2">Username:</label>
+                <div class="col-md-5">
+                    <input type="text" id="login" formControlName="login" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="password" class="col-form-label col-sm-2">Password:</label>
+                <div class="col-md-5">
+                    <input type="password" id="password" formControlName="password" class="form-control" />
+                </div>
+            </div>
+            <br>
+            <div class="form-group row">
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-info" [disabled]="loginForm.invalid">Login</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

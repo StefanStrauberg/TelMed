@@ -8,9 +8,11 @@ namespace Organizations.Application.Mappings
     {
         public MappingProfile()
         {
-            CreateMap<Organization, CreateOrganizationDto>().ReverseMap();
-            CreateMap<Organization, UpdateOrganizationDto>().ReverseMap();
-            CreateMap<Organization, OrganizationDto>().ReverseMap();
+            CreateMap<CreateOrganizationDto, Organization>();
+            CreateMap<UpdateOrganizationDto, Organization>();
+            CreateMap<Organization, OrganizationDetailDto>();
+            CreateMap<Organization, OrganizationDto>()
+                .ForMember(dest => dest.SpecializationIds, opt => opt.MapFrom(src => string.Join(", ", src.SpecializationIds)));
         }
     }
 }

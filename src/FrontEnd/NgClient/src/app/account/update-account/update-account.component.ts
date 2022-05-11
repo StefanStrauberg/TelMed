@@ -45,9 +45,9 @@ export class UpdateAccountComponent implements OnInit {
           middleName: new FormControl(response.middleName, Validators.required),
           role: new FormControl(response.role, Validators.required),
           organizationId: new FormControl(response.organizationId, Validators.required),
-          phoneNumber: new FormControl(response.phoneNumber, Validators.required),
-          officePhone: new FormControl(response.officePhone, Validators.required),
-          email: new FormControl(response.email, Validators.required),
+          phoneNumber: new FormControl(response.phoneNumber),
+          officePhone: new FormControl(response.officePhone),
+          email: new FormControl(response.email),
           specializationId: new FormControl(response.specializationId, Validators.required),
         })
       }, (error) => {

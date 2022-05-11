@@ -31,7 +31,7 @@ namespace Organizations.Infrastructure.Repositories
             return result.IsAcknowledged && result.DeletedCount > 0;
         }
 
-        public async Task<IReadOnlyList<Organization>> GetAllAsync(QuerySpecParams querySpecParams)
+        public async Task<List<Organization>> GetAllAsync(QuerySpecParams querySpecParams)
             => await _context.Organizations.Find(GetFilter(querySpecParams.Search))
                 .Skip((querySpecParams.PageIndex) * querySpecParams.PageSize)
                 .Limit(querySpecParams.PageSize)
@@ -54,8 +54,7 @@ namespace Organizations.Infrastructure.Repositories
                 .Set(x => x.Region, entity.Region)
                 .Set(x => x.Address, entity.Address)
                 .Set(x => x.IsActive, entity.IsActive)
-                .Set(x => x.OrganizationName, entity.OrganizationName)
-                .Set(x => x.SpecializationIds, entity.SpecializationIds));
+                .Set(x => x.OrganizationName, entity.OrganizationName));
             return result.IsAcknowledged && result.ModifiedCount > 0;
         }
         
@@ -86,5 +85,15 @@ namespace Organizations.Infrastructure.Repositories
                     name = x.OrganizationName.OfficialName
                 })
                 .ToListAsync();
+
+        public async Task<bool> SetSpecializationIds(List<string> specializationIds, string id)
+        {
+            var result = await _context.Organizations
+                .UpdateOneAsync(
+                Builders<Organization>.Filter.Eq(x => x.Id, id),
+                Builders<Organization>.Update
+                .Set(x => x.SpecializationIds, specializationIds));
+            return result.IsAcknowledged && result.ModifiedCount > 0;
+        }
     }
 }

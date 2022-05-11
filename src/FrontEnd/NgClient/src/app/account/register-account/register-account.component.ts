@@ -18,6 +18,8 @@ export class RegisterAccountComponent implements OnInit {
   roles: IRole[] = [];
   shortOrganizations: IShortOrganization[] = [];
   shortSpecializations: IShortSpecialization[] = [];
+  hidePassword = true;
+  hideConfirmPassword = true;
 
   constructor(
     private specializationService: SpecializationsService,
@@ -38,10 +40,10 @@ export class RegisterAccountComponent implements OnInit {
       firstName: new FormControl('', Validators.required),
       middleName: new FormControl('', Validators.required),
       role: new FormControl('', Validators.required),
-      organizationId: new FormControl('', Validators.required),
-      phoneNumber: new FormControl('', Validators.required),
-      officePhone: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required),
+      organizationId: new FormControl(''),
+      phoneNumber: new FormControl(''),
+      officePhone: new FormControl(''),
+      email: new FormControl(''),
       specializationId: new FormControl('', Validators.required),
     });
   }

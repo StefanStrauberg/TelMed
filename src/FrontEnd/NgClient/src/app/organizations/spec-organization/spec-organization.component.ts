@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Params } from 'src/app/shared/models/params';
-import { ISpecialization } from 'src/app/shared/models/specialization';
+import { IShortSpecialization } from 'src/app/shared/models/specialization';
 import { SpecializationsService } from 'src/app/specializations/specializations.service';
 import { OrganizationsService } from '../organizations.service';
 
@@ -14,15 +13,9 @@ import { OrganizationsService } from '../organizations.service';
 })
 export class SpecOrganizationComponent implements OnInit {
   organizationId: string | null = null;
-  specializations: ISpecialization[] = [];
+  specializations: IShortSpecialization[] = [];
   ownerForm!: FormGroup;
   orgName: string | null = null;
-  params: Params = {
-    pageNumber: 0,
-    pageSize: 0,
-    sort: '',
-    search: ''
-  };
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,27 +32,22 @@ export class SpecOrganizationComponent implements OnInit {
       this.organizationService.getOrganization(this.organizationId).subscribe(organization => {
         this.orgName = organization.organizationName.officialName;
         this.ownerForm = this.formBuilder.group({
-          organizationName: this.formBuilder.group({
-            officialName: new FormControl(organization.organizationName.officialName),
-            usualName: new FormControl(organization.organizationName.usualName),
-          }),
-          address: this.formBuilder.group({
-            line: new FormControl(organization.address.line),
-          }),
-          isActive: new FormControl(organization.isActive),
-          region : new FormControl(organization.region),
-          level : new FormControl(organization.level),
           specializationIds: new FormControl(organization.specializationIds)
-        });
-        this.specializationsService.getSpecializations(this.params).subscribe(data => {
-          this.specializations = <ISpecialization[]>data.body?.data;
-        }, (error) => {
-          this.router.navigate([`/admin/organizations/`]).then();
         });
       }, (error) => {
         this.router.navigate([`/admin/organizations/`]).then();
       });
     }
+    this.getShortSpecializations();
+  }
+
+
+  getShortSpecializations() {
+    this.specializationsService.getShortSpecializations().subscribe(data => {
+      this.specializations = <IShortSpecialization[]>data;
+    }, (error) => {
+      this.router.navigate([`/admin/organizations/`]).then();
+    });
   }
 
   checkSpecializationInOrganization(specializationId: string): boolean {
@@ -78,9 +66,9 @@ export class SpecOrganizationComponent implements OnInit {
     }
   }
 
-  updateOrganization(){
+  setSpecializationIds(){
     if(this.organizationId){
-      this.organizationService.updateOrganization(this.ownerForm.value, this.organizationId).subscribe((data: {}) => {
+      this.organizationService.setSetSpecializations(this.ownerForm.value.specializationIds, this.organizationId).subscribe((data: {}) => {
         this.router.navigate(['/admin/organizations']).then();
       }, (error) => {
         this.router.navigate([`admin/organizations/${this.organizationId}/specializations`]).then();

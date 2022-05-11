@@ -17,7 +17,7 @@ export class ViewOrganizationsComponent implements OnInit {
   @ViewChild('search', {static: false}) searchTerm!: ElementRef;
   orgParams = new Params();
   totalCount!: number;
-  displayedColumns: string[] = ['officialName', 'usualName', 'line', 'region', 'level', 'isActive', 'actions'];
+  displayedColumns: string[] = ['officialName', 'usualName', 'line', 'specializationIds', 'region', 'level', 'isActive', 'actions'];
   
   constructor(
     private organizationsService: OrganizationsService,

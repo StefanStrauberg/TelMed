@@ -11,6 +11,10 @@ namespace IdentityServer.API.Controllers
         public RoleController(IMediator mediatR)
             => _mediatR = mediatR;
 
+        [HttpPost("Register")]
+        public async Task<IActionResult> Register(string roleName)
+            => Ok(await _mediatR.Send(new RegisterRoleCommand(roleName)));
+
         [HttpGet]
         public async Task<IActionResult> GetAllRoles()
             => Ok(await _mediatR.Send(new GetRoleListRequest()));

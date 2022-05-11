@@ -1,7 +1,5 @@
 ﻿using IdentityServer.Domain;
-using IdentityServer.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using IdentityServer.Infrastructure.Persistence.Config;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,10 +9,14 @@ namespace IdentityServer.Infrastructure
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<ApplicationContext>(opt =>
-                opt.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<Account, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationContext>();
+            var mongoDbSettings = configuration.GetSection(nameof(MongoDbConfig)).Get<MongoDbConfig>();
+            services.AddIdentityCore<ApplicationUser>()
+                .AddRoles<ApplicationRole>()
+                .AddMongoDbStores<ApplicationUser, ApplicationRole, Guid>
+                (
+                    connectionString: mongoDbSettings.ConnectionString,
+                    databaseName: mongoDbSettings.Name
+                );
             return services;
         }
     }

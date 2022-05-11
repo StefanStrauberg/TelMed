@@ -8,8 +8,8 @@ namespace IdentityServer.Application.Features.Account.Handlers.Commands
 {
     public class DeleteRoleCommandHandler : IRequestHandler<DeleteRoleCommand>
     {
-        private readonly RoleManager<IdentityRole> _roleManager;
-        public DeleteRoleCommandHandler(RoleManager<IdentityRole> roleManager)
+        private readonly RoleManager<Domain.ApplicationRole> _roleManager;
+        public DeleteRoleCommandHandler(RoleManager<Domain.ApplicationRole> roleManager)
             => _roleManager = roleManager;
         public async Task<Unit> Handle(DeleteRoleCommand request, CancellationToken cancellationToken)
         {

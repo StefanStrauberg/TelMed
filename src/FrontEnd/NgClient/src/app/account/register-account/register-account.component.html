@@ -1,40 +1,47 @@
-<pre>{{ ownerForm.value | json }}</pre>
 <mat-card class="example-form">
     <mat-card-title class="card-header bg-primary">
         <div class="d-flex justify-content-end">
             <a mat-raised-button routerLink="/admin/accounts">
                 <i class="fa-solid fa-xmark"></i> Отмена
             </a>
-            <button mat-raised-button color="primary" form="createForm" [disabled]="ownerForm.invalid">
+            <button mat-raised-button color="primary" form="createForm" [disabled]="ownerForm.invalid" (click)="createAccount()">
                 <i class="fa-solid fa-check"></i> Создать
             </button>
         </div>
     </mat-card-title>
     <mat-card-content>
-        <form [formGroup]="ownerForm" class="createForm" id="createForm">
+        <form [formGroup]="ownerForm" id="createForm">
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Имя пользователя</mat-label>
-                <input matInput required formControlName="userName" type="text" placeholder="userName">
+                <input matInput required formControlName="userName" type="text" placeholder="Укажите логин пользователя">
             </mat-form-field>
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Пароль</mat-label>
-                <input matInput required formControlName="password" type="password" placeholder="password">
+                <input matInput required formControlName="password" type="password" placeholder="Укажите пароль пользователя"
+                pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$">
+                <mat-error *ngIf="ownerForm.value.password">
+                    Пароль должен содержать маленькие и большие буквы, цифры, знаки, и должен быть больше 8 символов
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Подтверждение пароля</mat-label>
-                <input matInput required formControlName="confirmPassword" type="password" placeholder="confirmPassword">
+                <input matInput required formControlName="confirmPassword" type="password" placeholder="Подтвердите пароль"
+                pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$">
+                <mat-error *ngIf="ownerForm.value.confirmPassword">
+                    Passwords do not match.
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Фамилия</mat-label>
-                <input matInput required formControlName="lastName" type="text" placeholder="lastName">
+                <input matInput required formControlName="lastName" type="text" placeholder="Укажите фамилию пользователя">
             </mat-form-field>
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Имя</mat-label>
-                <input matInput required formControlName="firstName" type="text" placeholder="firstName">
+                <input matInput required formControlName="firstName" type="text" placeholder="Укажите имя пользователя">
             </mat-form-field>
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Отчество</mat-label>
-                <input matInput required formControlName="middleName" type="text" placeholder="middleName">
+                <input matInput required formControlName="middleName" type="text" placeholder="Укажите отчество пользователя">
             </mat-form-field>
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Роль</mat-label>
@@ -50,11 +57,21 @@
             </mat-form-field>
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Номер мобильного телефона</mat-label>
-                <input matInput required formControlName="phoneNumber" type="number" placeholder="phoneNumber">
+                <input matInput required formControlName="phoneNumber" type="text" placeholder="Укажите мобильного номер пользователя">
             </mat-form-field>
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Номер городского телефона</mat-label>
-                <input matInput required formControlName="officePhone" type="number" placeholder="officePhone">
+                <input matInput required formControlName="officePhone" type="text" placeholder="Укажите городской номер пользователя">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Электронная почта</mat-label>
+                <input matInput required formControlName="email" type="email" placeholder="Укажите E-Mail пользователя">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Специализации</mat-label>
+                <mat-select formControlName="specializationId">
+                    <mat-option *ngFor="let shortSpecialization of shortSpecializations" [value]="shortSpecialization.id">{{ shortSpecialization.name }}</mat-option>
+                </mat-select>
             </mat-form-field>
         </form>
     </mat-card-content>

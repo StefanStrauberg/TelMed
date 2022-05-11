@@ -25,7 +25,7 @@ export class OrganizationsService {
     return this.http.get<IPagination>(this.createCompleteRoute(this.baseUrl, this.envUrl.urlAddress), {observe: 'response', params});
   }
 
-  // Get All Organizations
+  // Get All Short Organizations
   getShortOrganizations = () => {
     return this.http.get<IShortOrganization[]>(this.createCompleteRoute(this.baseUrl + '/GetShort', this.envUrl.urlAddress));
   }

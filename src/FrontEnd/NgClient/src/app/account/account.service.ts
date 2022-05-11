@@ -24,12 +24,12 @@ export class AccountService {
 
   // Get By Id Account
   getAccount = (id: string) => {
-    return this.http.get<IAccount>(this.createCompleteRoute(this.baseAccountUrl + `/${id}`, this.envUrl.urlAddress));
+    return this.http.get<IAccount>(this.createCompleteRoute(this.baseAccountUrl + `/${id}`, this.envUrl.identityServer));
   }
 
   // Create Account
   createAccount = (model: IAccount) => {
-    return this.http.post<{}>(this.baseAccountUrl, model);
+    return this.http.post<{}>(this.createCompleteRoute(this.baseAccountUrl + '/Register', this.envUrl.identityServer), model);
   }
 
   // Update Account

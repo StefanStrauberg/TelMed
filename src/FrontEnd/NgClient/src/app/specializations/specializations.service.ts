@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IPagination } from '../shared/models/pagination';
 import { Params } from '../shared/models/params';
-import { ISpecialization } from '../shared/models/specialization';
+import { IShortSpecialization, ISpecialization } from '../shared/models/specialization';
 import { EnvironmentUrlService } from '../shared/services/environment-url.service';
 
 @Injectable({
@@ -22,6 +22,11 @@ export class SpecializationsService {
     params = params.append('pageIndex', specParams.pageNumber.toString());
     params = params.append('pageSize', specParams.pageSize.toString());
     return this.http.get<IPagination>(this.createCompleteRoute(this.baseUrl, this.envUrl.urlAddress), {observe: 'response', params});
+  }
+
+  // Get All Short Specialization
+  getShortSpecializations = () => {
+    return this.http.get<IShortSpecialization[]>(this.createCompleteRoute(this.baseUrl + '/GetShort', this.envUrl.urlAddress));
   }
 
   // Get By Id Specialization

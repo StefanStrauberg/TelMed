@@ -10,10 +10,10 @@ namespace IdentityServer.Application.Features.Account.Handlers.Commands
 {
     public class LoginAccountCommandHandler : IRequestHandler<LoginAccountCommand, AuthResponseDto>
     {
-        private readonly UserManager<IdentityServer.Domain.Account> _userManager;
+        private readonly UserManager<IdentityServer.Domain.ApplicationUser> _userManager;
         private readonly JwtHandler _jwtHandler;
         public LoginAccountCommandHandler(
-            UserManager<Domain.Account> userManager,
+            UserManager<Domain.ApplicationUser> userManager,
             JwtHandler jwtHandler)
         {
             _userManager = userManager;

@@ -10,10 +10,10 @@ namespace IdentityServer.Application.Features.Account.Handlers.Queries
     public class GetAccountDetailRequestHandler : IRequestHandler<GetAccountDetailRequest, AccountDto>
     {
         private readonly IMapper _mapper;
-        private readonly UserManager<IdentityServer.Domain.Account> _userManager;
+        private readonly UserManager<Domain.ApplicationUser> _userManager;
         public GetAccountDetailRequestHandler(
             IMapper mapper,
-            UserManager<Domain.Account> userManager)
+            UserManager<Domain.ApplicationUser> userManager)
         {
             _mapper = mapper;
             _userManager = userManager;
@@ -24,7 +24,6 @@ namespace IdentityServer.Application.Features.Account.Handlers.Queries
             if (user is null)
                 throw new AccountBadRequestException(request.id);
             var result = _mapper.Map<AccountDto>(user);
-            result.Role = string.Join(",", await _userManager.GetRolesAsync(user));
             return result;
         }
     }

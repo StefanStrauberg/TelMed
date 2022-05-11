@@ -4,3 +4,8 @@ export interface ISpecialization {
     isActive: boolean;
     denyConsult: boolean;
 }
+
+export interface IShortSpecialization {
+    id: string;
+    name: string;
+}

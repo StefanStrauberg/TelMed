@@ -12,10 +12,10 @@ namespace IdentityServer.Application.Security
     {
         private readonly IConfiguration _configuration;
         private readonly IConfigurationSection _jwtSettings;
-        private readonly UserManager<Account> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         public JwtHandler(
             IConfiguration configuration,
-            UserManager<Account> userManager)
+            UserManager<ApplicationUser> userManager)
         {
             _configuration = configuration;
             _jwtSettings = _configuration.GetSection("JWTSettings");
@@ -27,7 +27,7 @@ namespace IdentityServer.Application.Security
             var secret = new SymmetricSecurityKey(key);
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
         }
-        public async Task<List<Claim>> GetClaims(Account user)
+        public async Task<List<Claim>> GetClaims(ApplicationUser user)
         {
             var claims = new List<Claim>
             {

@@ -8,9 +8,11 @@ namespace IdentityServer.Application.Mappings
     {
         public MappingProfile()
         {
-            CreateMap<AccountForRegistrationDto, Account>();
-            CreateMap<AccountForUpdateDto, Account>();
-            CreateMap<Account, AccountDto>();
+            CreateMap<AccountForRegistrationDto, ApplicationUser>();
+            CreateMap<AccountForUpdateDto, ApplicationUser>();
+            CreateMap<ApplicationRole, RoleDto>();
+            CreateMap<ApplicationUser, AccountDto>()
+                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => string.Join(", ", src.Roles)));
         }
     }
 }

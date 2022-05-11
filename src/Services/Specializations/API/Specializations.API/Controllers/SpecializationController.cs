@@ -27,6 +27,10 @@ namespace Specializations.API.Controllers
                 data: await _mediator.Send(new GetSpecializationListRequest(querySpecParams))
             ));
 
+        [HttpGet("GetShort")]
+        public async Task<IActionResult> GetShortSpecializations()
+            =>Ok(await _mediator.Send(new GetShortSpecializations()));
+
         [HttpGet("{id:length(24)}")]
         [ProducesResponseType(typeof(SpecializationDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

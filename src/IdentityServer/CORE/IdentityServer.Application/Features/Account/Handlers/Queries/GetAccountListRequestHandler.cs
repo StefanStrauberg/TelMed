@@ -9,20 +9,22 @@ namespace IdentityServer.Application.Features.Account.Handlers.Queries
     public class GetAccountListRequestHandler : IRequestHandler<GetAccountListRequest, List<AccountDto>>
     {
         private readonly IMapper _mapper;
-        private readonly UserManager<Domain.Account> _userManager;
+        private readonly UserManager<Domain.ApplicationUser> _userManager;
+        private readonly RoleManager<Domain.ApplicationRole> _roleManager;
         public GetAccountListRequestHandler(
             IMapper mapper,
-            UserManager<Domain.Account> userManager)
+            UserManager<Domain.ApplicationUser> userManager,
+            RoleManager<Domain.ApplicationRole> roleManager)
         {
             _mapper = mapper;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
         public Task<List<AccountDto>> Handle(GetAccountListRequest request, CancellationToken cancellationToken)
         {
-            var users = _userManager.Users.ToList();
-            var result = _mapper.Map<List<AccountDto>>(users);
-            result.ForEach(x => x.Role = string.Join(",", _userManager.GetRolesAsync(users.First(u => u.Id == x.Id)).GetAwaiter().GetResult()));
-            return Task.FromResult(result);
-        }
+            var users = _mapper.Map<List<AccountDto>>(_userManager.Users.ToList());
+            users.ForEach(x => x.Role = _roleManager.FindByIdAsync(x.Role).GetAwaiter().GetResult().Name);
+            return Task.FromResult(users);
+        } 
     }
 }

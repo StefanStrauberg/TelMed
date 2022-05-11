@@ -75,5 +75,10 @@ namespace Specializations.Infrastructure.Repositories
                 "OrderByDescending" => Builders<Specialization>.Sort.Descending(x => x.Name),
                 _ => Builders<Specialization>.Sort.Ascending(x => x.Name)
             };
+
+        public async Task<object> GetShortSpecializaitons()
+            => await _context.Specializations.Find(x => true)
+                .Project(x => new { Id = x.Id, Name = x.Name})
+                .ToListAsync();
     }
 }

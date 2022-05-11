@@ -7,8 +7,8 @@ namespace IdentityServer.Application.Features.Account.Handlers.Commands
 {
     public class DeleteAccountCommandHandler : IRequestHandler<DeleteAccountCommand>
     {
-        private readonly UserManager<IdentityServer.Domain.Account> _userManager;
-        public DeleteAccountCommandHandler(UserManager<Domain.Account> userManager)
+        private readonly UserManager<Domain.ApplicationUser> _userManager;
+        public DeleteAccountCommandHandler(UserManager<Domain.ApplicationUser> userManager)
             => _userManager = userManager;
         public async Task<Unit> Handle(DeleteAccountCommand request, CancellationToken cancellationToken)
         {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IAccount } from 'src/app/shared/models/account';
+import { IAccount, IRole } from 'src/app/shared/models/account';
 import { AccountService } from '../account.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class ViewAccountsComponent implements OnInit {
     this.getAllSpecializations();
   }
 
-  getAllSpecializations(){
+  getAllSpecializations() {
     this.accountService.getAccounts().subscribe(response => {
       this.accounts = response;
     }, (error) => {

@@ -2,12 +2,14 @@ using Organization.GRPC.DbContexts;
 using Organization.GRPC.DbContexts.Config;
 using Organization.GRPC.Repositories;
 using Organization.GRPC.Services;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
 builder.Services.AddScoped<IMongoOrgContext, MongoOrgContext>();
 builder.Services.AddScoped<IOrganizationRepository, OrganizationRepository>();
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddGrpc();
 
 var app = builder.Build();

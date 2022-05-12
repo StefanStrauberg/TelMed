@@ -15,6 +15,12 @@ namespace Specialization.GRPC.Repositories
                 .Project(x => x.Name)
                 .FirstOrDefaultAsync();
 
+        public async Task<List<string>> GetSpecNamesByIds(List<string> ids)
+            => await _context.Specializations
+                .Find(Builders<Entities.Specialization>.Filter.In(x => x.Id, ids))
+                .Project(x => x.Name)
+                .ToListAsync();
+
         public void Dispose()
         {
             GC.SuppressFinalize(this);

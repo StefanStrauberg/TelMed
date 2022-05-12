@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using MediatR;
 using Organizations.Application.Contracts.Persistence;
 using Organizations.Application.DTO;
@@ -24,19 +25,15 @@ namespace Organizations.Application.Features.Organization.Handlers.Queries
         public async Task<IReadOnlyList<OrganizationDto>> Handle(GetOrganizationListRequest request,
             CancellationToken cancellationToken) 
         {
-            var organizations = await _repository.GetAllAsync(request.querySpecParams);
-            foreach (var org in organizations)
+            var result = await _repository.GetAllAsync(request.querySpecParams);
+            foreach (var organization in result)
             {
-                if(org.SpecializationIds.Count() == 0)
-                    continue;
-                List<string> specNames = new List<string>();
-                foreach (var id in org.SpecializationIds)
+                if (organization.SpecializationIds.Count() > 0)
                 {
-                    specNames.Add(await _specializationGrpcService.GetSpecName(id));
+                    var names = await _specializationGrpcService.GetSpecNamesByListIds(organization.SpecializationIds);
                 }
-                org.SpecializationIds = specNames;
             }
-            return _mapper.Map<IReadOnlyList<OrganizationDto>>(organizations);
+            return _mapper.Map<IReadOnlyList<OrganizationDto>>(result);
         }
     }
 }

@@ -3,13 +3,22 @@ syntax = "proto3";
 option csharp_namespace = "Specialization.GRPC";
 
 service SpecializationProtoService {
-	rpc GetSpecName (GetSpecRequest) returns (SpecName);
+	rpc GetSpecNameById (GetSpecIdRequest) returns (SpecName);
+	rpc GetSpecNamesByIds (GetSpecIdsRequestList) returns (SpecNamesList);
 }
 
-message GetSpecRequest {
+message GetSpecIdRequest {
 	string Id = 1;
+}
+
+message GetSpecIdsRequestList {
+	repeated string Id = 1;
 }
 
 message SpecName {
 	string Name = 1;
+}
+
+message SpecNamesList {
+	repeated string Name = 1;
 }

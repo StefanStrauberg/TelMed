@@ -1,4 +1,5 @@
-﻿using Grpc.Core;
+﻿using AutoMapper;
+using Grpc.Core;
 using Specialization.GRPC.Repositories;
 
 namespace Specialization.GRPC.Services
@@ -6,9 +7,20 @@ namespace Specialization.GRPC.Services
     public class SpecializationService : SpecializationProtoService.SpecializationProtoServiceBase
     {
         private readonly ISpecializationRepository _repository;
-        public SpecializationService(ISpecializationRepository repository)
-            => _repository = repository;
-        public override async Task<SpecName> GetSpecName(GetSpecRequest request, ServerCallContext context)
+        private readonly IMapper _mapper;
+        public SpecializationService(
+            ISpecializationRepository repository,
+            IMapper mapper)
+        {
+            _repository = repository;
+            _mapper = mapper;
+        }
+        public override async Task<SpecName> GetSpecNameById(GetSpecIdRequest request, ServerCallContext context)
             => new SpecName() { Name = await _repository.GetAsync(request.Id) };
+        public override async Task<SpecNamesList> GetSpecNamesByIds(GetSpecIdsRequestList request, ServerCallContext context)
+        {
+            var result = await _repository.GetSpecNamesByIds(_mapper.Map<List<string>>(request));
+            return _mapper.Map<SpecNamesList>(result);
+        }
     }
 }

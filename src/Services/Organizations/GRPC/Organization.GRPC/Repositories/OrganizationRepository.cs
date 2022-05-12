@@ -15,6 +15,12 @@ namespace Organization.GRPC.Repositories
                 .Project(x => x.OrganizationName.UsualName)
                 .FirstOrDefaultAsync();
 
+        public async Task<List<string>> GetOrgNamesByIds(List<string> ids)
+            => await _context.Organizations
+                .Find(Builders<Entities.Organization>.Filter.In(x => x.Id, ids))
+                .Project(x => x.OrganizationName.UsualName)
+                .ToListAsync();
+
         public void Dispose()
         {
             GC.SuppressFinalize(this);

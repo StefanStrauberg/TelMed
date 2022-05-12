@@ -30,13 +30,13 @@ namespace IdentityServer.Application.Features.Account.Handlers.Queries
         public async Task<List<AccountDto>> Handle(GetAccountsListRequest request, CancellationToken cancellationToken)
         {
             var result = _mapper.Map<List<AccountDto>>(await _applicationUserRepository.GetAllAsync(request.querySpecParams));
-            result.ForEach(x => 
+            await Parallel.ForEachAsync(result, async (x, cancellationToken) => 
             {
-                x.Role = _applicationRoleRepository.GetRoleNameById(x.Role).GetAwaiter().GetResult();
+                x.Role = await _applicationRoleRepository.GetRoleNameById(x.Role);
                 if (x.SpecializationId is not null)
-                    x.SpecializationId = _specializationGrpcService.GetSpecName(x.SpecializationId).GetAwaiter().GetResult();
+                    x.SpecializationId = await _specializationGrpcService.GetSpecName(x.SpecializationId);
                 if (x.SpecializationId is not null)
-                    x.OrganizationId = _organizationGrpcService.GetOrgName(x.OrganizationId).GetAwaiter().GetResult();
+                    x.OrganizationId = await _organizationGrpcService.GetOrgName(x.OrganizationId);
             });
             return result;
         }

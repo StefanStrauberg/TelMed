@@ -17,10 +17,10 @@ namespace IdentityServer.API.Controllers
 
         [HttpGet]
         public async Task<IActionResult> GetAllRoles()
-            => Ok(await _mediatR.Send(new GetRoleListRequest()));
+            => Ok(await _mediatR.Send(new GetRolesListRequest()));
         
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAllRoleById(string id)
+        public async Task<IActionResult> GetAllRoleById(Guid id)
             => Ok(await _mediatR.Send(new GetRoleDetailRequest(id)));
 
         [HttpDelete("{id}")]

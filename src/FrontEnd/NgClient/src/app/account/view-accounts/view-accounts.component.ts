@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IAccount, IRole } from 'src/app/shared/models/account';
+import { Params } from 'src/app/shared/models/params';
 import { AccountService } from '../account.service';
 
 @Component({
@@ -11,6 +12,7 @@ import { AccountService } from '../account.service';
 export class ViewAccountsComponent implements OnInit {
   accounts: IAccount[] = [];
   displayedColumns: string[] = ['userName', 'fullName', 'roleId', 'specializationId', 'organizationId', 'contacts', 'isActive', 'actions'];
+  accParams = new Params();
 
   constructor(private accountService: AccountService,
     private router: Router) { }
@@ -20,8 +22,8 @@ export class ViewAccountsComponent implements OnInit {
   }
 
   getAllSpecializations() {
-    this.accountService.getAccounts().subscribe(response => {
-      this.accounts = response;
+    this.accountService.getAccounts(this.accParams).subscribe(response => {
+      this.accounts = <IAccount[]>response?.body?.data;
     }, (error) => {
       this.router.navigate(['/']).then();
       console.log(error);

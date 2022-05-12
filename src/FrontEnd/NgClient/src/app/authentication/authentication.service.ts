@@ -7,7 +7,7 @@ import { EnvironmentUrlService } from '../shared/services/environment-url.servic
   providedIn: 'root'
 })
 export class AuthenticationService {
-  baseAccountUrl: string = 'api/Account/Login';
+  baseAccountUrl: string = 'api/Login';
 
   constructor(private http: HttpClient, private envUrl: EnvironmentUrlService) { }
 

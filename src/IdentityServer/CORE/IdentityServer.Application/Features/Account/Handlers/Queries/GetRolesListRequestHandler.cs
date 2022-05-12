@@ -1,4 +1,4 @@
-using AutoMapper;
+﻿using AutoMapper;
 using IdentityServer.Application.Contracts.Persistence;
 using IdentityServer.Application.DTOs;
 using IdentityServer.Application.Features.Account.Requests.Queries;
@@ -6,11 +6,11 @@ using MediatR;
 
 namespace IdentityServer.Application.Features.Account.Handlers.Queries
 {
-    public class GetRoleDetailRequestHandler : IRequestHandler<GetRoleDetailRequest, RoleDto>
+    public class GetRolesListRequestHandler : IRequestHandler<GetRolesListRequest, IReadOnlyList<RoleDto>>
     {
         private readonly IMapper _mapper;
         private readonly IApplicationRoleRepository _applicationRoleRepository;
-        public GetRoleDetailRequestHandler(
+        public GetRolesListRequestHandler(
             IMapper mapper,
             IApplicationRoleRepository applicationRoleRepository)
         {
@@ -18,7 +18,7 @@ namespace IdentityServer.Application.Features.Account.Handlers.Queries
             _applicationRoleRepository = applicationRoleRepository;
         }
 
-        public async Task<RoleDto> Handle(GetRoleDetailRequest request, CancellationToken cancellationToken)
-            => _mapper.Map<RoleDto>(await _applicationRoleRepository.GetAsync(request.id));
+        public async Task<IReadOnlyList<RoleDto>> Handle(GetRolesListRequest request, CancellationToken cancellationToken)
+            => _mapper.Map<IReadOnlyList<RoleDto>>(await _applicationRoleRepository.GetAllAsync());
     }
 }

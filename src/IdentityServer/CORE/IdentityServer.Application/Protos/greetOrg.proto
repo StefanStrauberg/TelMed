@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option csharp_namespace = "Organization.GRPC";
+
+service OrganizationProtoService {
+	rpc GetOrgName (GetOrgRequest) returns (OrgName);
+}
+
+message GetOrgRequest {
+	string Id = 1;
+}
+
+message OrgName {
+	string Name = 1;
+}

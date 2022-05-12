@@ -6,9 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Contracts\**" />
-    <EmbeddedResource Remove="Contracts\**" />
-    <None Remove="Contracts\**" />
+    <None Remove="Protos\greetOrg.proto" />
+    <None Remove="Protos\greetSpec.proto" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,10 +17,16 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.0.1" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.45.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.17.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.17.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Protos\greetOrg.proto" GrpcServices="Client" />
+    <Protobuf Include="Protos\greetSpec.proto" GrpcServices="Client" />
   </ItemGroup>
 
 </Project>

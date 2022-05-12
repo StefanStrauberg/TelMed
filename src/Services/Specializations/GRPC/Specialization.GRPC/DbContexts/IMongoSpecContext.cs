@@ -4,6 +4,6 @@ namespace Specialization.GRPC.DbContexts
 {
     public interface IMongoSpecContext
     {
-        IMongoCollection<Specialization.GRPC.Entities.Specialization> Specializations { get; }
+        IMongoCollection<Entities.Specialization> Specializations { get; }
     }
 }

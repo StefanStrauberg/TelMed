@@ -12,8 +12,10 @@ namespace Organizations.Application.Mappings
             CreateMap<CreateOrganizationDto, Organization>();
             CreateMap<UpdateOrganizationDto, Organization>();
             CreateMap<Organization, OrganizationDetailDto>();
-            CreateMap<List<string>, GetSpecIdsRequestList>();
-            CreateMap<SpecNamesList, List<string>>();
+            CreateMap<List<string>, GetSpecIdsRequestList>()
+                .ForMember(dst => dst.Id, opt => opt.MapFrom(src => src));
+            CreateMap<SpecNamesList, List<string>>()
+                .ConvertUsing(src => src.Name.Select(name => name.ToString()).ToList());
             CreateMap<Organization, OrganizationDto>()
                 .ForMember(dest => dest.SpecializationIds, opt => opt.MapFrom(src => string.Join(", ", src.SpecializationIds)));
         }

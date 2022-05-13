@@ -21,7 +21,7 @@ namespace Organizations.Application
             services.AddTransient<ExceptionHandlingMiddleware>();
             services.AddGrpcClient<SpecializationProtoService.SpecializationProtoServiceClient>
                 (options => options.Address = new Uri(config["GrpcSettings:SpecializationUrl"]));
-            services.AddScoped<SpecializationGrpcService>();
+            services.AddScoped<IGrpcService, GrpcService>();
             return services;
         }
     }

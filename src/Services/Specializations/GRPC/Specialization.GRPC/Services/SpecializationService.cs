@@ -18,9 +18,7 @@ namespace Specialization.GRPC.Services
         public override async Task<SpecName> GetSpecNameById(GetSpecIdRequest request, ServerCallContext context)
             => new SpecName() { Name = await _repository.GetAsync(request.Id) };
         public override async Task<SpecNamesList> GetSpecNamesByIds(GetSpecIdsRequestList request, ServerCallContext context)
-        {
-            var result = await _repository.GetSpecNamesByIds(_mapper.Map<List<string>>(request));
-            return _mapper.Map<SpecNamesList>(result);
-        }
+            => _mapper.Map<SpecNamesList>(
+                await _repository.GetSpecNamesByIds(_mapper.Map<List<string>>(request)));
     }
 }

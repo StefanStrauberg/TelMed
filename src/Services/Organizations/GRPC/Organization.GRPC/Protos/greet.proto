@@ -4,7 +4,7 @@ option csharp_namespace = "Organization.GRPC";
 
 service OrganizationProtoService {
 	rpc GetOrgNameById (GetOrgIdRequest) returns (OrgName);
-	rpc GetOrgNameByIds (GetOrgIdsRequestList) returns (OrgNameList);
+	rpc GetOrgNamesByIds (GetOrgIdsRequestList) returns (OrgNamesList);
 }
 
 message GetOrgIdRequest {
@@ -19,6 +19,6 @@ message OrgName {
 	string Name = 1;
 }
 
-message OrgNameList {
+message OrgNamesList {
 	repeated string Name = 1;
 }

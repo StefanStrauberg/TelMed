@@ -12,20 +12,17 @@ namespace IdentityServer.Application.Features.Account.Handlers.Queries
         private readonly IMapper _mapper;
         private readonly IApplicationUserRepository _applicationUserRepository;
         private readonly IApplicationRoleRepository _applicationRoleRepository;
-        private readonly SpecializationGrpcService _specializationGrpcService;
-        private readonly OrganizationGrpcService _organizationGrpcService;
+        private readonly IGrpcService _grpcService;
         public GetAccountsListRequestHandler(
             IMapper mapper,
             IApplicationUserRepository applicationUserRepository,
             IApplicationRoleRepository applicationRoleRepository,
-            SpecializationGrpcService specializationGrpcService,
-            OrganizationGrpcService organizationGrpcService)
+            IGrpcService grpcService)
         {
             _mapper = mapper;
             _applicationUserRepository = applicationUserRepository;
             _applicationRoleRepository = applicationRoleRepository;
-            _specializationGrpcService = specializationGrpcService;
-            _organizationGrpcService = organizationGrpcService;
+            _grpcService = grpcService;
         }
         public async Task<List<AccountDto>> Handle(GetAccountsListRequest request, CancellationToken cancellationToken)
         {
@@ -34,9 +31,9 @@ namespace IdentityServer.Application.Features.Account.Handlers.Queries
             {
                 x.Role = await _applicationRoleRepository.GetRoleNameById(x.Role);
                 if (x.SpecializationId is not null)
-                    x.SpecializationId = await _specializationGrpcService.GetSpecName(x.SpecializationId);
+                    x.SpecializationId = await _grpcService.GetSpecName(x.SpecializationId);
                 if (x.SpecializationId is not null)
-                    x.OrganizationId = await _organizationGrpcService.GetOrgName(x.OrganizationId);
+                    x.OrganizationId = await _grpcService.GetOrgName(x.OrganizationId);
             });
             return result;
         }

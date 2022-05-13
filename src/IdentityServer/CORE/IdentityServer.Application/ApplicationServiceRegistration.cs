@@ -24,10 +24,9 @@ namespace IdentityServer.Application
             services.AddScoped<JwtHandler>();
             services.AddGrpcClient<SpecializationProtoService.SpecializationProtoServiceClient>
                 (options => options.Address = new Uri(config["GrpcSettings:SpecializationUrl"]));
-            services.AddScoped<SpecializationGrpcService>();
             services.AddGrpcClient<OrganizationProtoService.OrganizationProtoServiceClient>
                 (options => options.Address = new Uri(config["GrpcSettings:OrganizationUrl"]));
-            services.AddScoped<OrganizationGrpcService>();
+            services.AddScoped<IGrpcService, GrpcService>();
             return services;
         }
     }

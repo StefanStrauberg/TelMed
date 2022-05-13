@@ -1,5 +1,4 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Organizations.Application.Contracts.Persistence;
 using Organizations.Application.DTO;
@@ -12,27 +11,25 @@ namespace Organizations.Application.Features.Organization.Handlers.Queries
     {
         private readonly IOrganizationRepository _repository;
         private readonly IMapper _mapper;
-        private readonly SpecializationGrpcService _specializationGrpcService;
+        private readonly IGrpcService _grpcService;
         public GetOrganizationListRequestHandler(
             IOrganizationRepository repository,
             IMapper mapper,
-            SpecializationGrpcService specializationGrpcService)
+            IGrpcService grpcService)
         {
             _repository = repository;
             _mapper = mapper;
-            _specializationGrpcService = specializationGrpcService;
+            _grpcService = grpcService;
         }
         public async Task<IReadOnlyList<OrganizationDto>> Handle(GetOrganizationListRequest request,
             CancellationToken cancellationToken) 
         {
             var result = await _repository.GetAllAsync(request.querySpecParams);
-            foreach (var organization in result)
+            await Parallel.ForEachAsync(result, async (x, CancellationToken) =>
             {
-                if (organization.SpecializationIds.Count() > 0)
-                {
-                    var names = await _specializationGrpcService.GetSpecNamesByListIds(organization.SpecializationIds);
-                }
-            }
+                if(x.SpecializationIds is not null)
+                    x.SpecializationIds = await _grpcService.GetSpecNamesByListIds(x.SpecializationIds);
+            });
             return _mapper.Map<IReadOnlyList<OrganizationDto>>(result);
         }
     }

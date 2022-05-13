@@ -18,10 +18,8 @@ namespace Organization.GRPC.Services
         public override async Task<OrgName> GetOrgNameById(GetOrgIdRequest request, ServerCallContext context)
             => new OrgName { Name = await _repository.GetUsualNameAsync(request.Id) };
 
-        public override async Task<OrgNameList> GetOrgNameByIds(GetOrgIdsRequestList request, ServerCallContext context)
-        {
-            var result = await _repository.GetOrgNamesByIds(_mapper.Map<List<string>>(request.Id));
-            return _mapper.Map<OrgNameList>(result);
-        }
+        public override async Task<OrgNamesList> GetOrgNamesByIds(GetOrgIdsRequestList request, ServerCallContext context)
+            => _mapper.Map<OrgNamesList>(
+                await _repository.GetOrgNamesByIds(_mapper.Map<List<string>>(request)));
     }
 }

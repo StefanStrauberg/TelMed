@@ -19,10 +19,6 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
-    this.authService.authChanged
-    .subscribe(res => {
-      this.isUserAuthenticated = res;
-    })
   }
 
   ngAfterViewInit() {

@@ -9,32 +9,22 @@ import { AuthenticationService } from '../authentication.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
-  loginForm!: FormGroup;
-  errorMessage: string = '';
-  showError!: boolean;
+  
+  loginForm = new FormGroup({
+    login: new FormControl(null, [Validators.required]),
+    password: new FormControl(null, [Validators.required])
+  })
   
   constructor(
     private authService: AuthenticationService,
     private router: Router) { }
 
   ngOnInit(): void {
-    this.loginForm = new FormGroup({
-      login: new FormControl("", [Validators.required]),
-      password: new FormControl("", [Validators.required])
-    })
   }
 
   public loginUser = () => {
-    this.showError = false;
-    this.authService.loginUser(this.loginForm.value).subscribe(res => {
-      localStorage.setItem("token", res.token);
-      this.authService.sendAuthStateChangeNotification(true);
-      this.router.navigate(["/"]);
-    },
-    (error) => {
-      this.errorMessage = error;
-      this.showError = true;
-    })
+    this.authService.login(this.loginForm.value).subscribe(response => {
+      this.router.navigate(['/']);
+    });
   }
 }

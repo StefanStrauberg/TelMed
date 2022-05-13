@@ -1,16 +1,18 @@
 <mat-toolbar class="mat-elevation-z8">
-    <button mat-icon-button (click)="sidenav.toggle()">
+    <button *ngIf="isUserAuthenticated" mat-icon-button (click)="sidenav.toggle()">
         <mat-icon> menu </mat-icon>
     </button>
     <app-nav-bar></app-nav-bar>
 </mat-toolbar>
 <mat-sidenav-container>
-    <mat-sidenav #sidenav="matSidenav">
-            <app-side-bar></app-side-bar>
+    <mat-sidenav *ngIf="isUserAuthenticated" #sidenav="matSidenav">
+        <app-side-bar></app-side-bar>
     </mat-sidenav>
     <mat-sidenav-content>
-    <div class="content mat-elevation-z8">
-        <router-outlet></router-outlet>
-    </div>
+        <div class="content mat-elevation-z8">
+            <div>
+                <router-outlet></router-outlet>
+            </div>
+        </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

@@ -2,6 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { delay } from 'rxjs';
+import { AuthenticationService } from './authentication/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -11,22 +12,34 @@ import { delay } from 'rxjs';
 export class AppComponent {
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
+  public isUserAuthenticated!: boolean;
   
-  constructor(private observer: BreakpointObserver) {
+  constructor(private authService: AuthenticationService,
+    private observer: BreakpointObserver) {
+  }
+
+  ngOnInit(): void {
+    this.authService.authChanged
+    .subscribe(res => {
+      this.isUserAuthenticated = res;
+    })
   }
 
   ngAfterViewInit() {
-    this.observer
+    if(this.isUserAuthenticated)
+    {
+      this.observer
       .observe(['(max-width: 800px)'])
       .pipe(delay(1))
       .subscribe((res) => {
         if (res.matches) {
-          this.sidenav.mode = 'over';
-          this.sidenav.close();
-        } else {
           this.sidenav.mode = 'side';
           this.sidenav.open();
+        } else {
+          this.sidenav.mode = 'over';
+          this.sidenav.close();
         }
       });
+    }
   }
 }

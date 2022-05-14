@@ -5,7 +5,7 @@ import { ViewAccountsComponent } from './view-accounts/view-accounts.component';
 import { UpdateAccountComponent } from './update-account/update-account.component';
 import { SharedModule } from '../shared/shared.module';
 import { AccountRoutingModule } from './account-routing.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
@@ -23,7 +23,6 @@ import { MatIconModule } from '@angular/material/icon';
     CommonModule,
     SharedModule,
     AccountRoutingModule,
-    FormsModule,
     MatButtonModule,
     MatTableModule,
     MatCardModule,

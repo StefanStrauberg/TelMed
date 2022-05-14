@@ -9,49 +9,49 @@ import { EnvironmentUrlService } from '../shared/services/environment-url.servic
   providedIn: 'root'
 })
 export class AccountService {
-  baseAccountUrl: string = 'api';
 
   constructor(private http: HttpClient, private envUrl: EnvironmentUrlService) { }
 
   // Get All Roles
-  getRoles = () => {
-    return this.http.get<IRole[]>(this.createCompleteRoute(this.baseAccountUrl + '/Role', this.envUrl.identityServer));
+  public getRoles = (route: string) => {
+    return this.http.get<IRole[]>(this.createCompleteRoute(route, this.envUrl.identityServer));
   }
 
   // Get All Accounts
-  getAccounts = (specParams: Params) => {
+  public getAccounts = (route: string, specParams: Params) => {
     let params = new HttpParams();
     if(specParams.search){
       params = params.append('search', specParams.search);
     }
     params = params.append('pageIndex', specParams.pageNumber.toString());
     params = params.append('pageSize', specParams.pageSize.toString());
-    return this.http.get<IPagination>(this.createCompleteRoute(this.baseAccountUrl + '/Account', this.envUrl.identityServer), {observe: 'response', params});
+    return this.http.get<IPagination>(this.createCompleteRoute(route, this.envUrl.identityServer), {observe: 'response', params});
   }
 
   // Get By Id Account
-  getAccount = (id: string) => {
-    return this.http.get<IAccount>(this.createCompleteRoute(this.baseAccountUrl + `/Account/${id}`, this.envUrl.identityServer));
+  public getAccount = (route: string, id: string) => {
+    return this.http.get<IAccount>(this.createCompleteRoute(route + `/${id}`, this.envUrl.identityServer));
   }
 
   // Create Account
-  createAccount = (model: IAccount) => {
-    return this.http.post<{}>(this.createCompleteRoute(this.baseAccountUrl + '/Register', this.envUrl.identityServer), model);
+  public createAccount = (route: string, model: IAccount) => {
+    return this.http.post<{}>(this.createCompleteRoute(route, this.envUrl.identityServer), model, this.generateHeaders());
   }
 
   // Update Account
-  updateAccount = (model: IAccount, id: string) => {
-    return this.http.put<{}>(this.createCompleteRoute(this.baseAccountUrl + `/Account/${id}`, this.envUrl.identityServer), model);
+  public updateAccount = (route: string, model: IAccount, id: string) => {
+    return this.http.put<{}>(this.createCompleteRoute(route + `/${id}`, this.envUrl.identityServer), model, this.generateHeaders());
   }
 
   // Delete Account
-  deleteAccount = (id: string) => {
-    return this.http.delete<{}>(this.createCompleteRoute(this.baseAccountUrl + `/Account/${id}`, this.envUrl.identityServer));
+  public deleteAccount = (route: string, id: string) => {
+    return this.http.delete<{}>(this.createCompleteRoute(route + `/${id}`, this.envUrl.identityServer));
   }
 
   private createCompleteRoute = (route: string, envAddress: string) => {
     return `${envAddress}/${route}`;
   }
+
   private generateHeaders = () => {
     return {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })

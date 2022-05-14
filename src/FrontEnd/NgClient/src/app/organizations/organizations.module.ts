@@ -5,7 +5,7 @@ import { UpdateOrganizationComponent } from './update-organization/update-organi
 import { ViewOrganizationsComponent } from './view-organizations/view-organizations.component';
 import { OrganizationsRoutingModule } from './organizations-routing.module';
 import { SpecOrganizationComponent } from './spec-organization/spec-organization.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { OrgRegPipe } from '../pipes/org-reg.pipe';
 import { OrgLevPipe } from '../pipes/org-lev.pipe';
 import { SharedModule } from '../shared/shared.module';
@@ -30,7 +30,6 @@ import { MatDividerModule } from '@angular/material/divider';
   imports: [
     CommonModule,
     OrganizationsRoutingModule,
-    FormsModule,
     SharedModule,
     MatTableModule,
     MatButtonModule,

@@ -7,7 +7,7 @@ import { ViewAccountsComponent } from './view-accounts/view-accounts.component';
 const routes: Routes = [
   { path: '', component: ViewAccountsComponent },
   { path: 'create', component: RegisterAccountComponent },
-  { path: 'edit/:id', component: UpdateAccountComponent },
+  { path: 'edit/:id', component: UpdateAccountComponent }
 ]
 
 @NgModule({

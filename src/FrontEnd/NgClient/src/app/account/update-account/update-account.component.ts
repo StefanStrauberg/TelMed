@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { OrganizationsService } from 'src/app/organizations/organizations.service';
-import { IRole } from 'src/app/shared/models/account';
+import { IAccount, IRole } from 'src/app/shared/models/account';
 import { IShortOrganization } from 'src/app/shared/models/organization';
 import { IShortSpecialization } from 'src/app/shared/models/specialization';
 import { SpecializationsService } from 'src/app/specializations/specializations.service';
@@ -13,12 +13,13 @@ import { AccountService } from '../account.service';
   templateUrl: './update-account.component.html',
   styleUrls: ['./update-account.component.scss']
 })
-export class UpdateAccountComponent implements OnInit {
+export class UpdateAccountComponent implements OnInit { 
   ownerForm!: FormGroup;
   roles: IRole[] = [];
   shortOrganizations: IShortOrganization[] = [];
   shortSpecializations: IShortSpecialization[] = [];
   accountId: string | null = null;
+  fullUserName: string = '';
   
   constructor(
     private specializationService: SpecializationsService,
@@ -29,57 +30,63 @@ export class UpdateAccountComponent implements OnInit {
     private accountService: AccountService) { }
 
   ngOnInit(): void {
-    this.getRoles();
-    this.getShortOrganizations();
-    this.getShortSpecializations();
     this.activatedRoute.paramMap.subscribe((param: ParamMap) => {
       this.accountId = param.get('id');
     });
     if(this.accountId)
     {
-      this.accountService.getAccount(this.accountId).subscribe(response => {
-        this.ownerForm = this.formBuilder.group({
-          userName: new FormControl(response.userName, Validators.required),
-          lastName: new FormControl(response.lastName, Validators.required),
-          firstName: new FormControl(response.firstName, Validators.required),
-          middleName: new FormControl(response.middleName, Validators.required),
-          role: new FormControl(response.role, Validators.required),
-          organizationId: new FormControl(response.organizationId, Validators.required),
-          phoneNumber: new FormControl(response.phoneNumber),
-          officePhone: new FormControl(response.officePhone),
-          email: new FormControl(response.email),
-          specializationId: new FormControl(response.specializationId, Validators.required),
-        })
-      }, (error) => {
-        this.router.navigate([`/admin/accounts/`]).then();
-      })
+      this.getAccountById(this.accountId);
+      this.getRoles();
+      this.getShortOrganizations();
+      this.getShortSpecializations();
     }
   }
 
-  getRoles() {
-    this.accountService.getRoles().subscribe(response => {
-      this.roles = response;
+  private getAccountById(id: string) {
+    this.accountService.getAccount('Api/Account',id).subscribe((response: IAccount) => {
+      this.fullUserName = response.lastName + ' ' + response.firstName + ' ' + response.middleName;
+      this.ownerForm = this.ownerForm = this.formBuilder.group({
+        userName: new FormControl(response.userName, Validators.required),
+        lastName: new FormControl(response.lastName, Validators.required),
+        firstName: new FormControl(response.firstName, Validators.required),
+        middleName: new FormControl(response.middleName, Validators.required),
+        role: new FormControl(response.role, Validators.required),
+        organizationId: new FormControl(response.organizationId, Validators.required),
+        phoneNumber: new FormControl(response.phoneNumber),
+        officePhone: new FormControl(response.officePhone),
+        email: new FormControl(response.email),
+        specializationId: new FormControl(response.specializationId, Validators.required),
+        })
     }, (error) => {
-      this.router.navigate(['/']).then();
-      console.log(error);
+      console.log(error)
+      this.router.navigate([`/admin/accounts/`]).then();
     })
   }
 
-  getShortOrganizations() {
+  private getRoles() {
+    this.accountService.getRoles('Api/Role').subscribe(response => {
+      this.roles = response;
+    }, (error) => {
+      console.log(error);
+      this.router.navigate(['/']).then();
+    })
+  }
+
+  private getShortOrganizations() {
     this.organizationService.getShortOrganizations().subscribe(response => {
       this.shortOrganizations = response;
     }, (error) => {
-      this.router.navigate(['/']).then();
       console.log(error);
+      this.router.navigate(['/']).then();
     })
   }
 
-  getShortSpecializations() {
+  private getShortSpecializations() {
     this.specializationService.getShortSpecializations().subscribe(response => {
       this.shortSpecializations = response;
     }, (error) => {
-      this.router.navigate(['/']).then();
       console.log(error);
+      this.router.navigate(['/']).then();
     })
   }
 }

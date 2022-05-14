@@ -5,18 +5,21 @@
         </div>
     </mat-card-title>
     <mat-card-content>
-        <form [formGroup]="loginForm" autocomplete="off" novalidate (ngSubmit)="loginUser()">
+        <div *ngIf="showError" class="alert alert-danger" role="alert">
+            <span [innerHtml]="errorMessage"></span>
+        </div>
+        <form [formGroup]="ownerForm" autocomplete="off" novalidate (ngSubmit)="loginUser()">
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Username</mat-label>
-                <input matInput requiredput type="text" id="login" formControlName="login" placeholder="Логин:"/>
+                <input matInput type="text" id="login" formControlName="login" placeholder="Логин:"/>
             </mat-form-field>
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Password</mat-label>
-                <input matInput required type="password" id="password" formControlName="password" placeholder="Пароль:"/>
+                <input matInput type="password" id="password" formControlName="password" placeholder="Пароль:"/>
             </mat-form-field>
             <br>
             <div>
-                <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+                <button mat-raised-button color="primary" type="submit">
                     <i class="fa-solid fa-check"></i> Login
                 </button>
             </div>

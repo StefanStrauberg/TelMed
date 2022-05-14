@@ -1,18 +1,21 @@
 <mat-card class="example-form">
-    <mat-card-title class="card-header bg-primary" style="align-items: center;">
+    <mat-card-title class="card-header bg-primary d-flex justify-content-between" style="align-items: center;">
+        <div class="col">
+            <h4>{{ fullUserName }}</h4>
+        </div>
         <div class="d-flex justify-content-end">
             <a mat-raised-button routerLink="/admin/accounts">
                 <i class="fa-solid fa-xmark"></i> Отмена
             </a>
-            <button mat-raised-button color="primary" form="updateForm" [disabled]="ownerForm.invalid">
+            <button mat-raised-button color="primary" form="updateForm" [disabled]="ownerForm?.invalid">
                 <i class="fa-solid fa-check"></i> Сохранить
             </button>
         </div>
     </mat-card-title>
     <mat-card-content>
-        <form [formGroup]="ownerForm" id="updateForm">
+        <form [formGroup]="ownerForm" *ngIf="ownerForm" id="updateForm">
             <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Имя пользователя</mat-label>
+                <mat-label>Логин пользователя</mat-label>
                 <input matInput required formControlName="userName" type="text" placeholder="Укажите логин пользователя">
             </mat-form-field>
             <mat-form-field class="example-full-width" appearance="outline">

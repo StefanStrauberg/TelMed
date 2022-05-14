@@ -40,7 +40,7 @@ export class RegisterAccountComponent implements OnInit {
       firstName: new FormControl('', Validators.required),
       middleName: new FormControl('', Validators.required),
       role: new FormControl('', Validators.required),
-      organizationId: new FormControl(''),
+      organizationId: new FormControl('', Validators.required),
       phoneNumber: new FormControl(''),
       officePhone: new FormControl(''),
       email: new FormControl(''),
@@ -48,8 +48,8 @@ export class RegisterAccountComponent implements OnInit {
     });
   }
 
-  getRoles() {
-    this.accountService.getRoles().subscribe(response => {
+  private getRoles() {
+    this.accountService.getRoles('Api/Role').subscribe(response => {
       this.roles = response;
     }, (error) => {
       this.router.navigate(['/']).then();
@@ -57,7 +57,7 @@ export class RegisterAccountComponent implements OnInit {
     })
   }
 
-  getShortOrganizations() {
+  private getShortOrganizations() {
     this.organizationService.getShortOrganizations().subscribe(response => {
       this.shortOrganizations = response;
     }, (error) => {
@@ -66,7 +66,7 @@ export class RegisterAccountComponent implements OnInit {
     })
   }
 
-  getShortSpecializations() {
+  private getShortSpecializations() {
     this.specializationService.getShortSpecializations().subscribe(response => {
       this.shortSpecializations = response;
     }, (error) => {
@@ -75,10 +75,10 @@ export class RegisterAccountComponent implements OnInit {
     })
   }
 
-  createAccount(){
+  public createAccount(){
     if(this.ownerForm.valid)
     {
-      this.accountService.createAccount(this.ownerForm.value).subscribe((data: {}) => {
+      this.accountService.createAccount('Api/Register',this.ownerForm.value).subscribe((data: {}) => {
         this.router.navigate(['/admin/accounts']).then();
       }, (error) => {
         this.router.navigate(['/admin/accounts/create']).then();

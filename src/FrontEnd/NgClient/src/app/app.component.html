@@ -1,11 +1,8 @@
 <mat-toolbar class="mat-elevation-z8">
-    <button *ngIf="isUserAuthenticated" mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon> menu </mat-icon>
-    </button>
     <app-nav-bar></app-nav-bar>
 </mat-toolbar>
 <mat-sidenav-container>
-    <mat-sidenav *ngIf="isUserAuthenticated" #sidenav="matSidenav">
+    <mat-sidenav mode="side" opened>
         <app-side-bar></app-side-bar>
     </mat-sidenav>
     <mat-sidenav-content>

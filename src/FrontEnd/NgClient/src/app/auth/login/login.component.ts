@@ -10,9 +10,7 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  public errorMessage: string = '';
   ownerForm!: FormGroup;
-  public showError!: boolean;
   
   constructor(
     private _authService: AuthService,
@@ -20,8 +18,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.ownerForm = new FormGroup({
-      login: new FormControl(null),
-      password: new FormControl(null)
+      login: new FormControl(null, Validators.required),
+      password: new FormControl(null, Validators.required)
     })
   }
 
@@ -32,8 +30,6 @@ export class LoginComponent implements OnInit {
         console.log(response);
         // this._router.navigate(['/']).then();
       }, (error) => {
-        this.errorMessage = error;
-        this.showError = true;
         console.log(error);
         // this._router.navigate(['/auth']).then();
       })

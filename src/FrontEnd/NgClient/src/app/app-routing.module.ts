@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NotFoundComponent } from './core/not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
     .then(mod => mod.AccountModule) },
   { path: 'ereferral', loadChildren: () => import('./referrals/referrals.module')
     .then(mod => mod.ReferralsModule) },
+  { path: 'not-found', component: NotFoundComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 

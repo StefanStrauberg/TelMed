@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   loginUser() {
     if(this.ownerForm.valid)
     {
-      this._authService.login('Api/Login', this.ownerForm.value).subscribe((response: IToken) => {
+      this._authService.login('Api/Login2', this.ownerForm.value).subscribe((response: IToken) => {
         console.log(response);
         // this._router.navigate(['/']).then();
       }, (error) => {

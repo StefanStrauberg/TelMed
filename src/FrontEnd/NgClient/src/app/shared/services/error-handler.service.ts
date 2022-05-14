@@ -20,7 +20,7 @@ export class ErrorHandlerService implements HttpInterceptor {
             if(error.error.errors){
               throw error.error;
             } else {
-              this._toastr.error(error.error.message, error.error.statusCode);
+              this._toastr.error(error.error.detail, error.error.statusCode);
             }
           }
           if(error.status === 401) {

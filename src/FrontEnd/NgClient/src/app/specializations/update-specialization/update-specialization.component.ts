@@ -24,8 +24,12 @@ export class UpdateSpecializationComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((param: ParamMap) => {
       this.specializationId = param.get('id');
     });
+    this.getSpecialization();
+  }
+
+  getSpecialization() {
     if(this.specializationId){
-      this.specializationsService.getSpecialization(this.specializationId).subscribe((data: ISpecialization) => {
+      this.specializationsService.getSpecialization(`Specialization/${this.specializationId}`).subscribe((data: ISpecialization) => {
         this.specName = data.name;
         this.ownerForm = this.formBuilder.group({
           name: new FormControl(data.name, Validators.required),
@@ -40,7 +44,7 @@ export class UpdateSpecializationComponent implements OnInit {
 
   updateSpecialization(){
     if(this.specializationId){
-      this.specializationsService.updateSpecialization(this.ownerForm.value, this.specializationId).subscribe((data: {}) => {
+      this.specializationsService.updateSpecialization(`Specialization/${this.specializationId}` ,this.ownerForm.value).subscribe((data: {}) => {
         this.router.navigate(['/admin/specializations']).then();
       }, (error) => {
         this.router.navigate([`/admin/specializations/edit/${this.specializationId}`]).then();

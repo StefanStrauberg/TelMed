@@ -30,7 +30,7 @@ namespace IdentityServer.Application.Features.Account.Handlers.Commands
             var claims = await _jwtHandler.GetClaims(user);
             var tokenOptions = _jwtHandler.GenerateTokenOptions(signingCredentials, claims);
             var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-            return new AuthResponseDto { Token = token };
+            return new AuthResponseDto { IsAuthSuccessful = true, Token = token };
         }
     }
 }

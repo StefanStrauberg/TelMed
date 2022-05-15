@@ -25,9 +25,9 @@ namespace IdentityServer.Application.Features.Account.Handlers.Commands
             var user = await _userManager.FindByIdAsync(request.id);
             if (user is null)
                 throw new AccountBadRequestException(request.id);
-            var role = await _roleManager.FindByIdAsync(request.model.RoleId); 
+            var role = await _roleManager.FindByIdAsync(request.model.Role); 
             if(role is null)
-                throw new RoleBadRequestException(request.model.RoleId);
+                throw new RoleBadRequestException(request.model.Role);
             _mapper.Map(request.model, user);
             user.Roles = new List<Guid>() { role.Id };
             await _userManager.UpdateAsync(user);

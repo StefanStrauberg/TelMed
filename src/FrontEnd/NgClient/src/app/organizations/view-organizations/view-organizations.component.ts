@@ -28,23 +28,24 @@ export class ViewOrganizationsComponent implements OnInit {
   }
 
   getAllOrganizations() {
-    this.organizationsService.getOrganizations(this.orgParams).subscribe(response => {
+    this.organizationsService.getOrganizations('Organization', this.orgParams).subscribe(response => {
       this.organizations = <IOrganization[]>response.body?.data;
       this.orgParams.pageNumber = response.body!.pageIndex;
       this.orgParams.pageSize = response.body!.pageSize;
       this.totalCount = response.body!.count;
     }, (error) => {
-      this.router.navigate(['/']).then();
       console.log(error);
+      this.router.navigate(['/']).then();
     })
   }
 
   deleteOrganization(organizationId: string){
     if(organizationId)
     {
-      this.organizationsService.deleteOrganization(organizationId).subscribe((date: {}) => {
+      this.organizationsService.deleteOrganization(`Organization/${organizationId}`).subscribe((response: {}) => {
         this.getAllOrganizations();
       }, (error) => {
+        console.log(error);
         this.getAllOrganizations();
       });
     }

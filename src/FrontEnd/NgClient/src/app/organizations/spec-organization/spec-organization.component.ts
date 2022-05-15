@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { IOrganization } from 'src/app/shared/models/organization';
 import { IShortSpecialization } from 'src/app/shared/models/specialization';
 import { SpecializationsService } from 'src/app/specializations/specializations.service';
 import { OrganizationsService } from '../organizations.service';
@@ -18,35 +19,50 @@ export class SpecOrganizationComponent implements OnInit {
   orgName: string | null = null;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute,
-    private specializationsService: SpecializationsService,
-    private organizationService: OrganizationsService,
-    private router: Router) { }
+    private _formBuilder: FormBuilder,
+    private _activatedRoute: ActivatedRoute,
+    private _specializationsService: SpecializationsService,
+    private _organizationsService: OrganizationsService,
+    private _router: Router) { }
 
   async ngOnInit() {
-    this.activatedRoute.paramMap.subscribe((param: ParamMap) => {
+    this._activatedRoute.paramMap.subscribe((param: ParamMap) => {
       this.organizationId = param.get('id');
     });
-    if(this.organizationId){
-      this.organizationService.getOrganization(this.organizationId).subscribe(organization => {
-        this.orgName = organization.organizationName.officialName;
-        this.ownerForm = this.formBuilder.group({
-          specializationIds: new FormControl(organization.specializationIds)
-        });
-      }, (error) => {
-        this.router.navigate([`/admin/organizations/`]).then();
-      });
-    }
+    this.getOrganization();
     this.getShortSpecializations();
   }
 
+  getOrganization() {
+    if(this.organizationId){
+      this._organizationsService.getOrganization(`Organization/${this.organizationId}`).subscribe((response: IOrganization) => {
+        this.orgName = response.organizationName.officialName;
+        this.ownerForm = this._formBuilder.group({
+          organizationName: this._formBuilder.group({
+            officialName: new FormControl(response.organizationName.officialName),
+            usualName: new FormControl(response.organizationName.usualName),
+          }),
+          address: this._formBuilder.group({
+            line: new FormControl(response.address.line),
+          }),
+          isActive: new FormControl(response.isActive),
+          region : new FormControl(response.region),
+          level : new FormControl(response.level),
+          specializationIds: new FormControl(response.specializationIds)
+        });
+      }, (error) => {
+        console.log(error);
+        this._router.navigate([`/admin/organizations/`]).then();
+      });
+    }
+  }
 
   getShortSpecializations() {
-    this.specializationsService.getShortSpecializations().subscribe(data => {
-      this.specializations = <IShortSpecialization[]>data;
+    this._specializationsService.getShortSpecializations('Specialization/GetShort').subscribe((response: IShortSpecialization[]) => {
+      this.specializations = response;
     }, (error) => {
-      this.router.navigate([`/admin/organizations/`]).then();
+      console.log(error);
+      this._router.navigate([`/admin/organizations/`]).then();
     });
   }
 
@@ -66,12 +82,13 @@ export class SpecOrganizationComponent implements OnInit {
     }
   }
 
-  setSpecializationIds(){
+  updateOrganization(){
     if(this.organizationId){
-      this.organizationService.setSetSpecializations(this.ownerForm.value.specializationIds, this.organizationId).subscribe((data: {}) => {
-        this.router.navigate(['/admin/organizations']).then();
+      this._organizationsService.updateOrganization(`Organization/${this.organizationId}`, this.ownerForm.value).subscribe((response: {}) => {
+        this._router.navigate(['/admin/organizations']).then();
       }, (error) => {
-        this.router.navigate([`admin/organizations/${this.organizationId}/specializations`]).then();
+        console.log(error);
+        this._router.navigate([`/admin/organizations/edit/${this.organizationId}`]).then();
       })
     }
   }

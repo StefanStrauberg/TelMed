@@ -33,7 +33,7 @@ export class ViewAccountsComponent implements OnInit {
   deleteAccount(accountId: string){
     if(accountId)
     {
-      this.accountService.deleteAccount('Api/Account',accountId).subscribe((date: {}) => {
+      this.accountService.deleteAccount(`Api/Account/${accountId}`).subscribe((date: {}) => {
         this.getAllSpecializations();
       }, (error) => {
         console.log(error);

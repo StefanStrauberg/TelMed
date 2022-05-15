@@ -43,7 +43,7 @@ export class UpdateAccountComponent implements OnInit {
   }
 
   private getAccountById(id: string) {
-    this.accountService.getAccount('Api/Account',id).subscribe((response: IAccount) => {
+    this.accountService.getAccount(`Api/Account/${id}`).subscribe((response: IAccount) => {
       this.fullUserName = response.lastName + ' ' + response.firstName + ' ' + response.middleName;
       this.ownerForm = this.ownerForm = this.formBuilder.group({
         userName: new FormControl(response.userName, Validators.required),
@@ -63,6 +63,15 @@ export class UpdateAccountComponent implements OnInit {
     })
   }
 
+  public updateAccount() {
+    this.accountService.updateAccount(`Api/Account/${this.accountId}`, this.ownerForm.value).subscribe( (response: {}) => {
+      this.router.navigate(['/admin/accounts']).then();
+    }, (error) => {
+      console.log(error);
+      this.router.navigate([`/admin/accounts/edit/${this.accountId}`]).then();
+    })
+  }
+
   private getRoles() {
     this.accountService.getRoles('Api/Role').subscribe(response => {
       this.roles = response;
@@ -73,7 +82,7 @@ export class UpdateAccountComponent implements OnInit {
   }
 
   private getShortOrganizations() {
-    this.organizationService.getShortOrganizations().subscribe(response => {
+    this.organizationService.getShortOrganizations('Organization/GetShort').subscribe(response => {
       this.shortOrganizations = response;
     }, (error) => {
       console.log(error);
@@ -82,7 +91,7 @@ export class UpdateAccountComponent implements OnInit {
   }
 
   private getShortSpecializations() {
-    this.specializationService.getShortSpecializations().subscribe(response => {
+    this.specializationService.getShortSpecializations('Specialization/GetShort').subscribe(response => {
       this.shortSpecializations = response;
     }, (error) => {
       console.log(error);

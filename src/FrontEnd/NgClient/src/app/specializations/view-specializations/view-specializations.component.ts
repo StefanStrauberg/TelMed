@@ -26,19 +26,19 @@ export class ViewSpecializationsComponent implements OnInit {
   }
 
   getAllSpecializations(){
-    this.specializationsService.getSpecializations(this.specParams).subscribe(response => {
+    this.specializationsService.getSpecializations('Specialization', this.specParams).subscribe(response => {
       this.specializations = <ISpecialization[]>response.body?.data;
       this.specParams.pageNumber = response.body!.pageIndex;
       this.specParams.pageSize = response.body!.pageSize;
       this.totalCount = response.body!.count;
     }, (error) => {
-      this.router.navigate(['/']).then();
       console.log(error);
+      this.router.navigate(['/']).then();
     })
   }
 
   deleteSpecialization(specializationId: string){
-    this.specializationsService.deleteSpecialization(specializationId).subscribe((data: {}) => {
+    this.specializationsService.deleteSpecialization(`Specialization/${specializationId}`).subscribe((data: {}) => {
       this.getAllSpecializations();
     }, error => {
       this.getAllSpecializations();

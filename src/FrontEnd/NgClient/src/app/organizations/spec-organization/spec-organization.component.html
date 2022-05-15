@@ -7,14 +7,14 @@
             <a mat-raised-button routerLink="/admin/organizations">
                 <i class="fa-solid fa-xmark"></i> Отмена
             </a>
-            <button mat-raised-button color="primary" type="submit" form="updateSpecForm">
+            <button mat-raised-button color="primary" type="submit" (click)="updateOrganization()" form="updateSpecForm">
                 <i class="fa-solid fa-check"></i> Сохранить
             </button>
         </div>
     </mat-card-title>
     <mat-divider inset></mat-divider>
-    <mat-card-content *ngIf="ownerForm">
-        <form (ngSubmit)="setSpecializationIds()" id="updateSpecForm">
+    <mat-card-content>
+        <form [formGroup]="ownerForm" *ngIf="ownerForm" (ngSubmit)="updateOrganization()" id="updateSpecForm">
             <div class="col" *ngFor="let specialization of specializations">
                 <mat-checkbox #checkbox
                     [checked]="checkSpecializationInOrganization(specialization.id)" 

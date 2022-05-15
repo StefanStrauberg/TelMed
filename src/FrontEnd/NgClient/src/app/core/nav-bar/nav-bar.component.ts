@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
@@ -7,9 +6,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnInit {
-  public isUserAuthenticated!: boolean;
 
-  constructor(private router: Router) { }
+  constructor() { }
 
   ngOnInit(): void {
   }

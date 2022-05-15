@@ -47,12 +47,6 @@ namespace Organizations.API.Controllers
         public async Task<IActionResult> UpdateOrganization([FromBody] UpdateOrganizationDto model, string id)
             => Ok(await _mediator.Send(new UpdateOrganizationCommand(model, id)));
 
-        [HttpPut("SetSpecializations/{id:length(24)}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> SetSpecializations([FromBody] List<string> specializationIds, string id)
-            => Ok(await _mediator.Send(new SetSpecializationsIdsCommand(specializationIds, id)));
-
         [HttpDelete("{id:length(24)}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

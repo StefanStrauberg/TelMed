@@ -58,7 +58,7 @@ export class RegisterAccountComponent implements OnInit {
   }
 
   private getShortOrganizations() {
-    this.organizationService.getShortOrganizations().subscribe(response => {
+    this.organizationService.getShortOrganizations('Organization/GetShort').subscribe(response => {
       this.shortOrganizations = response;
     }, (error) => {
       this.router.navigate(['/']).then();
@@ -67,7 +67,7 @@ export class RegisterAccountComponent implements OnInit {
   }
 
   private getShortSpecializations() {
-    this.specializationService.getShortSpecializations().subscribe(response => {
+    this.specializationService.getShortSpecializations('Specialization/GetShort').subscribe(response => {
       this.shortSpecializations = response;
     }, (error) => {
       this.router.navigate(['/']).then();

@@ -29,8 +29,8 @@ export class AccountService {
   }
 
   // Get By Id Account
-  public getAccount = (route: string, id: string) => {
-    return this.http.get<IAccount>(this.createCompleteRoute(route + `/${id}`, this.envUrl.identityServer));
+  public getAccount = (route: string) => {
+    return this.http.get<IAccount>(this.createCompleteRoute(route, this.envUrl.identityServer));
   }
 
   // Create Account
@@ -39,13 +39,13 @@ export class AccountService {
   }
 
   // Update Account
-  public updateAccount = (route: string, model: IAccount, id: string) => {
-    return this.http.put<{}>(this.createCompleteRoute(route + `/${id}`, this.envUrl.identityServer), model, this.generateHeaders());
+  public updateAccount = (route: string, model: IAccount) => {
+    return this.http.put<{}>(this.createCompleteRoute(route, this.envUrl.identityServer), model, this.generateHeaders());
   }
 
   // Delete Account
-  public deleteAccount = (route: string, id: string) => {
-    return this.http.delete<{}>(this.createCompleteRoute(route + `/${id}`, this.envUrl.identityServer));
+  public deleteAccount = (route: string) => {
+    return this.http.delete<{}>(this.createCompleteRoute(route, this.envUrl.identityServer));
   }
 
   private createCompleteRoute = (route: string, envAddress: string) => {

@@ -7,7 +7,7 @@
             <a mat-raised-button routerLink="/admin/accounts">
                 <i class="fa-solid fa-xmark"></i> Отмена
             </a>
-            <button mat-raised-button color="primary" form="updateForm" [disabled]="ownerForm?.invalid">
+            <button mat-raised-button color="primary" form="updateForm" (click)="updateAccount()" [disabled]="ownerForm?.invalid">
                 <i class="fa-solid fa-check"></i> Сохранить
             </button>
         </div>

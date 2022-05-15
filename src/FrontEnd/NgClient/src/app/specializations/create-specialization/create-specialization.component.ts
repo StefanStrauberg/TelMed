@@ -24,7 +24,7 @@ export class CreateSpecializationComponent implements OnInit {
   }
 
   createSpecialization(){
-    this.specializationsService.createSpecialization(this.ownerForm.value).subscribe((data: {}) => {
+    this.specializationsService.createSpecialization('Specialization' ,this.ownerForm.value).subscribe((data: {}) => {
       this.router.navigate(['/admin/specializations']).then();
     }, (error) => {
       this.router.navigate(['/admin/specializations/create']).then();

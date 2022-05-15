@@ -2,7 +2,7 @@
     <app-nav-bar></app-nav-bar>
 </mat-toolbar>
 <mat-sidenav-container>
-    <mat-sidenav mode="side" opened>
+    <mat-sidenav *ngIf="isUserAuthenticated" mode="side" opened>
         <app-side-bar></app-side-bar>
     </mat-sidenav>
     <mat-sidenav-content>

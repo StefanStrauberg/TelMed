@@ -5,16 +5,6 @@ export interface IOrganization {
     address: IAddress
     isActive: boolean
     organizationName: IOrganizationName
-    specializationIds: string
-}
-
-export interface IUpdateOrganization {
-    id: string
-    level: OrganizationLevel
-    region: OrganizationRegion
-    address: IAddress
-    isActive: boolean
-    organizationName: IOrganizationName
     specializationIds: string[]
 }
 

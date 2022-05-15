@@ -4,5 +4,6 @@ export interface ILogin {
 }
 
 export interface IToken {
+    isAuthSuccessful: boolean;
     token: string;
 }

@@ -25,18 +25,6 @@
 			"UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
 		},
 		{
-			"DownstreamPathTemplate": "/api/organization/SetSpecializations/{id}",
-			"DownstreamScheme": "http",
-			"DownstreamHostAndPorts": [
-				{
-					"Host": "localhost",
-					"Port": 5000
-				}
-			],
-			"UpstreamPathTemplate": "/organization/SetSpecializations/{id}",
-			"UpstreamHttpMethod": [ "PUT" ]
-		},
-		{
 			"DownstreamPathTemplate": "/api/specialization",
 			"DownstreamScheme": "http",
 			"DownstreamHostAndPorts": [
@@ -58,30 +46,6 @@
 				}
 			],
 			"UpstreamPathTemplate": "/specialization/{id}",
-			"UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
-		},
-		{
-			"DownstreamPathTemplate": "/api/referral",
-			"DownstreamScheme": "http",
-			"DownstreamHostAndPorts": [
-				{
-					"Host": "localhost",
-					"Port": 5002
-				}
-			],
-			"UpstreamPathTemplate": "/referral",
-			"UpstreamHttpMethod": [ "GET", "POST" ]
-		},
-		{
-			"DownstreamPathTemplate": "/api/referral/{id}",
-			"DownstreamScheme": "http",
-			"DownstreamHostAndPorts": [
-				{
-					"Host": "localhost",
-					"Port": 5002
-				}
-			],
-			"UpstreamPathTemplate": "/referral/{id}",
 			"UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
 		}
 	]

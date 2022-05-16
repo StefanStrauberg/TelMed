@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Specializations.Application.DTO;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Specializations.API.Controllers
 {
+    [Authorize]
     public class SpecializationController : BaseController
     {
         private readonly IMediator _mediator;

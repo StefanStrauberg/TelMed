@@ -16,8 +16,7 @@ namespace IdentityServer.Infrastructure
             services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
             services.AddScoped<IApplicationRoleRepository, ApplicationRoleRepository>();
             var mongoDbSettings = configuration.GetSection(nameof(MongoDbConfig)).Get<MongoDbConfig>();
-            services.AddIdentityCore<ApplicationUser>()
-                .AddRoles<ApplicationRole>()
+            services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddMongoDbStores<ApplicationUser, ApplicationRole, Guid>
                 (
                     connectionString: mongoDbSettings.ConnectionString,

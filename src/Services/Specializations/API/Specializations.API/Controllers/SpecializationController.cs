@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Specializations.Application.DTO;
 using Specializations.Application.Features.Specialization.Requests.Commands;
 using Specializations.Application.Features.Specialization.Requests.Queries;
@@ -22,12 +23,16 @@ namespace Specializations.API.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(IReadOnlyList<Pagination<SpecializationDto>>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllSpecializations([FromQuery] QuerySpecParams querySpecParams)
-            => Ok(new Pagination<SpecializationDto>(
-                pageIndex: querySpecParams.PageIndex,
-                pageSize: querySpecParams.PageSize,
-                count: await _mediator.Send(new GetSpecializationsCountRequest(querySpecParams)),
-                data: await _mediator.Send(new GetSpecializationListRequest(querySpecParams))
-            ));
+        {
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(new
+            {
+                PageIndex = querySpecParams.PageIndex,
+                PageSize = querySpecParams.PageSize,
+                Count = await _mediator.Send(new GetSpecializationsCountRequest(querySpecParams))
+            })
+                );
+            return Ok(await _mediator.Send(new GetSpecializationListRequest(querySpecParams)));
+        }
 
         [HttpGet("GetShort")]
         public async Task<IActionResult> GetShortSpecializations()

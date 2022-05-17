@@ -1,4 +1,5 @@
-﻿using IdentityServer.Application.Contracts.Persistence;
+﻿using IdentityServer.Application.Configuration;
+using IdentityServer.Application.Contracts.Persistence;
 using IdentityServer.Domain;
 using IdentityServer.Infrastructure.Persistence;
 using IdentityServer.Infrastructure.Persistence.Config;
@@ -22,6 +23,20 @@ namespace IdentityServer.Infrastructure
                     connectionString: mongoDbSettings.ConnectionString,
                     databaseName: mongoDbSettings.Name
                 );
+            services.AddIdentityServer(options =>
+            {
+                options.Events.RaiseErrorEvents = true;
+                options.Events.RaiseInformationEvents = true;
+                options.Events.RaiseFailureEvents = true;
+                options.Events.RaiseSuccessEvents = true;
+                options.EmitStaticAudienceClaim = true;
+            })
+                .AddAspNetIdentity<ApplicationUser>()
+                .AddInMemoryIdentityResources(InMemoryConfig.GetIdentityResources())
+                .AddInMemoryApiScopes(InMemoryConfig.GetApiScopes())
+                .AddInMemoryApiResources(InMemoryConfig.GetApiResources())
+                .AddInMemoryClients(InMemoryConfig.GetClients())
+                .AddDeveloperSigningCredential();
             return services;
         }
     }

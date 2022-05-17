@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Specializations.Application;
 using Specializations.Application.Middleware;
@@ -21,15 +21,20 @@ namespace Specializations.API
         }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddInfrastructureServices();
             services.AddApplicationServices();
             services.Configure<DatabaseSettings>(Configuration.GetSection("DatabaseSettings"));
+            services.AddInfrastructureServices();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
                     options.RequireHttpsMetadata = false;
                     options.Authority = "http://localhost:5050";
-                    options.Audience = "companyApi";
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = "http://localhost:5050",
+                        ValidAudience = "SpecializationApi"
+                    };
                 });
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -38,10 +43,12 @@ namespace Specializations.API
             });
             services.AddCors(options => 
                 {
-                    options.AddPolicy(name: _policyName,
-                    builder => builder.AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .WithOrigins(Configuration["ServiceUrls:Angular"]));
+                    options.AddPolicy(name: _policyName, builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
                 });
         }
         public void Configure(IApplicationBuilder app)
@@ -50,11 +57,6 @@ namespace Specializations.API
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Specializations.API v1"));
             app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.UseRouting();
-            app.UseCookiePolicy(new CookiePolicyOptions
-            {
-                MinimumSameSitePolicy = SameSiteMode.None,
-                Secure = CookieSecurePolicy.Always,
-            });
             app.UseCors(_policyName);
             app.UseAuthentication();
             app.UseAuthorization();

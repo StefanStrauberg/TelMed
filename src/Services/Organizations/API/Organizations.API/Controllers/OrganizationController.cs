@@ -1,6 +1,8 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Organizations.Application.DTO;
 using Organizations.Application.Features.Organization.Requests.Commands;
 using Organizations.Application.Features.Organization.Requests.Queries;
@@ -11,20 +13,25 @@ using System.Threading.Tasks;
 
 namespace Organizations.API.Controllers
 {
+    [Authorize]
     public class OrganizationController : BaseController
     {
         private readonly IMediator _mediator;
         public OrganizationController(IMediator mediator) => _mediator = mediator;
 
         [HttpGet]
-        [ProducesResponseType(typeof(IReadOnlyList<Pagination<OrganizationDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IReadOnlyList<OrganizationDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllOrganizations([FromQuery] QuerySpecParams querySpecParams)
-            => Ok(new Pagination<OrganizationDto>(
-                pageIndex: querySpecParams.PageIndex,
-                pageSize: querySpecParams.PageSize,
-                count: await _mediator.Send(new GetOrganizationsCountRequest(querySpecParams)),
-                data: await _mediator.Send(new GetOrganizationListRequest(querySpecParams))
-            ));
+        {
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(new
+                    {
+                        PageIndex = querySpecParams.PageIndex,
+                        PageSize = querySpecParams.PageSize,
+                        Count = await _mediator.Send(new GetOrganizationsCountRequest(querySpecParams))
+                    })
+                );
+            return Ok(await _mediator.Send(new GetOrganizationListRequest(querySpecParams)));
+        }
 
         [HttpGet("GetShort")]
         public async Task<IActionResult> GetShort()

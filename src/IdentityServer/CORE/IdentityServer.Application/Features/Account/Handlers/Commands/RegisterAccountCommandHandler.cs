@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using AspNetCore.Identity.MongoDbCore.Models;
+using AutoMapper;
 using IdentityServer.Application.Errors;
 using IdentityServer.Application.Features.Account.Requests.Commands;
 using MediatR;
@@ -26,7 +27,7 @@ namespace IdentityServer.Application.Features.Account.Handlers.Commands
                 throw new ExistsAccountBadRequestException(request.model.UserName);
             if(!await _roleManager.RoleExistsAsync(request.model.Role))
                 throw new RoleBadRequestException(request.model.Role);
-            var user = _mapper.Map<IdentityServer.Domain.ApplicationUser>(request.model);
+            var user = _mapper.Map<Domain.ApplicationUser>(request.model);
             await _userManager.CreateAsync(user, request.model.Password);
             await _userManager.AddToRoleAsync(user, request.model.Role);
             return Unit.Value;

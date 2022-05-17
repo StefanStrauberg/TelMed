@@ -2,25 +2,36 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IOrganization, IShortOrganization } from '../shared/models/organization';
 import { Params } from '../shared/models/params';
-import { IPagination } from '../shared/models/pagination';
 import { EnvironmentUrlService } from '../shared/services/environment-url.service';
+import { AuthService } from '../shared/services/auth.service';
+import { from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrganizationsService {
 
-  constructor(private http: HttpClient, private envUrl: EnvironmentUrlService) { }
+  constructor(
+    private http: HttpClient,
+    private envUrl: EnvironmentUrlService,
+    private _authService: AuthService) { }
 
   // Get All Organizations
   getOrganizations = (route: string, orgParams: Params) => {
-    let params = new HttpParams();
-    if(orgParams.search){
-      params = params.append('search', orgParams.search);
-    }
-    params = params.append('pageIndex', orgParams.pageNumber.toString());
-    params = params.append('pageSize', orgParams.pageSize.toString());
-    return this.http.get<IPagination>(this.createCompleteRoute(route, this.envUrl.urlAddress), {observe: 'response', params});
+    return from(
+      this._authService.getAccessToken()
+      .then(token => {
+        console.log(token);
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        let params = new HttpParams();
+        if(orgParams.search){
+          params = params.append('search', orgParams.search);
+        }
+        params = params.append('pageIndex', orgParams.pageNumber.toString());
+        params = params.append('pageSize', orgParams.pageSize.toString());
+        return this.http.get<IOrganization[]>(this.createCompleteRoute(route, this.envUrl.urlAddress), { headers: headers }).toPromise();
+      })
+    );
   }
 
   // Get All Short Organizations

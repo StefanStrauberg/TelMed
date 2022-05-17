@@ -4,5 +4,5 @@ using MediatR;
 
 namespace IdentityServer.Application.Features.Account.Requests.Queries
 {
-    public record GetAccountsListRequest(QuerySpecParams querySpecParams) : IRequest<List<AccountDto>>;
+    public record GetAccountsListRequest(QuerySpecParams querySpecParams) : IRequest<PagedList<AccountDto>>;
 }

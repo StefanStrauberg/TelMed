@@ -23,7 +23,7 @@ export class ViewAccountsComponent implements OnInit {
 
   getAllSpecializations() {
     this.accountService.getAccounts('Api/Account',this.accParams).subscribe(response => {
-      this.accounts = <IAccount[]>response?.body?.data;
+      this.accounts = response!;
     }, (error) => {
       this.router.navigate(['/']).then();
       console.log(error);

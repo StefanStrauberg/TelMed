@@ -21,17 +21,21 @@ namespace Specializations.API.Controllers
             => _mediator = mediator;
 
         [HttpGet]
-        [ProducesResponseType(typeof(IReadOnlyList<Pagination<SpecializationDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<SpecializationDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllSpecializations([FromQuery] QuerySpecParams querySpecParams)
         {
+            var result = await _mediator.Send(new GetSpecializationListRequest(querySpecParams));
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(new
             {
-                PageIndex = querySpecParams.PageIndex,
-                PageSize = querySpecParams.PageSize,
-                Count = await _mediator.Send(new GetSpecializationsCountRequest(querySpecParams))
+                result.TotalCount,
+                result.PageSize,
+                result.CurrentPage,
+                result.TotalPages,
+                result.HasNext,
+                result.HasPrevious
             })
                 );
-            return Ok(await _mediator.Send(new GetSpecializationListRequest(querySpecParams)));
+            return Ok(result);
         }
 
         [HttpGet("GetShort")]

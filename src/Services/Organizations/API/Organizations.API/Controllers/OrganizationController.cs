@@ -6,7 +6,6 @@ using Newtonsoft.Json;
 using Organizations.Application.DTO;
 using Organizations.Application.Features.Organization.Requests.Commands;
 using Organizations.Application.Features.Organization.Requests.Queries;
-using Organizations.Application.Helpers;
 using Organizations.Application.Specs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -20,17 +19,21 @@ namespace Organizations.API.Controllers
         public OrganizationController(IMediator mediator) => _mediator = mediator;
 
         [HttpGet]
-        [ProducesResponseType(typeof(IReadOnlyList<OrganizationDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<OrganizationDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllOrganizations([FromQuery] QuerySpecParams querySpecParams)
         {
+            var result = await _mediator.Send(new GetOrganizationListRequest(querySpecParams));
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(new
-                    {
-                        PageIndex = querySpecParams.PageIndex,
-                        PageSize = querySpecParams.PageSize,
-                        Count = await _mediator.Send(new GetOrganizationsCountRequest(querySpecParams))
-                    })
-                );
-            return Ok(await _mediator.Send(new GetOrganizationListRequest(querySpecParams)));
+                {
+                    result.TotalCount,
+                    result.PageSize,
+                    result.CurrentPage,
+                    result.TotalPages,
+                    result.HasNext,
+                    result.HasPrevious
+                })
+            );
+            return Ok(result);
         }
 
         [HttpGet("GetShort")]

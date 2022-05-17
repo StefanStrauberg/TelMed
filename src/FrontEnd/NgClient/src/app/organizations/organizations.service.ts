@@ -12,8 +12,8 @@ import { from } from 'rxjs';
 export class OrganizationsService {
 
   constructor(
-    private http: HttpClient,
-    private envUrl: EnvironmentUrlService,
+    private _http: HttpClient,
+    private _envUrl: EnvironmentUrlService,
     private _authService: AuthService) { }
 
   // Get All Organizations
@@ -21,7 +21,6 @@ export class OrganizationsService {
     return from(
       this._authService.getAccessToken()
       .then(token => {
-        console.log(token);
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
         let params = new HttpParams();
         if(orgParams.search){
@@ -29,34 +28,34 @@ export class OrganizationsService {
         }
         params = params.append('pageIndex', orgParams.pageNumber.toString());
         params = params.append('pageSize', orgParams.pageSize.toString());
-        return this.http.get<IOrganization[]>(this.createCompleteRoute(route, this.envUrl.urlAddress), { headers: headers }).toPromise();
+        return this._http.get<IOrganization[]>(this.createCompleteRoute(route, this._envUrl.urlAddress), { headers: headers }).toPromise();
       })
     );
   }
 
   // Get All Short Organizations
   getShortOrganizations = (route: string) => {
-    return this.http.get<IShortOrganization[]>(this.createCompleteRoute(route, this.envUrl.urlAddress));
+    return this._http.get<IShortOrganization[]>(this.createCompleteRoute(route, this._envUrl.urlAddress));
   }
 
   // Get By Id Organization
   getOrganization = (route: string) => {
-    return this.http.get<IOrganization>(this.createCompleteRoute(route, this.envUrl.urlAddress));
+    return this._http.get<IOrganization>(this.createCompleteRoute(route, this._envUrl.urlAddress));
   }
 
   // Create Organization
   createOrganization = (route: string, body: IOrganization) => {
-    return this.http.post<{}>(this.createCompleteRoute(route, this.envUrl.urlAddress), body, this.generateHeaders());
+    return this._http.post<{}>(this.createCompleteRoute(route, this._envUrl.urlAddress), body, this.generateHeaders());
   }
 
   // Update Organization
   updateOrganization = (route: string, body: IOrganization) => {
-    return this.http.put<{}>(this.createCompleteRoute(route, this.envUrl.urlAddress), body, this.generateHeaders());
+    return this._http.put<{}>(this.createCompleteRoute(route, this._envUrl.urlAddress), body, this.generateHeaders());
   }
 
   // Delete Organization
   deleteOrganization = (route: string) => {
-    return this.http.delete<{}>(this.createCompleteRoute(route, this.envUrl.urlAddress));
+    return this._http.delete<{}>(this.createCompleteRoute(route, this._envUrl.urlAddress));
   }
 
   private createCompleteRoute = (route: string, envAddress: string) => {

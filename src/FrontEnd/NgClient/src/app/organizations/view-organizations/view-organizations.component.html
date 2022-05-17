@@ -7,12 +7,16 @@
 </div>
 <div class="d-flex justify-content-between align-items-center">
     <div>
-        <mat-paginator 
+        <!-- <mat-paginator 
             [length]="totalCount"
             [pageSize]="orgParams.pageSize"
             [pageSizeOptions]="[10, 25, 100]"
             (page)="onPageChange($event)"
             aria-label="Select page">
+        </mat-paginator> -->
+        <mat-paginator 
+            [pageSize]="orgParams.pageSize"
+            [pageSizeOptions]="[10, 25, 100]">
         </mat-paginator>
     </div>
     <div class="form-inline">

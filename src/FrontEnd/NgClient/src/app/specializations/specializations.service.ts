@@ -13,8 +13,8 @@ import { EnvironmentUrlService } from '../shared/services/environment-url.servic
 export class SpecializationsService {
 
   constructor(
-    private http: HttpClient,
-    private envUrl: EnvironmentUrlService,
+    private _http: HttpClient,
+    private _envUrl: EnvironmentUrlService,
     private _authService: AuthService) { }
 
   // Get All Specializations
@@ -22,7 +22,6 @@ export class SpecializationsService {
     return from(
       this._authService.getAccessToken()
       .then(token => {
-        console.log(token);
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
         let params = new HttpParams();
         if(specParams.search){
@@ -30,34 +29,34 @@ export class SpecializationsService {
         }
         params = params.append('pageIndex', specParams.pageNumber.toString());
         params = params.append('pageSize', specParams.pageSize.toString());
-        return this.http.get<ISpecialization[]>(this.createCompleteRoute(route, this.envUrl.urlAddress), { headers: headers }).toPromise();
+        return this._http.get<ISpecialization[]>(this.createCompleteRoute(route, this._envUrl.urlAddress), { headers: headers }).toPromise();
       })
     );
   }
 
   // Get All Short Specialization
   getShortSpecializations = (route: string) => {
-    return this.http.get<IShortSpecialization[]>(this.createCompleteRoute(route, this.envUrl.urlAddress));
+    return this._http.get<IShortSpecialization[]>(this.createCompleteRoute(route, this._envUrl.urlAddress));
   }
 
   // Get By Id Specialization
   getSpecialization = (route: string) => {
-    return this.http.get<ISpecialization>(this.createCompleteRoute(route, this.envUrl.urlAddress));
+    return this._http.get<ISpecialization>(this.createCompleteRoute(route, this._envUrl.urlAddress));
   }
 
   // Create Specialization
   createSpecialization = (route: string, body: ISpecialization) => {
-    return this.http.post<{}>(this.createCompleteRoute(route, this.envUrl.urlAddress), body, this.generateHeaders());
+    return this._http.post<{}>(this.createCompleteRoute(route, this._envUrl.urlAddress), body, this.generateHeaders());
   }
 
   // Update Specialization
   updateSpecialization = (route: string, body: ISpecialization) => {
-    return this.http.put<{}>(this.createCompleteRoute(route, this.envUrl.urlAddress), body, this.generateHeaders());
+    return this._http.put<{}>(this.createCompleteRoute(route, this._envUrl.urlAddress), body, this.generateHeaders());
   }
 
   // Delete Specialization
   deleteSpecialization = (route: string) => {
-    return this.http.delete<{}>(this.createCompleteRoute(route, this.envUrl.urlAddress));
+    return this._http.delete<{}>(this.createCompleteRoute(route, this._envUrl.urlAddress));
   }
 
   private createCompleteRoute = (route: string, envAddress: string) => {

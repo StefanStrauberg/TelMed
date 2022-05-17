@@ -4,5 +4,5 @@ using Organizations.Application.Specs;
 
 namespace Organizations.Application.Features.Organization.Requests.Queries
 {
-    public record GetOrganizationListRequest(QuerySpecParams querySpecParams) : IRequest<IReadOnlyList<OrganizationDto>>;
+    public record GetOrganizationListRequest(QuerySpecParams querySpecParams) : IRequest<PagedList<OrganizationDto>>;
 }

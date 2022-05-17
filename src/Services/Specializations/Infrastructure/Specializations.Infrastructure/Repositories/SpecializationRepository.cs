@@ -33,7 +33,7 @@ namespace Specializations.Infrastructure.Repositories
 
         public async Task<IEnumerable<Specialization>> GetAllAsync(QuerySpecParams querySpecParams)
             => await _context.Specializations.Find(GetFilter(querySpecParams.Search))
-                .Skip((querySpecParams.PageIndex) * querySpecParams.PageSize)
+                .Skip((querySpecParams.PageIndex - 1) * querySpecParams.PageSize)
                 .Limit(querySpecParams.PageSize)
                 .Sort(GetSort(querySpecParams.Sort))
                 .ToListAsync();

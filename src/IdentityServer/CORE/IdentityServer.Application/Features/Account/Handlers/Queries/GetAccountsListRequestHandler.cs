@@ -3,11 +3,12 @@ using IdentityServer.Application.Contracts.Persistence;
 using IdentityServer.Application.DTOs;
 using IdentityServer.Application.Features.Account.Requests.Queries;
 using IdentityServer.Application.GrpcServices;
+using IdentityServer.Application.Specs;
 using MediatR;
 
 namespace IdentityServer.Application.Features.Account.Handlers.Queries
 {
-    public class GetAccountsListRequestHandler : IRequestHandler<GetAccountsListRequest, List<AccountDto>>
+    public class GetAccountsListRequestHandler : IRequestHandler<GetAccountsListRequest, PagedList<AccountDto>>
     {
         private readonly IMapper _mapper;
         private readonly IApplicationUserRepository _applicationUserRepository;
@@ -24,17 +25,21 @@ namespace IdentityServer.Application.Features.Account.Handlers.Queries
             _applicationRoleRepository = applicationRoleRepository;
             _grpcService = grpcService;
         }
-        public async Task<List<AccountDto>> Handle(GetAccountsListRequest request, CancellationToken cancellationToken)
+        public async Task<PagedList<AccountDto>> Handle(GetAccountsListRequest request, CancellationToken cancellationToken)
         {
-            var result = _mapper.Map<List<AccountDto>>(await _applicationUserRepository.GetAllAsync(request.querySpecParams));
-            //await Parallel.ForEachAsync(result, async (x, cancellationToken) => 
-            //{
-            //    x.Role = await _applicationRoleRepository.GetRoleNameById(x.Role);
-            //    if (x.SpecializationId is not null)
-            //        x.SpecializationId = await _grpcService.GetSpecName(x.SpecializationId);
-            //    if (x.SpecializationId is not null)
-            //        x.OrganizationId = await _grpcService.GetOrgName(x.OrganizationId);
-            //});
+            var result = new PagedList<AccountDto>(
+                _mapper.Map<List<AccountDto>>(await _applicationUserRepository.GetAllAsync(request.querySpecParams)),
+                await _applicationUserRepository.CountAsync(request.querySpecParams),
+                request.querySpecParams.PageIndex,
+                request.querySpecParams.PageSize);
+            await Parallel.ForEachAsync(result, async (x, cancellationToken) =>
+            {
+                x.Role = await _applicationRoleRepository.GetRoleNameById(x.Role);
+                if (x.SpecializationId is not null)
+                    x.SpecializationId = await _grpcService.GetSpecName(x.SpecializationId);
+                if (x.SpecializationId is not null)
+                    x.OrganizationId = await _grpcService.GetOrgName(x.OrganizationId);
+            });
             return result;
         }
     }

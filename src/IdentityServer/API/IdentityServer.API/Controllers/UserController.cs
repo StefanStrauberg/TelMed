@@ -4,25 +4,35 @@ using IdentityServer.Application.Features.Account.Requests.Queries;
 using IdentityServer.Application.Helpers;
 using IdentityServer.Application.Specs;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace IdentityServer.API.Controllers
 {
-    public class AccountController : BaseController
+    public class UserController : BaseController
     {
         private readonly IMediator _mediatR;
-        public AccountController(IMediator mediatR)
+        public UserController(IMediator mediatR)
             => _mediatR = mediatR;
 
         [HttpGet]
-        [ProducesResponseType(typeof(IReadOnlyList<Pagination<AccountDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<AccountDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllOrganizations([FromQuery] QuerySpecParams querySpecParams)
-            => Ok(new Pagination<AccountDto>(
-                pageIndex: querySpecParams.PageIndex,
-                pageSize: querySpecParams.PageSize,
-                count: await _mediatR.Send(new GetAccountsCountRequest(querySpecParams)),
-                data: await _mediatR.Send(new GetAccountsListRequest(querySpecParams))
-            ));
+        {
+            var result = await _mediatR.Send(new GetAccountsListRequest(querySpecParams));
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(new
+            {
+                result.TotalCount,
+                result.PageSize,
+                result.CurrentPage,
+                result.TotalPages,
+                result.HasNext,
+                result.HasPrevious
+            })
+            );
+            return Ok(result);
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAccountById(Guid id)

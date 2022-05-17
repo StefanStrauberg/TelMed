@@ -28,7 +28,7 @@ export class OrganizationsService {
         }
         params = params.append('pageIndex', orgParams.pageNumber.toString());
         params = params.append('pageSize', orgParams.pageSize.toString());
-        return this._http.get<IOrganization[]>(this.createCompleteRoute(route, this._envUrl.urlAddress), { headers: headers }).toPromise();
+        return this._http.get<IOrganization[]>(this.createCompleteRoute(route, this._envUrl.urlAddress), { headers: headers, observe: 'response', params }).toPromise();
       })
     );
   }

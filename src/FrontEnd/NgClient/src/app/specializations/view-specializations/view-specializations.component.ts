@@ -27,10 +27,8 @@ export class ViewSpecializationsComponent implements OnInit {
 
   getAllSpecializations(){
     this.specializationsService.getSpecializations('Specialization', this.specParams).subscribe(response => {
-      this.specializations = response!;
-      // this.specParams.pageNumber = response.body!.pageIndex;
-      // this.specParams.pageSize = response.body!.pageSize;
-      // this.totalCount = response.body!.count;
+      console.log(response?.headers.get('X-Pagination'));
+      this.specializations = response?.body!;
     }, (error) => {
       console.log(error);
       this.router.navigate(['/']).then();

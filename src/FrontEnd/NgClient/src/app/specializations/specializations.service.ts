@@ -29,7 +29,7 @@ export class SpecializationsService {
         }
         params = params.append('pageIndex', specParams.pageNumber.toString());
         params = params.append('pageSize', specParams.pageSize.toString());
-        return this._http.get<ISpecialization[]>(this.createCompleteRoute(route, this._envUrl.urlAddress), { headers: headers }).toPromise();
+        return this._http.get<ISpecialization[]>(this.createCompleteRoute(route, this._envUrl.urlAddress), { headers: headers, observe: 'response' }).toPromise();
       })
     );
   }

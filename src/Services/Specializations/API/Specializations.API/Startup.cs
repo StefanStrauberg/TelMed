@@ -47,7 +47,8 @@ namespace Specializations.API
                     {
                         builder.AllowAnyOrigin()
                             .AllowAnyHeader()
-                            .AllowAnyMethod();
+                            .AllowAnyMethod()
+                            .WithExposedHeaders("X-Pagination");
                     });
                 });
         }

@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { IOrganization, OrganizationLevel, OrganizationRegion } from 'src/app/shared/models/organization';
+import { IPagination } from 'src/app/shared/models/pagination';
 import { Params } from 'src/app/shared/models/params';
 import { OrganizationsService } from '../organizations.service';
 
@@ -18,6 +19,7 @@ export class ViewOrganizationsComponent implements OnInit {
   orgParams = new Params();
   totalCount!: number;
   displayedColumns: string[] = ['officialName', 'usualName', 'line', 'specializationIds', 'region', 'level', 'isActive', 'actions'];
+  paginationResponse!: IPagination;
   
   constructor(
     private organizationsService: OrganizationsService,
@@ -28,8 +30,9 @@ export class ViewOrganizationsComponent implements OnInit {
   }
 
   getAllOrganizations() {
-    this.organizationsService.getOrganizations('Organization', this.orgParams).subscribe(response => {
-      this.organizations = response!;
+    this.organizationsService.getOrganizations('Organization', this.orgParams).subscribe((response) => {
+      this.paginationResponse = response?.headers.get('X-Pagination') as unknown as IPagination;
+      this.organizations = response?.body!;
     }, (error) => {
       console.log(error);
       this.router.navigate(['/']).then();

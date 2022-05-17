@@ -1,6 +1,8 @@
 export interface IPagination {
-    pageIndex: number
-    pageSize: number
-    count: number
-    data: any[]
+    TotalCount: number;
+    PageSize: number;
+    CurrentPage: number;
+    TotalPages: number;
+    HasNext: boolean;
+    HasPrevious: boolean;
 }

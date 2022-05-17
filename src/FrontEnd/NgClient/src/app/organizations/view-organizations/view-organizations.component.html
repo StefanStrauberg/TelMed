@@ -1,3 +1,4 @@
+<pre>{{paginationResponse}}</pre>
 <div class="d-flex justify-content-end">
     <button mat-raised-button color="primary"
     data-toggle="tooltip" data-placement="bottom" title="Создать"
@@ -7,16 +8,12 @@
 </div>
 <div class="d-flex justify-content-between align-items-center">
     <div>
-        <!-- <mat-paginator 
-            [length]="totalCount"
-            [pageSize]="orgParams.pageSize"
+        <mat-paginator 
+            [length]="paginationResponse.TotalPages"
+            [pageSize]="paginationResponse.PageSize"
             [pageSizeOptions]="[10, 25, 100]"
             (page)="onPageChange($event)"
             aria-label="Select page">
-        </mat-paginator> -->
-        <mat-paginator 
-            [pageSize]="orgParams.pageSize"
-            [pageSizeOptions]="[10, 25, 100]">
         </mat-paginator>
     </div>
     <div class="form-inline">

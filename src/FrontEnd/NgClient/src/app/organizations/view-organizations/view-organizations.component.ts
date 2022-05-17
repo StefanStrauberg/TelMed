@@ -30,9 +30,6 @@ export class ViewOrganizationsComponent implements OnInit {
   getAllOrganizations() {
     this.organizationsService.getOrganizations('Organization', this.orgParams).subscribe(response => {
       this.organizations = response!;
-      // this.orgParams.pageNumber = response.body.pageIndex;
-      // this.orgParams.pageSize = response.body.pageSize;
-      // this.totalCount = response.body.count;
     }, (error) => {
       console.log(error);
       this.router.navigate(['/']).then();

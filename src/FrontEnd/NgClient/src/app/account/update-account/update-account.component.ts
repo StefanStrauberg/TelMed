@@ -64,7 +64,7 @@ export class UpdateAccountComponent implements OnInit {
   }
 
   public updateAccount() {
-    this.accountService.updateAccount(`Api/Account/${this.accountId}`, this.ownerForm.value).subscribe( (response: {}) => {
+    this.accountService.updateAccount(`Api/User/${this.accountId}`, this.ownerForm.value).subscribe( (response: {}) => {
       this.router.navigate(['/admin/accounts']).then();
     }, (error) => {
       console.log(error);

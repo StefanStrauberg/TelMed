@@ -1,5 +1,4 @@
-﻿using AspNetCore.Identity.MongoDbCore.Models;
-using AutoMapper;
+﻿using AutoMapper;
 using IdentityServer.Application.Errors;
 using IdentityServer.Application.Features.Account.Requests.Commands;
 using MediatR;

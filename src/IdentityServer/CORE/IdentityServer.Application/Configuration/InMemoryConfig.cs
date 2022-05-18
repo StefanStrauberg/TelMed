@@ -1,5 +1,5 @@
-﻿using IdentityServer4;
-using IdentityServer4.Models;
+﻿using IdentityServer4.Models;
+using static IdentityServer4.IdentityServerConstants;
 
 namespace IdentityServer.Application.Configuration
 {
@@ -24,8 +24,8 @@ namespace IdentityServer.Application.Configuration
                     AllowAccessTokensViaBrowser = true,
                     AllowedScopes =
                     {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
+                        StandardScopes.OpenId,
+                        StandardScopes.Profile,
                         "SpecializationApiScope",
                         "OrganizationApiScope"
                     },

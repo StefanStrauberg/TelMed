@@ -27,12 +27,8 @@ namespace IdentityServer.Application.Features.Account.Handlers.Queries
         }
         public async Task<PagedList<AccountDto>> Handle(GetAccountsListRequest request, CancellationToken cancellationToken)
         {
-            var result = new PagedList<AccountDto>(
-                _mapper.Map<List<AccountDto>>(await _applicationUserRepository.GetAllAsync(request.querySpecParams)),
-                await _applicationUserRepository.CountAsync(request.querySpecParams),
-                request.querySpecParams.PageIndex,
-                request.querySpecParams.PageSize);
-            await Parallel.ForEachAsync(result, async (x, cancellationToken) =>
+            var data = _mapper.Map<List<AccountDto>>(await _applicationUserRepository.GetAllAsync(request.querySpecParams));
+            await Parallel.ForEachAsync(data, async (x, cancellationToken) =>
             {
                 x.Role = await _applicationRoleRepository.GetRoleNameById(x.Role);
                 if (x.SpecializationId is not null)
@@ -40,7 +36,11 @@ namespace IdentityServer.Application.Features.Account.Handlers.Queries
                 if (x.SpecializationId is not null)
                     x.OrganizationId = await _grpcService.GetOrgName(x.OrganizationId);
             });
-            return result;
+            return new PagedList<AccountDto>(
+                data,
+                await _applicationUserRepository.CountAsync(request.querySpecParams),
+                request.querySpecParams.PageIndex,
+                request.querySpecParams.PageSize);
         }
     }
 }

@@ -12,6 +12,8 @@ import { SpecializationsService } from '../specializations.service';
   styleUrls: ['./view-specializations.component.scss']
 })
 export class ViewSpecializationsComponent implements OnInit {
+  claims: [] = [];
+
   @ViewChild('search', {static: false}) searchTerm!: ElementRef;
   specializations: ISpecialization[] = [];
   specParams = new Params();
@@ -19,25 +21,33 @@ export class ViewSpecializationsComponent implements OnInit {
   paginationResponse!: IPagination;
 
   constructor(
-    private specializationsService: SpecializationsService,
-    private router: Router) { }
+    private _specializationsService: SpecializationsService,
+    private _router: Router) { }
 
   ngOnInit(): void {
     this.getAllSpecializations();
+    this.getClaims();
+  }
+
+  public getClaims = () =>{
+    this._specializationsService.getPravicy('Specialization/privacy')
+    .subscribe(res => {
+      this.claims = res as [];
+    })
   }
 
   getAllSpecializations(){
-    this.specializationsService.getSpecializations('Specialization', this.specParams).subscribe(response => {
+    this._specializationsService.getSpecializations('Specialization', this.specParams).subscribe(response => {
       this.paginationResponse = JSON.parse(response?.headers.get('X-Pagination') as string);
       this.specializations = response?.body!;
     }, (error) => {
       console.log(error);
-      this.router.navigate(['/']).then();
+      this._router.navigate(['/']).then();
     })
   }
 
   deleteSpecialization(specializationId: string){
-    this.specializationsService.deleteSpecialization(`Specialization/${specializationId}`).subscribe(data => {
+    this._specializationsService.deleteSpecialization(`Specialization/${specializationId}`).subscribe(data => {
       this.getAllSpecializations();
     }, error => {
       this.getAllSpecializations();

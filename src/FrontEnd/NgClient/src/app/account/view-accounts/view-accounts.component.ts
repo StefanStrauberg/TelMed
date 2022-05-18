@@ -22,8 +22,8 @@ export class ViewAccountsComponent implements OnInit {
   }
 
   getAllSpecializations() {
-    this.accountService.getAccounts('Api/Account',this.accParams).subscribe(response => {
-      this.accounts = response!;
+    this.accountService.getAccounts('Api/User',this.accParams).subscribe(response => {
+      this.accounts = response?.body!;
     }, (error) => {
       this.router.navigate(['/']).then();
       console.log(error);
@@ -33,7 +33,7 @@ export class ViewAccountsComponent implements OnInit {
   deleteAccount(accountId: string){
     if(accountId)
     {
-      this.accountService.deleteAccount(`Api/Account/${accountId}`).subscribe((date: {}) => {
+      this.accountService.deleteAccount(`Api/User/${accountId}`).subscribe((date: {}) => {
         this.getAllSpecializations();
       }, (error) => {
         console.log(error);

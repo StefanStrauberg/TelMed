@@ -2,9 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { from } from 'rxjs';
 import { IAccount, IRole } from '../shared/models/account';
-import { IPagination } from '../shared/models/pagination';
 import { Params } from '../shared/models/params';
-import { AuthService } from '../shared/services/auth.service';
 import { EnvironmentUrlService } from '../shared/services/environment-url.service';
 
 @Injectable({
@@ -14,8 +12,7 @@ export class AccountService {
 
   constructor(
     private _http: HttpClient,
-    private _envUrl: EnvironmentUrlService,
-    private _authService: AuthService) { }
+    private _envUrl: EnvironmentUrlService) { }
 
   // Get All Roles
   public getRoles = (route: string) => {
@@ -24,19 +21,13 @@ export class AccountService {
 
   // Get All Accounts
   public getAccounts = (route: string, specParams: Params) => {
-    return from(
-      this._authService.getAccessToken()
-      .then(token => {
-        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-        let params = new HttpParams();
-        if(specParams.search){
-          params = params.append('search', specParams.search);
-        }
-        params = params.append('pageIndex', specParams.pageNumber.toString());
-        params = params.append('pageSize', specParams.pageSize.toString());
-        return this._http.get<IAccount[]>(this.createCompleteRoute(route, this._envUrl.identityServer), { headers: headers }).toPromise();
-      })
-    );
+    let params = new HttpParams();
+    if(specParams.search){
+      params = params.append('search', specParams.search);
+    }
+    params = params.append('pageIndex', specParams.pageNumber.toString());
+    params = params.append('pageSize', specParams.pageSize.toString());
+    return this._http.get<IAccount[]>(this.createCompleteRoute(route, this._envUrl.identityServer), { observe: 'response', params });
   }
 
   // Get By Id Account

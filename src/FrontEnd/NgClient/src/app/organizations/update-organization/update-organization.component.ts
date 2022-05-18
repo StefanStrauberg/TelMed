@@ -32,20 +32,20 @@ export class UpdateOrganizationComponent implements OnInit {
 
   getOrganization() {
     if(this.organizationId){
-      this.organizationsService.getOrganization(`Organization/${this.organizationId}`).subscribe((response: IOrganization) => {
-        this.orgName = response.organizationName.officialName;
+      this.organizationsService.getOrganization(`Organization/${this.organizationId}`).subscribe(response => {
+        this.orgName = response?.body?.organizationName.officialName!;
         this.ownerForm = this.formBuilder.group({
           organizationName: this.formBuilder.group({
-            officialName: new FormControl(response.organizationName.officialName, Validators.required),
-            usualName: new FormControl(response.organizationName.usualName, Validators.required),
+            officialName: new FormControl(response?.body?.organizationName.officialName!, Validators.required),
+            usualName: new FormControl(response?.body?.organizationName.usualName!, Validators.required),
           }),
           address: this.formBuilder.group({
-            line: new FormControl(response.address.line, Validators.required),
+            line: new FormControl(response?.body?.address.line!, Validators.required),
           }),
-          isActive: new FormControl(response.isActive),
-          region : new FormControl(response.region, Validators.required),
-          level : new FormControl(response.level, Validators.required),
-          specializationIds: new FormControl(response.specializationIds)
+          isActive: new FormControl(response?.body?.isActive!),
+          region : new FormControl(response?.body?.region!, Validators.required),
+          level : new FormControl(response?.body?.level!, Validators.required),
+          specializationIds: new FormControl(response?.body?.specializationIds!)
         });
       }, (error) => {
         this.router.navigate([`/admin/organizations/`]).then();
@@ -55,7 +55,7 @@ export class UpdateOrganizationComponent implements OnInit {
 
   updateOrganization(){
     if(this.organizationId){
-      this.organizationsService.updateOrganization(`Organization/${this.organizationId}`, this.ownerForm.value).subscribe((response: {}) => {
+      this.organizationsService.updateOrganization(`Organization/${this.organizationId}`, this.ownerForm.value).subscribe(response => {
         this.router.navigate(['/admin/organizations']).then();
       }, (error) => {
         console.log(error);

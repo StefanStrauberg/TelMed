@@ -38,7 +38,7 @@ export class CreateOrganizationComponent implements OnInit {
   createOrganization(){
     if(this.ownerForm.valid)
     {
-      this.organizationsService.createOrganization('Organization', this.ownerForm.value).subscribe((response: {}) => {
+      this.organizationsService.createOrganization('Organization', this.ownerForm.value).subscribe(response => {
         this.router.navigate(['/admin/organizations']).then();
       }, (error) => {
         console.log(error);

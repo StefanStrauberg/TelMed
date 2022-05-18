@@ -29,12 +29,12 @@ export class UpdateSpecializationComponent implements OnInit {
 
   getSpecialization() {
     if(this.specializationId){
-      this.specializationsService.getSpecialization(`Specialization/${this.specializationId}`).subscribe((data: ISpecialization) => {
-        this.specName = data.name;
+      this.specializationsService.getSpecialization(`Specialization/${this.specializationId}`).subscribe(data => {
+        this.specName = data?.body?.name!;
         this.ownerForm = this.formBuilder.group({
-          name: new FormControl(data.name, Validators.required),
-          isActive: new FormControl(data.isActive, Validators.required),
-          denyConsult: new FormControl(data.denyConsult, Validators.required),
+          name: new FormControl(data?.body?.name, Validators.required),
+          isActive: new FormControl(data?.body?.isActive, Validators.required),
+          denyConsult: new FormControl(data?.body?.denyConsult, Validators.required),
         });
       }, (error) => {
         this.router.navigate([`/admin/specializations`]).then();
@@ -44,7 +44,7 @@ export class UpdateSpecializationComponent implements OnInit {
 
   updateSpecialization(){
     if(this.specializationId){
-      this.specializationsService.updateSpecialization(`Specialization/${this.specializationId}` ,this.ownerForm.value).subscribe((data: {}) => {
+      this.specializationsService.updateSpecialization(`Specialization/${this.specializationId}` ,this.ownerForm.value).subscribe(data => {
         this.router.navigate(['/admin/specializations']).then();
       }, (error) => {
         this.router.navigate([`/admin/specializations/edit/${this.specializationId}`]).then();

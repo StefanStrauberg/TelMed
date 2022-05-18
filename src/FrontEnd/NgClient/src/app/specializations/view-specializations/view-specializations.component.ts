@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
+import { IPagination } from 'src/app/shared/models/pagination';
 import { Params } from 'src/app/shared/models/params';
 import { ISpecialization } from 'src/app/shared/models/specialization';
 import { SpecializationsService } from '../specializations.service';
@@ -14,8 +15,8 @@ export class ViewSpecializationsComponent implements OnInit {
   @ViewChild('search', {static: false}) searchTerm!: ElementRef;
   specializations: ISpecialization[] = [];
   specParams = new Params();
-  totalCount!: number;
   displayedColumns: string[] = ['name', 'isActive', 'denyConsult', 'actions'];
+  paginationResponse!: IPagination;
 
   constructor(
     private specializationsService: SpecializationsService,
@@ -27,7 +28,7 @@ export class ViewSpecializationsComponent implements OnInit {
 
   getAllSpecializations(){
     this.specializationsService.getSpecializations('Specialization', this.specParams).subscribe(response => {
-      console.log(response?.headers.get('X-Pagination'));
+      this.paginationResponse = JSON.parse(response?.headers.get('X-Pagination') as string);
       this.specializations = response?.body!;
     }, (error) => {
       console.log(error);
@@ -36,7 +37,7 @@ export class ViewSpecializationsComponent implements OnInit {
   }
 
   deleteSpecialization(specializationId: string){
-    this.specializationsService.deleteSpecialization(`Specialization/${specializationId}`).subscribe((data: {}) => {
+    this.specializationsService.deleteSpecialization(`Specialization/${specializationId}`).subscribe(data => {
       this.getAllSpecializations();
     }, error => {
       this.getAllSpecializations();
@@ -45,17 +46,17 @@ export class ViewSpecializationsComponent implements OnInit {
 
   onSearch() {
     this.specParams.search = this.searchTerm.nativeElement.value;
-    this.specParams.pageNumber = 1;
+    this.specParams.pageNumber = 0;
     this.getAllSpecializations();
   }
 
   onPageChange(event: PageEvent) {
-    if(this.specParams.pageSize !== event.pageSize)
+    if(this.paginationResponse.PageSize)
     {
       this.specParams.pageSize = event.pageSize;
       this.getAllSpecializations();
     }
-    if(this.specParams.pageNumber !== event.pageIndex)
+    if(this.paginationResponse.HasNext || this.paginationResponse.HasPrevious)
     {
       this.specParams.pageNumber = event.pageIndex;
       this.getAllSpecializations();

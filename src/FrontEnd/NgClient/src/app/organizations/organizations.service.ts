@@ -28,43 +28,82 @@ export class OrganizationsService {
         }
         params = params.append('pageIndex', orgParams.pageNumber.toString());
         params = params.append('pageSize', orgParams.pageSize.toString());
-        return this._http.get<IOrganization[]>(this.createCompleteRoute(route, this._envUrl.urlAddress), { headers: headers, observe: 'response', params }).toPromise();
+        return this._http.get<IOrganization[]>(
+          this.createCompleteRoute(route, this._envUrl.urlAddress),
+          { headers: headers, observe: 'response', params }).toPromise();
       })
     );
   }
 
   // Get All Short Organizations
   getShortOrganizations = (route: string) => {
-    return this._http.get<IShortOrganization[]>(this.createCompleteRoute(route, this._envUrl.urlAddress));
+    return from(
+      this._authService.getAccessToken()
+      .then(token => {
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this._http.get<IShortOrganization[]>(
+          this.createCompleteRoute(route, this._envUrl.urlAddress),
+          { headers: headers, observe: 'response' }).toPromise();
+      })
+    );
   }
 
   // Get By Id Organization
   getOrganization = (route: string) => {
-    return this._http.get<IOrganization>(this.createCompleteRoute(route, this._envUrl.urlAddress));
+    return from(
+      this._authService.getAccessToken()
+      .then(token => {
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this._http.get<IOrganization>(
+          this.createCompleteRoute(route, this._envUrl.urlAddress),
+          { headers: headers, observe: 'response' }).toPromise();
+      })
+    );
   }
 
   // Create Organization
   createOrganization = (route: string, body: IOrganization) => {
-    return this._http.post<{}>(this.createCompleteRoute(route, this._envUrl.urlAddress), body, this.generateHeaders());
+    return from(
+      this._authService.getAccessToken()
+      .then(token => {
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        headers.append('Content-Type','application/json');
+        return this._http.post<{}>(
+          this.createCompleteRoute(route, this._envUrl.urlAddress),
+          body, { headers: headers, observe: 'response' }).toPromise();
+      })
+    );
   }
 
   // Update Organization
   updateOrganization = (route: string, body: IOrganization) => {
-    return this._http.put<{}>(this.createCompleteRoute(route, this._envUrl.urlAddress), body, this.generateHeaders());
+    return from(
+      this._authService.getAccessToken()
+      .then(token => {
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        headers.append('Content-Type','application/json');
+        return this._http.put<{}>(
+          this.createCompleteRoute(route, this._envUrl.urlAddress),
+          body, { headers: headers, observe: 'response' }).toPromise();
+      })
+    );
   }
 
   // Delete Organization
   deleteOrganization = (route: string) => {
-    return this._http.delete<{}>(this.createCompleteRoute(route, this._envUrl.urlAddress));
+    return from(
+      this._authService.getAccessToken()
+      .then(token => {
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this._http.delete<{}>(
+          this.createCompleteRoute(route, this._envUrl.urlAddress),
+          { headers: headers, observe: 'response' }).toPromise();
+      })
+    );
   }
 
   private createCompleteRoute = (route: string, envAddress: string) => {
     return `${envAddress}/${route}`;
   }
-  
-  private generateHeaders = () => {
-    return {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    }
-  }
+
 }

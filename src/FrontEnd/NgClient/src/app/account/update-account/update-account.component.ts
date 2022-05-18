@@ -83,7 +83,7 @@ export class UpdateAccountComponent implements OnInit {
 
   private getShortOrganizations() {
     this.organizationService.getShortOrganizations('Organization/GetShort').subscribe(response => {
-      this.shortOrganizations = response;
+      this.shortOrganizations = response?.body!;
     }, (error) => {
       console.log(error);
       this.router.navigate(['/']).then();
@@ -92,7 +92,7 @@ export class UpdateAccountComponent implements OnInit {
 
   private getShortSpecializations() {
     this.specializationService.getShortSpecializations('Specialization/GetShort').subscribe(response => {
-      this.shortSpecializations = response;
+      this.shortSpecializations = response?.body!;
     }, (error) => {
       console.log(error);
       this.router.navigate(['/']).then();

@@ -17,7 +17,6 @@ export class ViewOrganizationsComponent implements OnInit {
   orgReg = OrganizationRegion;
   @ViewChild('search', {static: false}) searchTerm!: ElementRef;
   orgParams = new Params();
-  totalCount!: number;
   displayedColumns: string[] = ['officialName', 'usualName', 'line', 'specializationIds', 'region', 'level', 'isActive', 'actions'];
   paginationResponse!: IPagination;
   
@@ -31,7 +30,7 @@ export class ViewOrganizationsComponent implements OnInit {
 
   getAllOrganizations() {
     this.organizationsService.getOrganizations('Organization', this.orgParams).subscribe((response) => {
-      this.paginationResponse = response?.headers.get('X-Pagination') as unknown as IPagination;
+      this.paginationResponse = JSON.parse(response?.headers.get('X-Pagination') as string);
       this.organizations = response?.body!;
     }, (error) => {
       console.log(error);
@@ -42,7 +41,7 @@ export class ViewOrganizationsComponent implements OnInit {
   deleteOrganization(organizationId: string){
     if(organizationId)
     {
-      this.organizationsService.deleteOrganization(`Organization/${organizationId}`).subscribe((response: {}) => {
+      this.organizationsService.deleteOrganization(`Organization/${organizationId}`).subscribe(response => {
         this.getAllOrganizations();
       }, (error) => {
         console.log(error);
@@ -58,12 +57,12 @@ export class ViewOrganizationsComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent) {
-    if(this.orgParams.pageSize !== event.pageSize)
+    if(this.paginationResponse.PageSize)
     {
       this.orgParams.pageSize = event.pageSize;
       this.getAllOrganizations();
     }
-    if(this.orgParams.pageNumber !== event.pageIndex)
+    if(this.paginationResponse.HasNext || this.paginationResponse.HasPrevious)
     {
       this.orgParams.pageNumber = event.pageIndex;
       this.getAllOrganizations();

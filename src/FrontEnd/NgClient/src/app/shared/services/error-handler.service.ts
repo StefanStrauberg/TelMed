@@ -24,7 +24,10 @@ export class ErrorHandlerService implements HttpInterceptor {
             }
           }
           if(error.status === 401) {
-            this._toastr.error(error.error.detail, error.error.statusCode);
+            this._toastr.error(error.statusText, error.status);
+          }
+          if(error.status === 403) {
+            this._toastr.error(error.statusText, error.status);
           }
           if(error.status === 404) {
             this._router.navigateByUrl('/not-found');

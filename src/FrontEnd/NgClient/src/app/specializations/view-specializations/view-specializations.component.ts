@@ -12,7 +12,6 @@ import { SpecializationsService } from '../specializations.service';
   styleUrls: ['./view-specializations.component.scss']
 })
 export class ViewSpecializationsComponent implements OnInit {
-  claims: [] = [];
 
   @ViewChild('search', {static: false}) searchTerm!: ElementRef;
   specializations: ISpecialization[] = [];
@@ -26,14 +25,6 @@ export class ViewSpecializationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllSpecializations();
-    this.getClaims();
-  }
-
-  public getClaims = () =>{
-    this._specializationsService.getPravicy('Specialization/privacy')
-    .subscribe(res => {
-      this.claims = res as [];
-    })
   }
 
   getAllSpecializations(){

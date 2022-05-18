@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Specializations.API.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     public class SpecializationController : BaseController
     {
         private readonly IMediator _mediator;

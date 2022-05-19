@@ -7,20 +7,39 @@ import { AuthService } from './shared/services/auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public userAuthenticated = false;
+  public isUserAuthenticated = false;
+  public isUserAdmin = false;
 
   constructor(private _authService: AuthService) {
     this._authService.loginChanged
     .subscribe(userAuthenticated => {
-      this.userAuthenticated = userAuthenticated;
+      this.isUserAuthenticated = userAuthenticated;
+      this.checkAdmin();
     })
   }
 
   ngOnInit(): void {
     this._authService.isAuthenticated()
     .then(userAuthenticated => {
-      this.userAuthenticated = userAuthenticated;
-    })
+      this.isUserAuthenticated = userAuthenticated;
+    });
+    this.checkAdmin();
   }
 
+  private checkAdmin() {
+    if(this.isUserAuthenticated)
+    {
+      this._authService.checkIfUserIsAdmin()
+      .then(res => {
+        this.isUserAdmin = res;
+      });
+    }
+  }
+
+  public login = () => {
+    this._authService.login();
+  }
+  public logout = () => {
+    this._authService.logout();
+  }
 }

@@ -11,9 +11,9 @@ const routes: Routes = [
   { path: 'signin-callback', component: SigninRedirectCallbackComponent },
   { path: 'signout-callback', component: SignoutRedirectCallbackComponent },
   { path: 'admin/organizations', loadChildren: () => import('./organizations/organizations.module')
-    .then(mod => mod.OrganizationsModule), canActivate: [AuthGuardService] },
+    .then(mod => mod.OrganizationsModule), canActivate: [AuthGuardService], data: { roles: 'Administrator' } },
   { path: 'admin/specializations', loadChildren: () => import('./specializations/specializations.module')
-    .then(mod => mod.SpecializationsModule), canActivate: [AuthGuardService] },
+    .then(mod => mod.SpecializationsModule), canActivate: [AuthGuardService], data: { roles: 'Administrator' } },
   { path: 'admin/reports', loadChildren: () => import('./reports/reports.module')
     .then(mod => mod.ReportsModule), canActivate: [AuthGuardService] },
   { path: 'admin/accounts', loadChildren: () => import('./account/account.module')

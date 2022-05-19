@@ -43,7 +43,7 @@ export class UpdateAccountComponent implements OnInit {
   }
 
   private getAccountById(id: string) {
-    this.accountService.getAccount(`Api/Account/${id}`).subscribe((response: IAccount) => {
+    this.accountService.getAccount(`Api/User/${id}`).subscribe((response: IAccount) => {
       this.fullUserName = response.lastName + ' ' + response.firstName + ' ' + response.middleName;
       this.ownerForm = this.ownerForm = this.formBuilder.group({
         userName: new FormControl(response.userName, Validators.required),

@@ -10,25 +10,27 @@ export class AuthGuardService implements CanActivate {
   constructor(private _authService: AuthService, private _router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const roles = route.data['roles'] as Array<string>;
+    const roles = route.data['roles'] as string;
     if(!roles) {
       return this.checkIsUserAuthenticated();
     }
-    else {
+    else{
       return this.checkForAdministrator();
     }
   }
 
   private checkIsUserAuthenticated() {
-    return this._authService.checkIfUserIsAdmin()
+    return this._authService.isAuthenticated()
     .then(res => {
+      console.log(`Guard isAuthenticated: ${res}`);
       return res ? true : this.redirectToUnauthorized();
     })
   }
   
   private checkForAdministrator() {
-    return this._authService.isAuthenticated()
+    return this._authService.checkIfUserIsAdmin()
       .then(res => {
+        console.log(`Guard checkIfUserIsAdmin: ${res}`);
         return res ? true : this.redirectToUnauthorized();
       })
   }

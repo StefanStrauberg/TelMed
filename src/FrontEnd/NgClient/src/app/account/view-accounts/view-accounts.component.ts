@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { IAccount } from 'src/app/shared/models/account';
+import { IPagination } from 'src/app/shared/models/pagination';
 import { Params } from 'src/app/shared/models/params';
 import { AccountService } from '../account.service';
 
@@ -13,16 +15,19 @@ export class ViewAccountsComponent implements OnInit {
   accounts: IAccount[] = [];
   displayedColumns: string[] = ['userName', 'fullName', 'roleId', 'specializationId', 'organizationId', 'contacts', 'isActive', 'actions'];
   accParams = new Params();
+  @ViewChild('search', {static: false}) searchTerm!: ElementRef;
+  paginationResponse!: IPagination;
 
   constructor(private accountService: AccountService,
     private router: Router) { }
 
   ngOnInit(): void {
-    this.getAllSpecializations();
+    this.getAllAccounts();
   }
 
-  getAllSpecializations() {
+  getAllAccounts() {
     this.accountService.getAccounts('Api/User',this.accParams).subscribe(response => {
+      this.paginationResponse = JSON.parse(response?.headers.get('X-Pagination') as string);
       this.accounts = response?.body!;
     }, (error) => {
       this.router.navigate(['/']).then();
@@ -34,11 +39,36 @@ export class ViewAccountsComponent implements OnInit {
     if(accountId)
     {
       this.accountService.deleteAccount(`Api/User/${accountId}`).subscribe((date: {}) => {
-        this.getAllSpecializations();
+        this.getAllAccounts();
       }, (error) => {
         console.log(error);
-        this.getAllSpecializations();
+        this.getAllAccounts();
       });
     }
+  }
+
+  onSearch() {
+    this.accParams.search = this.searchTerm.nativeElement.value;
+    this.accParams.pageNumber = 0;
+    this.getAllAccounts();
+  }
+
+  onPageChange(event: PageEvent) {
+    if(this.paginationResponse.PageSize !== event.pageSize)
+    {
+      this.accParams.pageSize = event.pageSize;
+      this.getAllAccounts();
+    }
+    if(this.paginationResponse.CurrentPage !== event.pageIndex)
+    {
+      this.accParams.pageNumber = event.pageIndex;
+      this.getAllAccounts();
+    }
+  }
+
+  onReset() {
+    this.searchTerm.nativeElement.value = '';
+    this.accParams = new Params();
+    this.getAllAccounts();
   }
 }

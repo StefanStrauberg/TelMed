@@ -4,6 +4,32 @@
         <i class="fa-solid fa-plus"></i> Создать
     </button>
 </div>
+<div class="d-flex justify-content-between align-items-center">
+    <div *ngIf="paginationResponse">
+        <mat-paginator [length]="paginationResponse.TotalCount"
+              [pageSize]="paginationResponse.PageSize"
+              [pageSizeOptions]="[10, 25, 50]"
+              (page)="onPageChange($event)"
+              aria-label="Select page">
+        </mat-paginator>
+    </div>
+    <div class="form-inline">
+        <mat-form-field class="me-2" style="width: 300px;" appearance="outline">
+            <mat-label>Поиск</mat-label>
+            <input matInput (keyup.enter)="onSearch()" #search maxlength="256" placeholder="Логин пользователя">
+        </mat-form-field>
+        <button mat-stroked-button color="primary" [disabled]="search.value.length == 0"
+        data-toggle="tooltip" data-placement="bottom" title="Поиск"
+        (click)="onSearch()">
+            Поиск
+        </button>
+        <button mat-stroked-button color="warn" 
+        data-toggle="tooltip" data-placement="bottom" title="Очистить"
+        (click)="onReset()">
+            Очистить
+        </button>
+    </div>
+</div>
 <table mat-table [dataSource]="accounts" class="mat-elevation-z8">
     <ng-container matColumnDef="userName">
       <th mat-header-cell *matHeaderCellDef> Логин </th>

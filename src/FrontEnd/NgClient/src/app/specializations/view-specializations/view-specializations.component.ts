@@ -52,12 +52,12 @@ export class ViewSpecializationsComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent) {
-    if(this.paginationResponse.PageSize)
+    if(this.paginationResponse.PageSize !== event.pageSize)
     {
       this.specParams.pageSize = event.pageSize;
       this.getAllSpecializations();
     }
-    if(this.paginationResponse.HasNext || this.paginationResponse.HasPrevious)
+    if(this.paginationResponse.CurrentPage !== event.pageIndex)
     {
       this.specParams.pageNumber = event.pageIndex;
       this.getAllSpecializations();

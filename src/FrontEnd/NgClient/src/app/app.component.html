@@ -1,13 +1,23 @@
-<mat-toolbar class="mat-elevation-z8">
-    <app-nav-bar></app-nav-bar>
+<mat-toolbar class="nav-bar">
+    <div>
+        Республиканская телемедицинская система унифицированного медицинского консультирования (РТМС)
+    </div>
+    <div>
+        <button button mat-raised-button color="primary"
+            *ngIf="!isUserAuthenticated"
+            class="btn btn-link" (click)="login()">Login</button>
+        <button button mat-raised-button color="primary"
+            *ngIf="isUserAuthenticated"
+            class="btn btn-link" (click)="logout()">Logout</button>
+    </div>
 </mat-toolbar>
 <mat-sidenav-container>
-    <mat-sidenav *ngIf="userAuthenticated" mode="side" opened>
-        <app-side-bar></app-side-bar>
+    <mat-sidenav *ngIf="isUserAuthenticated" mode="side" opened>
+        <app-side-bar [isUserAuthenticated]="isUserAuthenticated" [isUserAdmin]="isUserAdmin"></app-side-bar>
     </mat-sidenav>
     <mat-sidenav-content>
-        <div class="content mat-elevation-z8">
+        <main class="content mat-elevation-z8">
             <router-outlet></router-outlet>
-        </div>
+        </main>
     </mat-sidenav-content>
 </mat-sidenav-container>

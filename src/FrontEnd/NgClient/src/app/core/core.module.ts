@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { FooterComponent } from './footer/footer.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,7 +9,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
-    NavBarComponent,
     SideBarComponent,
     FooterComponent,
     NotFoundComponent
@@ -22,7 +20,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
     MatListModule
   ],
   exports: [
-    NavBarComponent,
     SideBarComponent,
     FooterComponent,
   ]

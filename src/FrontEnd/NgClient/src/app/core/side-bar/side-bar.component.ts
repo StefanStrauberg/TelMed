@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-side-bar',
@@ -7,23 +6,12 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./side-bar.component.scss']
 })
 export class SideBarComponent implements OnInit {
-  isUserAdmin!: boolean;
-  isUserDoctor!: boolean;
+  @Input() isUserAdmin: boolean = false;
+  @Input() isUserAuthenticated: boolean = false;
 
-  constructor(private _authService: AuthService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this._authService.loginChanged
-      .subscribe(res => {
-        this.isAdmin();
-    })
-  }
-
-  public isAdmin = () => {
-    return this._authService.checkIfUserIsAdmin()
-    .then(res => {
-      this.isUserAdmin = res;
-    })
   }
 
 }

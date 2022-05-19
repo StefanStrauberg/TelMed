@@ -1,92 +1,104 @@
-<mat-nav-list>
-  <a mat-list-item *ngIf="isUserDoctor">
-    <button type="button" class="btn btn-dark btn-sm menu-button" routerLink="/ereferral" routerLinkActive="active">
-      Направления
-    </button>
-  </a>
-  <a mat-list-item *ngIf="isUserDoctor">
-    <button type="button" class="btn btn-dark btn-sm menu-button">
-      Направления организации
-    </button>
-  </a>
-  <a mat-list-item *ngIf="isUserDoctor">
-    <button type="button" class="btn btn-dark btn-sm menu-button">
-      Консультативные заключения
-    </button>
-  </a>
-  <a mat-list-item *ngIf="isUserDoctor">
-    <button type="button" class="btn btn-dark btn-sm menu-button">
-      Консультативные заключения организации
-    </button>
-  </a>
-  <a mat-list-item *ngIf="isUserDoctor">
-    <button type="button" class="btn btn-dark btn-sm menu-button">
-      Запросы на консультацию
-    </button>
-  </a>
-  <a mat-list-item *ngIf="isUserDoctor">
-    <button type="button" class="btn btn-dark btn-sm menu-button">
-      Аннулированные запросы на консультацию
-    </button>
-  </a>
-  <a mat-list-item *ngIf="isUserDoctor">
-    <button type="button" class="btn btn-dark btn-sm menu-button">
-      Заключения со статусом "Требует дополнения"
-    </button>
-  </a>
-  <a mat-list-item *ngIf="isUserDoctor">
-    <button type="button" class="btn btn-dark btn-sm menu-button">
-      Заключения организации "Требует дополнения"
-    </button>
-  </a>
-  <a mat-list-item *ngIf="isUserDoctor">
-    <button type="button" class="btn btn-dark btn-sm menu-button">
-      Архив собственных заключений
-    </button>
-  </a>
-  <a mat-list-item *ngIf="isUserDoctor">
-    <button type="button" class="btn btn-dark btn-sm menu-button">
-      Архив заключений организации
-    </button>
-  </a>
-  <a mat-list-item *ngIf="isUserAdmin">
-    <button type="button" class="btn btn-dark btn-sm menu-button">
-      Панель управления
-    </button>
-  </a>
-  <a mat-list-item *ngIf="isUserAdmin">
-    <button type="button" class="btn btn-dark btn-sm menu-button" routerLink="admin/accounts" routerLinkActive="active">
-      Пользователи
-    </button>
-  </a>
-  <a mat-list-item *ngIf="isUserAdmin">
-    <button type="button" class="btn btn-dark btn-sm menu-button" routerLink="admin/organizations" routerLinkActive="active">
-      Организации
-    </button>
-  </a>
-  <a mat-list-item *ngIf="isUserAdmin">
-    <button type="button" class="btn btn-dark btn-sm menu-button" routerLink="admin/specializations" routerLinkActive="active">
-      Специализации
-    </button>
-  </a>
-  <a mat-list-item *ngIf="isUserAdmin">
-    <button type="button" class="btn btn-dark btn-sm menu-button">
-      Отчеты
-    </button>
-  </a>
-  <a mat-list-item *ngIf="isUserDoctor">
-    <button type="button" class="btn btn-dark btn-sm menu-button">
-      Отчет по консультирующей организации
-    </button>
-  </a>
-  <a mat-list-item *ngIf="isUserDoctor">
-    <button type="button" class="btn btn-dark btn-sm menu-button">
-      Отчет по консультирующейся организации
-    </button>
-  </a>
-  <a mat-list-item *ngIf="isUserAdmin">
-    <button type="button" class="btn btn-dark btn-sm menu-button">
-      Контакты
-    </button>
-  </a>
-</mat-nav-list>
+<pre>isUserAdmin:{{isUserAdmin}}</pre>
+<pre>isUserAuthenticated:{{isUserAuthenticated}}</pre>
+<button *ngIf="!isUserAuthenticated" button mat-raised-button color="primary" class="menu-button" routerLink='/ereferral'>
+  <span>
+    Направления
+  </span>
+</button>
+<button *ngIf="!isUserAuthenticated" button mat-raised-button color="primary" class="menu-button">
+  <span>
+    Направления организации
+  </span>
+</button>
+<button *ngIf="!isUserAuthenticated" button mat-raised-button color="primary" class="menu-button">
+  <span>
+    Консультативные заключения
+  </span>
+</button>
+<button *ngIf="!isUserAuthenticated" button mat-raised-button color="primary" class="menu-button">
+  <span>
+    Консультативные
+    <br>
+    заключения организации
+  </span>
+</button>
+<button *ngIf="!isUserAuthenticated" button mat-raised-button color="primary" class="menu-button">
+  <span>
+    Запросы на консультацию
+  </span>
+</button>
+<button *ngIf="!isUserAuthenticated" button mat-raised-button color="primary" class="menu-button">
+  <span>
+    Аннулированные запросы
+    <br>
+    на консультацию
+  </span>
+</button>
+<button *ngIf="!isUserAuthenticated" button mat-raised-button color="primary" class="menu-button">
+  <span>
+    Заключения со статусом
+    <br>
+    "Требует дополнения"
+  </span>
+</button>
+<button *ngIf="!isUserAuthenticated" button mat-raised-button color="primary" class="menu-button">
+  <span>
+    Заключения организации
+    <br>
+    "Требует дополнения"
+  </span>
+</button>
+<button *ngIf="!isUserAuthenticated" button mat-raised-button color="primary" class="menu-button">
+  <span>
+    Архив собственных заключений
+  </span>
+</button>
+<button *ngIf="!isUserAuthenticated" button mat-raised-button color="primary" class="menu-button">
+  <span>
+    Архив заключений организации
+  </span>
+</button>
+<button *ngIf="isUserAdmin" button mat-raised-button color="primary" class="menu-button">
+  <span>
+    Панель управления
+  </span>
+</button>
+<button *ngIf="isUserAdmin" button mat-raised-button color="primary" class="menu-button" [routerLink]="['admin/accounts']" routerLinkActive="activebutton">
+  <span>
+    Пользователи
+  </span>
+</button>
+<button *ngIf="isUserAdmin" button mat-raised-button color="primary" class="menu-button" [routerLink]="['admin/organizations']" routerLinkActive="activebutton">
+  <span>
+    Организации
+  </span>
+</button>
+<button *ngIf="isUserAdmin" button mat-raised-button color="primary" class="menu-button" [routerLink]="['admin/specializations']" routerLinkActive="activebutton">
+  <span>
+    Специализации
+  </span>
+</button>
+<button *ngIf="isUserAdmin" button mat-raised-button color="primary" class="menu-button">
+  <span>
+    Отчеты
+  </span>
+</button>
+<button *ngIf="!isUserAuthenticated" button mat-raised-button color="primary" class="menu-button">
+  <span>
+    Отчет по консультирующей
+    <br>
+    организации
+  </span>
+</button>
+<button *ngIf="!isUserAuthenticated" button mat-raised-button color="primary" class="menu-button">
+  <span>
+    Отчет по консультирующейся
+    <br>
+    организации
+  </span>
+</button>
+<button *ngIf="isUserAdmin" button mat-raised-button color="primary" class="menu-button" >
+  <span>
+    Контакты
+  </span>
+</button>

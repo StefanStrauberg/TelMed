@@ -29,7 +29,7 @@ export class ViewOrganizationsComponent implements OnInit {
   }
 
   getAllOrganizations() {
-    this.organizationsService.getOrganizations('Organization', this.orgParams).subscribe((response) => {
+    this.organizationsService.getOrganizations('Organization', this.orgParams).subscribe(response => {
       this.paginationResponse = JSON.parse(response?.headers.get('X-Pagination') as string);
       this.organizations = response?.body!;
     }, (error) => {
@@ -57,12 +57,12 @@ export class ViewOrganizationsComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent) {
-    if(this.paginationResponse.PageSize)
+    if(this.paginationResponse.PageSize !== event.pageSize)
     {
       this.orgParams.pageSize = event.pageSize;
       this.getAllOrganizations();
     }
-    if(this.paginationResponse.HasNext || this.paginationResponse.HasPrevious)
+    if(this.paginationResponse.CurrentPage !== event.pageIndex)
     {
       this.orgParams.pageNumber = event.pageIndex;
       this.getAllOrganizations();

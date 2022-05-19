@@ -25,7 +25,7 @@ export class AuthService {
 
   constructor() {
     this._userManager = new UserManager(this.idpSettings);
-   }
+  }
 
   public login = () => {
     return this._userManager.signinRedirect();
@@ -67,14 +67,14 @@ export class AuthService {
   public getAccessToken = (): Promise<string | null> => {
     return this._userManager.getUser()
       .then(user => {
-         return !!user && !user.expired ? user.access_token : null;
+        return !!user && !user.expired ? user.access_token : null;
     })
   }
 
-  public checkIfUserIsAdmin = (): Promise<boolean> => {
+  public checkUserRole = (userRole: string): Promise<boolean> => {
     return this._userManager.getUser()
     .then(user => {
-      return user?.profile['role'] === "Administrator";
+      return user?.profile['role'] === userRole;
     })
   }
 }

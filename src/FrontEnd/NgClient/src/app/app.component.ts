@@ -9,12 +9,14 @@ import { AuthService } from './shared/services/auth.service';
 export class AppComponent {
   public isUserAuthenticated = false;
   public isUserAdmin = false;
+  public isUserDocktor = false;
 
   constructor(private _authService: AuthService) {
     this._authService.loginChanged
     .subscribe(userAuthenticated => {
       this.isUserAuthenticated = userAuthenticated;
       this.checkAdmin();
+      this.checkDocktor();
     })
   }
 
@@ -24,14 +26,25 @@ export class AppComponent {
       this.isUserAuthenticated = userAuthenticated;
     });
     this.checkAdmin();
+    this.checkDocktor();
   }
 
   private checkAdmin() {
     if(this.isUserAuthenticated)
     {
-      this._authService.checkIfUserIsAdmin()
+      this._authService.checkUserRole("Administrator")
       .then(res => {
         this.isUserAdmin = res;
+      });
+    }
+  }
+
+  private checkDocktor() {
+    if(this.isUserAuthenticated)
+    {
+      this._authService.checkUserRole("Doctor")
+      .then(res => {
+        this.isUserDocktor = res;
       });
     }
   }

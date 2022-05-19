@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class SideBarComponent implements OnInit {
   @Input() isUserAdmin: boolean = false;
   @Input() isUserAuthenticated: boolean = false;
+  @Input() isUserDocktor: boolean = false;
 
   constructor() { }
 

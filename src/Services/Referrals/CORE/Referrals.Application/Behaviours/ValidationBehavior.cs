@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
-using ValidationException = Referrals.Domain.Exceptions.ValidationException;
+using ValidationException = Referrals.Application.Errors.ValidationException;
 
 namespace Referrals.Application.Behaviours
 {

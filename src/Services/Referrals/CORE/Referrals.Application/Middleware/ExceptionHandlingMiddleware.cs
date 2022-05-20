@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Referrals.Domain.Exceptions;
+using Referrals.Application.Errors;
 using System.Text.Json;
-using ApplicationException = Referrals.Domain.Exceptions.ApplicationException;
+using ApplicationException = Referrals.Application.Errors.ApplicationException;
 
 namespace Referrals.Application.Middleware
 {

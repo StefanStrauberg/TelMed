@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Referrals.Application;
 using Referrals.Application.Middleware;
@@ -22,6 +24,18 @@ namespace Referrals.API
             services.AddApplicationServices();
             services.Configure<DatabaseSettings>(Configuration.GetSection("DatabaseSettings"));
             services.AddInfrastructureServices();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.Authority = "http://localhost:5050";
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = "http://localhost:5050",
+                        ValidAudience = "ReferralsApi"
+                    };
+                });
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -29,10 +43,13 @@ namespace Referrals.API
             });
             services.AddCors(options => 
                 {
-                    options.AddPolicy(name: _policyName,
-                    builder => builder.AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .WithOrigins(Configuration["ServiceUrls:Angular"]));
+                    options.AddPolicy(name: _policyName, builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .WithExposedHeaders("X-Pagination");
+                    });
                 });
         }
         public void Configure(IApplicationBuilder app)
@@ -42,6 +59,7 @@ namespace Referrals.API
             app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.UseRouting();
             app.UseCors(_policyName);
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

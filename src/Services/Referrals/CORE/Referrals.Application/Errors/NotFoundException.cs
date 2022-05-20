@@ -1,4 +1,4 @@
-﻿namespace Referrals.Domain.Exceptions
+﻿namespace Referrals.Application.Errors
 {
     public class NotFoundException : ApplicationException
     {

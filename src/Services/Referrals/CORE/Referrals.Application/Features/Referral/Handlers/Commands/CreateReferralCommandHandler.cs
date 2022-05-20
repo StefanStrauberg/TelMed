@@ -19,7 +19,7 @@ namespace Referrals.Application.Features.Referral.Handlers.Commands
         public async Task<Unit> Handle(CreateReferralCommand request,
             CancellationToken cancellationToken)
         {
-            await _repository.CreateAsync(_mapper.Map<Domain.Referral>(request.model));
+            await _repository.CreateAsync(_mapper.Map<Domain.Referral>(request.model), request.accountId);
             return Unit.Value;
         }
     }

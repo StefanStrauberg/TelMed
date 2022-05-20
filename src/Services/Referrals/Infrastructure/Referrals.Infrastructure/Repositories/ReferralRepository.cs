@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using Referrals.Application.Contracts.Persistence;
+using Referrals.Application.Specs;
 using Referrals.Domain;
 using Referrals.Infrastructure.Persistence;
 
@@ -14,9 +15,10 @@ namespace Referrals.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task CreateAsync(Referral entity)
+        public async Task CreateAsync(Referral entity, string authorId)
         {
             entity.Id = ObjectId.GenerateNewId().ToString();
+            entity.AuthorId = new Guid(authorId);
             await _context.Referrals.InsertOneAsync(entity);
         }
 
@@ -27,15 +29,12 @@ namespace Referrals.Infrastructure.Repositories
             return result.IsAcknowledged && result.DeletedCount > 0;
         }
 
-        public void Dispose()
-        {
-            GC.SuppressFinalize(this);
-        }
-
-        public async Task<IReadOnlyList<Referral>> GetAllAsync()
-        {
-            return await _context.Referrals.Find(x => true).ToListAsync();
-        }
+        public async Task<IEnumerable<Referral>> GetAllAsync(QuerySpecParams querySpecParams, string authorId)
+            => await _context.Referrals.Find(GetFilter(authorId))
+                //.Skip((querySpecParams.PageIndex) * querySpecParams.PageSize)
+                //.Limit(querySpecParams.PageSize)
+                //.Sort(GetSort(querySpecParams.Sort))
+                .ToListAsync();
 
         public async Task<Referral> GetAsync(string Id)
         {
@@ -54,5 +53,27 @@ namespace Referrals.Infrastructure.Repositories
             var result = await _context.Referrals.UpdateOneAsync(filter, update);
             return result.IsAcknowledged && result.ModifiedCount > 0;
         }
+
+        // Find referrral by AuthorId
+        private FilterDefinition<Referral> GetFilter(string authorId)
+            => Builders<Referral>.Filter.Eq(x => x.AuthorId, new Guid(authorId));
+
+        // Sort Referrals by Published Data
+        private SortDefinition<Referral> GetSort(string sort) =>
+            sort switch
+            {
+                "OrderByDescending" => Builders<Referral>.Sort.Descending(x => x.Published),
+                _ => Builders<Referral>.Sort.Ascending(x => x.Published)
+            };
+
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
+        }
+
+        public async Task<long> CountAsync(QuerySpecParams querySpecParams, string authorId)
+            => await _context.Referrals
+                .Find(GetFilter(authorId))
+                .CountDocumentsAsync();
     }
 }

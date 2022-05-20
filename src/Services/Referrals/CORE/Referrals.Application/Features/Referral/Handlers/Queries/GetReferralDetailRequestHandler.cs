@@ -3,7 +3,7 @@ using MediatR;
 using Referrals.Application.Contracts.Persistence;
 using Referrals.Application.DTO;
 using Referrals.Application.Features.Referral.Requests.Queries;
-using Referrals.Domain.Exceptions;
+using Referrals.Application.Errors;
 
 namespace Referrals.Application.Features.Referral.Handlers.Queries
 {

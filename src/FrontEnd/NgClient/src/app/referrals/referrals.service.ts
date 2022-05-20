@@ -7,34 +7,35 @@ import { EnvironmentUrlService } from '../shared/services/environment-url.servic
   providedIn: 'root'
 })
 export class ReferralsService {
-  baseUrl: string = 'Referral';
 
-  constructor(private http: HttpClient, private envUrl: EnvironmentUrlService) { }
+  constructor(private _http: HttpClient, private _envUrl: EnvironmentUrlService) { }
 
   // Get All Referrals
-  getReferrals() {
-    return this.http.get<IReferral[]>(this.createCompleteRoute(this.baseUrl, this.envUrl.urlAddress));
+  getReferrals = (route: string) => {
+    return this._http.get<IReferral[]>(
+      this.createCompleteRoute(route, this._envUrl.urlAddress),{ observe: 'response' });
   }
 
   // Get By Id Referral
-  getReferral = (id: string) => {
-    return this.http.get<IReferral>(this.createCompleteRoute(this.baseUrl + `/${id}`, this.envUrl.urlAddress));
+  getReferral = (route: string) => {
+    return this._http.get<IReferral>(
+      this.createCompleteRoute(route, this._envUrl.urlAddress),{ observe: 'response' });
   }
 
-  // Create Referral
-  createReferral = (model: IReferral) => {
-    return this.http.post<{}>(this.createCompleteRoute(this.baseUrl, this.envUrl.urlAddress), model);
-  }
+  // // Create Referral
+  // createReferral = (model: IReferral) => {
+  //   return this._http.post<{}>(this.createCompleteRoute(this.baseUrl, this._envUrl.urlAddress), model);
+  // }
 
-  // Update Referral
-  updateReferral = (model: IReferral, id: string) => {
-    return this.http.put<{}>(this.createCompleteRoute(this.baseUrl + `/${id}`, this.envUrl.urlAddress), model);
-  }
+  // // Update Referral
+  // updateReferral = (model: IReferral, id: string) => {
+  //   return this.http.put<{}>(this.createCompleteRoute(this.baseUrl + `/${id}`, this.envUrl.urlAddress), model);
+  // }
 
-  // Delete Referral
-  deleteReferral = (id: string) => {
-    return this.http.delete<{}>(this.createCompleteRoute(this.baseUrl + `/${id}`, this.envUrl.urlAddress));
-  }
+  // // Delete Referral
+  // deleteReferral = (id: string) => {
+  //   return this._http.delete<{}>(this.createCompleteRoute(this.baseUrl + `/${id}`, this._envUrl.urlAddress));
+  // }
 
   private createCompleteRoute = (route: string, envAddress: string) => {
     return `${envAddress}/${route}`;

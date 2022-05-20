@@ -37,8 +37,7 @@ namespace Specializations.API.Controllers
                 result.TotalPages,
                 result.HasNext,
                 result.HasPrevious
-            })
-                );
+            }));
             return Ok(result);
         }
 

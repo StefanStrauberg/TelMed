@@ -13,11 +13,6 @@ export class SpecializationsService {
     private _http: HttpClient,
     private _envUrl: EnvironmentUrlService) { }
 
-  // Privacy Test
-  getPravicy = (route: string) => {
-    return this._http.get<any>(this.createCompleteRoute(route, this._envUrl.urlAddress));
-  }
-
   // Get All Specializations
   getSpecializations(route: string, specParams: Params) {
     let params = new HttpParams();

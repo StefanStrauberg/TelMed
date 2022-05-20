@@ -1,6 +1,6 @@
 <pre>isUserAdmin:{{isUserAdmin}}</pre>
 <pre>isUserAuthenticated:{{isUserAuthenticated}}</pre>
-<button *ngIf="!isUserAuthenticated" button mat-raised-button color="primary" class="menu-button" routerLink='/ereferral'>
+<button *ngIf="isUserAuthenticated" button mat-raised-button color="primary" class="menu-button" routerLink='/referrals'>
   <span>
     Направления
   </span>

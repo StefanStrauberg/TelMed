@@ -1,18 +1,32 @@
+<pre>{{referrals | json}}</pre>
+<div class="d-flex justify-content-end">
+    <button mat-raised-button color="primary"
+    data-toggle="tooltip" data-placement="bottom" title="Создать"
+    routerLink="/referrals/create">
+        <i class="fa-solid fa-plus"></i> Создать
+    </button>
+</div>
 <mat-tab-group>
     <mat-tab label="Недооформлено">
-        <mat-card class="example-form">
-            <mat-card-title class="d-flex justify-content-between">
+        <div *ngIf="referrals">
+            <mat-card *ngFor="let referral of referrals" class="example-form">
+                <mat-card-title class="d-flex justify-content-between">
                 <div>
                     Date
                 </div>
                 <div>
                     action
                 </div>
-            </mat-card-title>
-            <mat-card-content>
-                123
-            </mat-card-content>
-        </mat-card>
+                </mat-card-title>
+                <mat-card-content>
+                    <p>Статус: {{ referral.status }}</p>
+                    <p>Пациент: {{ referral.patient.fullName }}</p>
+                    <p>Врач, отправивший запрос: {{ referral.authorId }}</p>
+                    <p>Консультант: - </p>
+                    <p>Кол-во заключений: - </p>
+                </mat-card-content>
+            </mat-card>
+        </div>
     </mat-tab>
     <mat-tab label="Открыто">
         <mat-card class="example-form">

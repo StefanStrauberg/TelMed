@@ -18,7 +18,7 @@ const routes: Routes = [
     .then(mod => mod.ReportsModule), canActivate: [AuthGuardService] },
   { path: 'admin/accounts', loadChildren: () => import('./account/account.module')
     .then(mod => mod.AccountModule), canActivate: [AuthGuardService] },
-  { path: 'ereferral', loadChildren: () => import('./referrals/referrals.module')
+  { path: 'referrals', loadChildren: () => import('./referrals/referrals.module')
     .then(mod => mod.ReferralsModule), canActivate: [AuthGuardService] },
   { path: '404', component: NotFoundComponent },
   { path: '**', redirectTo: '/404', pathMatch: 'full' }

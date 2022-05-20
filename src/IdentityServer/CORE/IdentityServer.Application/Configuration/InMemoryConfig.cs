@@ -27,7 +27,8 @@ namespace IdentityServer.Application.Configuration
                         StandardScopes.OpenId,
                         StandardScopes.Profile,
                         "SpecializationApiScope",
-                        "OrganizationApiScope"
+                        "OrganizationApiScope",
+                        "ReferralsApiScope"
                     },
                     AllowedCorsOrigins = { "http://localhost:4200" },
                     RequireClientSecret = false,
@@ -39,7 +40,8 @@ namespace IdentityServer.Application.Configuration
         public static IEnumerable<ApiScope> GetApiScopes() =>
             new List<ApiScope> {
                 new ApiScope("SpecializationApiScope", "Scope for SpecializationApi"),
-                new ApiScope("OrganizationApiScope", "Scope for OrganizationApi")
+                new ApiScope("OrganizationApiScope", "Scope for OrganizationApi"),
+                new ApiScope("ReferralsApiScope", "Scope for ReferralsApi"),
             };
         public static IEnumerable<ApiResource> GetApiResources() =>
             new List<ApiResource>
@@ -51,6 +53,10 @@ namespace IdentityServer.Application.Configuration
                 new ApiResource("OrganizationApi", "Organization API")
                 {
                     Scopes = { "OrganizationApiScope" }
+                },
+                new ApiResource("ReferralsApi", "Referrals API")
+                {
+                    Scopes = { "ReferralsApiScope" }
                 }
             };
     }

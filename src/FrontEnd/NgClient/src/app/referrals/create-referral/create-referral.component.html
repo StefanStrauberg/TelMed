@@ -1,0 +1,34 @@
+<mat-card class="example-form">
+    <mat-card-title class="card-header bg-primary d-flex justify-content-between">
+        <div class="col">
+            <h3>Создание направления на консультацию</h3>
+        </div>
+        <div>
+            <a mat-raised-button routerLink="/referrals">
+                <i class="fa-solid fa-xmark"></i> Отмена
+            </a>
+            <button mat-raised-button color="primary" type="submit" form="createForm" [disabled]="ownerForm.invalid">
+                <i class="fa-solid fa-check"></i> Создать
+            </button>
+        </div>
+    </mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="ownerForm" id="createForm">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>ФИО пациента</mat-label>
+                <input matInput required formControlName="fullName" type="text" placeholder="fullName">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Дата рождения</mat-label>
+                <input matInput required formControlName="birthDate" type="text">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Пол пациента</mat-label>
+                <mat-select formControlName="gender">
+                    <mat-option [value]="1">Мужской</mat-option>
+                    <mat-option [value]="2">Женский</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+    </mat-card-content>
+</mat-card>

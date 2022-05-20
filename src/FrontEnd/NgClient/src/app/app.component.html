@@ -13,7 +13,7 @@
 </mat-toolbar>
 <mat-sidenav-container>
     <mat-sidenav *ngIf="isUserAuthenticated" mode="side" opened>
-        <app-side-bar [isUserAuthenticated]="isUserAuthenticated" [isUserAdmin]="isUserAdmin"></app-side-bar>
+        <app-side-bar [isUserAuthenticated]="isUserAuthenticated" [isUserAdmin]="isUserAdmin" [isUserDocktor]="isUserDocktor"></app-side-bar>
     </mat-sidenav>
     <mat-sidenav-content>
         <main class="content mat-elevation-z8">

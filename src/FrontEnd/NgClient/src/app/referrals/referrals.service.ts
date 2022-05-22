@@ -22,10 +22,11 @@ export class ReferralsService {
       this.createCompleteRoute(route, this._envUrl.urlAddress),{ observe: 'response' });
   }
 
-  // // Create Referral
-  // createReferral = (model: IReferral) => {
-  //   return this._http.post<{}>(this.createCompleteRoute(this.baseUrl, this._envUrl.urlAddress), model);
-  // }
+  // Create Referral
+  createReferral = (route: string, body: IReferral) => {
+    return this._http.post<{}>(
+      this.createCompleteRoute(route, this._envUrl.urlAddress), body, { observe: 'response' });
+  }
 
   // // Update Referral
   // updateReferral = (model: IReferral, id: string) => {

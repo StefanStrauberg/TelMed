@@ -10,6 +10,7 @@ import { CreateReferralComponent } from './create-referral/create-referral.compo
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatButtonModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule
   ],
   exports: [
     ViewReferralsComponent

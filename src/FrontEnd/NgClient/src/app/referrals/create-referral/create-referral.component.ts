@@ -17,10 +17,23 @@ export class CreateReferralComponent implements OnInit {
 
   ngOnInit(): void {
     this.ownerForm = this._formBuilder.group({
-      fullName: new FormControl('', Validators.required),
-      gender : new FormControl(null, Validators.required),
-      birthDate : new FormControl(null, Validators.required),
+      patient: this._formBuilder.group({
+        fullName: new FormControl(null, Validators.required),
+        gender : new FormControl(null, Validators.required),
+        birthDate : new FormControl(null, Validators.required),
+      })
     });
   }
 
+  createReferral(){
+    if(this.ownerForm.valid)
+    {
+      this._referralsService.createReferral('referral', this.ownerForm.value).subscribe(response => {
+        this.router.navigate(['/referrals']).then();
+      }, (error) => {
+        console.log(error);
+        this.router.navigate(['/referrals/create']).then();
+      })
+    }
+  }
 }

@@ -23,6 +23,8 @@
                 <mat-form-field class="example-full-width" appearance="outline">
                     <mat-label>Дата рождения</mat-label>
                     <input matInput required [matDatepicker]="birthDate" formControlName="birthDate">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
                     <mat-datepicker #birthDate></mat-datepicker>
                 </mat-form-field>
                 <mat-form-field class="example-full-width" appearance="outline">

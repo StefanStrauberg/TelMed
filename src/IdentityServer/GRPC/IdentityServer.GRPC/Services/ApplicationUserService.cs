@@ -9,6 +9,9 @@ namespace IdentityServer.GRPC.Services
         public ApplicationUserService(IApplicationUserRepository repository)
             => _repository = repository;
         public override async Task<AccName> GetAccNameById(GetAccIdRequest request, ServerCallContext context)
-            => new AccName { Name = await _repository.GetAccNameAsync(request.Id) };
+        {
+            var data = new AccName { Name = await _repository.GetAccNameAsync(request.Id) };
+            return data;
+        }
     }
 }

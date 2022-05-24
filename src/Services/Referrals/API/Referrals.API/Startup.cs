@@ -21,7 +21,7 @@ namespace Referrals.API
         }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddApplicationServices();
+            services.AddApplicationServices(Configuration);
             services.Configure<DatabaseSettings>(Configuration.GetSection("DatabaseSettings"));
             services.AddInfrastructureServices();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

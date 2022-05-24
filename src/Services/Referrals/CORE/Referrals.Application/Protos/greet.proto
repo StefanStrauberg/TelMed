@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option csharp_namespace = "IdentityServer.GRPC";
+
+service IdentityServerProtoService {
+	rpc GetAccNameById (GetAccIdRequest) returns (AccName);
+}
+
+message GetAccIdRequest {
+	string Id = 1;
+}
+
+message AccName {
+	string Name = 1;
+}

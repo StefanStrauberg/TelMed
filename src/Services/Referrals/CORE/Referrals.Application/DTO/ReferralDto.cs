@@ -7,7 +7,7 @@ namespace Referrals.Application.DTO
         public string Id { get; set; }
         public ReferralStatus Status { get; set; }
         public Patient Patient { get; set; }
-        public Guid AuthorId { get; set; }
+        public string AuthorId { get; set; }
         public List<string> Anamnesis { get; set; }
         public List<string> ImagingStudies { get; set; }
         public List<string> Observations { get; set; }

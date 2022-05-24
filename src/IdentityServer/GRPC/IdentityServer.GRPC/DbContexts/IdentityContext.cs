@@ -12,7 +12,7 @@ namespace IdentityServer.GRPC.DbContexts
         {
             var Client = new MongoClient(dbOptions.Value.ConnectionString);
             var Databse = Client.GetDatabase(dbOptions.Value.DatabaseName);
-            Accounts = Databse.GetCollection<ApplicationUser>(dbOptions.Value.CollectionNameAccounts);
+            Accounts = Databse.GetCollection<ApplicationUser>(dbOptions.Value.CollectionName);
         }
     }
 }

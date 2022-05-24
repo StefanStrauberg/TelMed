@@ -14,5 +14,7 @@ namespace Referrals.Application.DTO
         public List<string> PurposeList { get; set; }
         public MedicalAttention MedicalAttention { get; set; }
         public string RecallCause { get; set; }
+        public DateTime Published { get; set; }
+        public DateTime Updated { get; set; }
     }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { enumValues } from 'src/app/helpers/enum.helper';
+import { PatientGender } from 'src/app/shared/models/referral';
 import { ReferralsService } from '../referrals.service';
 
 @Component({
@@ -10,6 +12,8 @@ import { ReferralsService } from '../referrals.service';
 })
 export class CreateReferralComponent implements OnInit {
   ownerForm!: FormGroup;
+  genders = PatientGender;
+  enumValuse = enumValues;
 
   constructor(private _formBuilder: FormBuilder,
     private _referralsService: ReferralsService,

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { _MAT_HINT } from '@angular/material/form-field';
-import { IReferral } from 'src/app/shared/models/referral';
+import { IReferral, ReferralStatus } from 'src/app/shared/models/referral';
 import { ReferralsService } from '../referrals.service';
 
 @Component({
@@ -10,6 +10,7 @@ import { ReferralsService } from '../referrals.service';
 })
 export class ViewReferralsComponent implements OnInit {
   referrals: IReferral[] = [];
+  referralStatus = ReferralStatus;
 
   constructor(private _referralsService: ReferralsService) { }
 

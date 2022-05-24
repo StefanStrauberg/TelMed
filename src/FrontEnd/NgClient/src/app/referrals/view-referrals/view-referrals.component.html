@@ -1,3 +1,4 @@
+<!-- <pre>{{referrals | json}}</pre> -->
 <div class="d-flex justify-content-end">
     <button mat-raised-button color="primary"
     data-toggle="tooltip" data-placement="bottom" title="Создать"
@@ -11,14 +12,14 @@
             <mat-card *ngFor="let referral of referrals" class="example-form">
                 <mat-card-title class="d-flex justify-content-between">
                 <div>
-                    Date
+                    {{ referral.updated | date }}
                 </div>
                 <div>
                     action
                 </div>
                 </mat-card-title>
                 <mat-card-content>
-                    <p>Статус: {{ referral.status }}</p>
+                    <p>Статус: {{ referralStatus[referral.status] }}</p>
                     <p>Пациент: {{ referral.patient.fullName }}</p>
                     <p>Врач, отправивший запрос: {{ referral.authorId }}</p>
                     <p>Консультант: - </p>

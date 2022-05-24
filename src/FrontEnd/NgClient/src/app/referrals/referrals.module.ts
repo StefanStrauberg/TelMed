@@ -12,11 +12,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { PatientGenderPipe } from '../pipes/patient-gender.pipe';
+import { ReferralStatusPipe } from '../pipes/referral-status.pipe';
 
 @NgModule({
   declarations: [
     ViewReferralsComponent,
-    CreateReferralComponent
+    CreateReferralComponent,
+    PatientGenderPipe,
+    ReferralStatusPipe
   ],
   imports: [
     CommonModule,
@@ -30,9 +34,6 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule
-  ],
-  exports: [
-    ViewReferralsComponent
   ]
 })
 export class ReferralsModule { }

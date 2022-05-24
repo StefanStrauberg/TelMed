@@ -9,14 +9,16 @@ export interface IReferral {
     purposeList: string[];
     medicalAttention: MedicalAttention;
     recallCause: string;
+    published: Date;
+    updated: Date;
 }
 
 export enum ReferralStatus {
-    Incomplete,
-    Opened,
-    Closed,
-    NeedAttention,
-    Canceled
+    "Недооформлено",
+    "Открыто",
+    "Консультация оформлена",
+    "Требует дополнения",
+    "Аннулировано"
 }
 
 export interface Patient {
@@ -26,11 +28,11 @@ export interface Patient {
 }
 
 export enum PatientGender {
-    Male = 1,
-    Female = 2
+    "Мужской" = 1,
+    "Женский" = 2
 }
 
 export enum MedicalAttention {
-    Urgent = 1,
-    Planned = 2
+    "Экстренная" = 1,
+    "Плановая" = 2
 }

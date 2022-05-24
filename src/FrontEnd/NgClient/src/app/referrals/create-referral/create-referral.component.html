@@ -30,8 +30,7 @@
                 <mat-form-field class="example-full-width" appearance="outline">
                     <mat-label>Пол пациента</mat-label>
                     <mat-select formControlName="gender">
-                        <mat-option [value]="1">Мужской</mat-option>
-                        <mat-option [value]="2">Женский</mat-option>
+                        <mat-option *ngFor="let gender of enumValuse(genders)" [value]="gender">{{ gender | patientGender }}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>

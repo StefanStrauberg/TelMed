@@ -19,6 +19,8 @@ import { UpdateReferralComponent } from './update-referral/update-referral.compo
 import { ReferralCardComponent } from './referral-card/referral-card.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { UpdatePatientComponent } from './update-patient/update-patient.component';
+import { CreateAnamnesisComponent } from './create-anamnesis/create-anamnesis.component';
+import { AnamnesisCategoriesPipe } from '../pipes/anamnesis-categories.pipe';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { UpdatePatientComponent } from './update-patient/update-patient.componen
     ReferralStatusPipe,
     UpdateReferralComponent,
     ReferralCardComponent,
-    UpdatePatientComponent
+    UpdatePatientComponent,
+    CreateAnamnesisComponent,
+    AnamnesisCategoriesPipe
   ],
   imports: [
     CommonModule,

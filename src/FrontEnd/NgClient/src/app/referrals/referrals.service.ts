@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { IAnamnesis } from '../shared/models/anamnesis';
 import { IReferral } from '../shared/models/referral';
 import { EnvironmentUrlService } from '../shared/services/environment-url.service';
 
@@ -9,6 +10,8 @@ import { EnvironmentUrlService } from '../shared/services/environment-url.servic
 export class ReferralsService {
 
   constructor(private _http: HttpClient, private _envUrl: EnvironmentUrlService) { }
+
+  //********************Referrals********************//
 
   // Get All Referrals
   getReferrals = (route: string) => {
@@ -37,6 +40,14 @@ export class ReferralsService {
   // Delete Referral
   deleteReferral = (route: string) => {
     return this._http.delete<{}>(this.createCompleteRoute(route, this._envUrl.urlAddress), { observe: 'response' });
+  }
+
+  //********************Anamnesis********************//
+
+  // Create Anamnesis
+  createAnamnesis = (route: string, body: IAnamnesis) => {
+    return this._http.post<{}>(
+      this.createCompleteRoute(route, this._envUrl.urlAddress), body, { observe: 'response' });
   }
 
   private createCompleteRoute = (route: string, envAddress: string) => {

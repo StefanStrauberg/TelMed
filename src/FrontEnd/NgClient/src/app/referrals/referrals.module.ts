@@ -17,6 +17,8 @@ import { ReferralStatusPipe } from '../pipes/referral-status.pipe';
 import { MatDividerModule } from '@angular/material/divider';
 import { UpdateReferralComponent } from './update-referral/update-referral.component';
 import { ReferralCardComponent } from './referral-card/referral-card.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { UpdatePatientComponent } from './update-patient/update-patient.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { ReferralCardComponent } from './referral-card/referral-card.component';
     PatientGenderPipe,
     ReferralStatusPipe,
     UpdateReferralComponent,
-    ReferralCardComponent
+    ReferralCardComponent,
+    UpdatePatientComponent
   ],
   imports: [
     CommonModule,
@@ -40,6 +43,7 @@ import { ReferralCardComponent } from './referral-card/referral-card.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatDividerModule,
+    MatTooltipModule
   ]
 })
 export class ReferralsModule { }

@@ -6,12 +6,12 @@
     <div>
         <button mat-stroked-button color="primary" 
             routerLink="/referrals/edit/{{ data.id }}"
-            data-toggle="tooltip" data-placement="bottom" title="Редактировать">
+            matTooltip="Редактировать">
             <i class="fa-solid fa-pen-to-square"></i>
         </button>
         <button mat-stroked-button color="warn" 
             (click)="onRemoveClick(data.id)"
-            data-toggle="tooltip" data-placement="bottom" title="Удалить">
+            matTooltip="Удалить">
             <i class="fa-solid fa-trash"></i>
         </button>
     </div>

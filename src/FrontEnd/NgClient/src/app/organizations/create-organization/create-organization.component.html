@@ -1,14 +1,13 @@
-<pre>{{ownerForm.value | json}}</pre>
 <mat-card class="example-form">
-    <mat-card-title class="card-header bg-primary d-flex justify-content-between" style="align-items: center;">
+    <mat-card-title class="card-header d-flex justify-content-between" style="align-items: center; background-color: #135589;">
     <div class="col">
         <h3>Организация</h3>
     </div>
     <div>
-        <a mat-raised-button routerLink="/admin/organizations">
+        <a mat-raised-button matTooltip="Отмена" routerLink="/admin/organizations">
             <i class="fa-solid fa-xmark"></i> Отмена
         </a>
-        <button mat-raised-button color="primary" type="submit" form="createForm" [disabled]="ownerForm.invalid">
+        <button mat-raised-button color="primary" matTooltip="Создать" type="submit" form="createForm" [disabled]="ownerForm.invalid">
             <i class="fa-solid fa-check"></i> Создать
         </button>
     </div>

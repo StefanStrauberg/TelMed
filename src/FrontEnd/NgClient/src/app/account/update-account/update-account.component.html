@@ -1,13 +1,13 @@
 <mat-card class="example-form">
-    <mat-card-title class="card-header bg-primary d-flex justify-content-between" style="align-items: center;">
+    <mat-card-title class="card-header d-flex justify-content-between" style="align-items: center; background-color: #135589;">
         <div class="col">
             <h4>{{ fullUserName }}</h4>
         </div>
         <div class="d-flex justify-content-end">
-            <a mat-raised-button routerLink="/admin/accounts">
+            <a mat-raised-button matTooltip="Отмена" routerLink="/admin/accounts">
                 <i class="fa-solid fa-xmark"></i> Отмена
             </a>
-            <button mat-raised-button color="primary" form="updateForm" (click)="updateAccount()" [disabled]="ownerForm?.invalid">
+            <button mat-raised-button color="primary" matTooltip="Сохранить" form="updateForm" (click)="updateAccount()" [disabled]="ownerForm?.invalid">
                 <i class="fa-solid fa-check"></i> Сохранить
             </button>
         </div>

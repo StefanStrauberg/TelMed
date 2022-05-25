@@ -13,12 +13,12 @@ export class UpdateReferralComponent implements OnInit {
   referral!: IReferral;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
+    private _activatedRoute: ActivatedRoute,
     private _referralsService: ReferralsService,
     private _router: Router) { }
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe((param: ParamMap) => {
+    this._activatedRoute.paramMap.subscribe((param: ParamMap) => {
       this.referralId = param.get('id');
     });
     this.getAllReferral();

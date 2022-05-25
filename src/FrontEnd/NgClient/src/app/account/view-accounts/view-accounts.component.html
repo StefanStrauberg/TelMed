@@ -1,5 +1,6 @@
 <div class="d-flex justify-content-end">
     <button mat-raised-button color="primary"
+        matTooltip="Создать"
         routerLink="/admin/accounts/create">
         <i class="fa-solid fa-plus"></i> Создать
     </button>
@@ -19,13 +20,13 @@
             <input matInput (keyup.enter)="onSearch()" #search maxlength="256" placeholder="Логин пользователя">
         </mat-form-field>
         <button mat-stroked-button color="primary" [disabled]="search.value.length == 0"
-        data-toggle="tooltip" data-placement="bottom" title="Поиск"
-        (click)="onSearch()">
+            matTooltip="Поиск"
+            (click)="onSearch()">
             Поиск
         </button>
-        <button mat-stroked-button color="warn" 
-        data-toggle="tooltip" data-placement="bottom" title="Очистить"
-        (click)="onReset()">
+        <button mat-stroked-button color="warn"
+            matTooltip="Очистить"
+            (click)="onReset()">
             Очистить
         </button>
     </div>
@@ -65,20 +66,20 @@
         <div class="btn-group btn-group-sm">
             <button mat-button color="primary" 
                 routerLink="/admin/accounts/edit/{{ element.id }}"
-                data-toggle="tooltip" data-placement="bottom" title="Редактировать">
+                matTooltip="Редактировать">
                 <i class="fa-solid fa-user-pen"></i>
             </button>
-            <button mat-button color="primary" 
-                data-toggle="tooltip" data-placement="bottom" title="Сбросить пароль">
+            <button mat-button color="primary"
+                matTooltip="Сбросить пароль">
                 <i class="fa-solid fa-key"></i>
             </button>
             <button mat-button color="primary"
-                data-toggle="tooltip" data-placement="bottom" title="Изменить имя пользователя">
+                matTooltip="Изменить имя пользователя">
                 <i class="fa-solid fa-address-card"></i>
             </button>
             <button mat-button color="warn"
                 (click)="deleteAccount(element.id)"
-                data-toggle="tooltip" data-placement="bottom" title="Удалить">
+                matTooltip="Удалить">
                 <i class="fa-solid fa-trash"></i>
             </button>
         </div>

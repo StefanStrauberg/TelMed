@@ -1,13 +1,13 @@
 <mat-card class="example-form">
-    <mat-card-title class="card-header bg-primary d-flex justify-content-between">
+    <mat-card-title class="card-header d-flex justify-content-between" style="background-color: #135589;">
         <div class="col">
             <h3>Специализация</h3>
         </div>
         <div>
-            <a mat-raised-button routerLink="/admin/specializations">
+            <a mat-raised-button matTooltip="Отмена" routerLink="/admin/specializations">
                 <i class="fa-solid fa-xmark"></i> Отмена
             </a>
-            <button mat-raised-button color="primary" type="submit" form="createForm" [disabled]="ownerForm.invalid">
+            <button mat-raised-button color="primary" matTooltip="Создать" type="submit" form="createForm" [disabled]="ownerForm.invalid">
                 <i class="fa-solid fa-check"></i> Создать
             </button>
         </div>
@@ -15,11 +15,11 @@
     <mat-card-content>
         <form [formGroup]="ownerForm" id="createForm" (submit)="createSpecialization()">
             <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Полное наименование организации</mat-label>
+                <mat-label>Полное наименование специализации</mat-label>
                 <input matInput required formControlName="name" type="text" placeholder="Name">
             </mat-form-field>
             <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Активность организации</mat-label>
+                <mat-label>Активность специализации</mat-label>
                 <mat-select formControlName="denyConsult">
                     <mat-option [value]="true">Разрешено</mat-option>
                     <mat-option [value]="false">Запрещено</mat-option>

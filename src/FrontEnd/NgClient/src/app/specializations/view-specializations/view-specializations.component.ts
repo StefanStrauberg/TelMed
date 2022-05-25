@@ -9,7 +9,7 @@ import { SpecializationsService } from '../specializations.service';
 @Component({
   selector: 'app-view-specializations',
   templateUrl: './view-specializations.component.html',
-  styleUrls: ['./view-specializations.component.scss']
+  styleUrls: ['./view-specializations.component.scss'],
 })
 export class ViewSpecializationsComponent implements OnInit {
 

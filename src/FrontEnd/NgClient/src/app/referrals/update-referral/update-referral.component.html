@@ -1,1 +1,109 @@
-<p>update-referral works!</p>
+<!-- <div *ngIf="referral">
+    <pre>{{ referral | json }}</pre>
+</div> -->
+
+<mat-card class="example-form">
+    <mat-card-title class="card-header d-flex justify-content-between" style="align-items: center; background-color: #135589;">
+    <div class="col">
+        <h3>Направление</h3>
+    </div>
+    <div>
+        <a mat-raised-button matTooltip="Отмена" routerLink='/referrals'>
+            <i class="fa-solid fa-xmark"></i> Отмена
+        </a>
+        <button mat-raised-button color="primary" matTooltip="Отправить" type="submit" form="createForm">
+            <i class="fa-regular fa-paper-plane"></i> Отправить
+        </button>
+    </div>
+    </mat-card-title>
+    <mat-card-content>
+        <form *ngIf="referral" id="createForm">
+            <mat-card class="example-form mb-2">
+                <mat-card-title class="d-flex justify-content-between">
+                <div>
+                    {{ referral.patient.fullName + " - " + (referral.patient.birthDate | date: 'longDate') }}
+                </div>
+                <div>
+                    <button mat-stroked-button color="primary" 
+                        routerLink="/referrals/{{ referral.id }}/patient"
+                        matTooltip="Редактировать">
+                        <i class="fa-solid fa-pen-to-square"></i> Редактировать
+                    </button>
+                </div>
+                </mat-card-title>
+            </mat-card>
+            <mat-card class="example-form mb-2">
+                <mat-card-title class="d-flex justify-content-between">
+                <div>
+                    Цель консультирования
+                </div>
+                <div>
+                    <button mat-stroked-button color="primary" 
+                        routerLink="/referrals/"
+                        matTooltip="Добавить">
+                        <i class="fa-solid fa-plus"></i> Добавить
+                    </button>
+                </div>
+                </mat-card-title>
+                <mat-divider inset></mat-divider>
+                <mat-card-content>
+                    123
+                </mat-card-content>
+            </mat-card>
+            <mat-card class="example-form mb-2">
+                <mat-card-title class="d-flex justify-content-between">
+                <div>
+                    Диагностические исследования
+                </div>
+                <div>
+                    <button mat-stroked-button color="primary" 
+                        routerLink="/referrals/"
+                        matTooltip="Добавить">
+                        <i class="fa-solid fa-plus"></i> Добавить
+                    </button>
+                </div>
+                </mat-card-title>
+                <mat-divider inset></mat-divider>
+                <mat-card-content>
+                    123
+                </mat-card-content>
+            </mat-card>
+            <mat-card class="example-form mb-2">
+                <mat-card-title class="d-flex justify-content-between">
+                <div>
+                    Протокол
+                </div>
+                <div>
+                    <button mat-stroked-button color="primary" 
+                        routerLink="/referrals/"
+                        matTooltip="Добавить">
+                        <i class="fa-solid fa-plus"></i> Добавить
+                    </button>
+                </div>
+                </mat-card-title>
+                <mat-divider inset></mat-divider>
+                <mat-card-content>
+                    123
+                </mat-card-content>
+            </mat-card>
+            <mat-card class="example-form mb-2">
+                <mat-card-title class="d-flex justify-content-between">
+                <div>
+                    Обследования
+                </div>
+                <div>
+                    <button mat-stroked-button color="primary" 
+                        routerLink="/referrals/"
+                        matTooltip="Добавить">
+                        <i class="fa-solid fa-plus"></i> Добавить
+                    </button>
+                </div>
+                </mat-card-title>
+                <mat-divider inset></mat-divider>
+                <mat-card-content>
+                    123
+                </mat-card-content>
+            </mat-card>
+        </form>
+    </mat-card-content>
+</mat-card>

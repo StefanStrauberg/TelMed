@@ -38,13 +38,13 @@ namespace Referrals.API.Controllers
             return Ok(result);
         }
 
-        //[HttpGet("{id:length(24)}")]
-        //[ProducesResponseType(typeof(ReferralDto), StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //public async Task<IActionResult> GetByIdReferral(string id)
-        //{
-        //    return Ok(await _mediator.Send(new GetReferralDetailRequest(id)));
-        //}
+        [HttpGet("{id:length(24)}")]
+        [ProducesResponseType(typeof(ReferralDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetByIdReferral(string id)
+        {
+           return Ok(await _mediator.Send(new GetReferralDetailRequest(id)));
+        }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -56,13 +56,13 @@ namespace Referrals.API.Controllers
                 )));
         }
 
-        //[HttpPut("{id:length(24)}")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //public async Task<IActionResult> UpdateReferral([FromBody] UpdateReferralDto model, string id)
-        //{
-        //    return Ok(await _mediator.Send(new UpdateReferralCommand(model, id)));
-        //}
+        [HttpPut("{id:length(24)}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> UpdateReferral([FromBody] UpdateReferralDto model, string id)
+        {
+           return Ok(await _mediator.Send(new UpdateReferralCommand(model, id)));
+        }
 
         [HttpDelete("{id:length(24)}")]
         [ProducesResponseType(StatusCodes.Status200OK)]

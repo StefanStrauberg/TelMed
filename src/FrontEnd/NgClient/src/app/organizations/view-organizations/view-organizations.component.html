@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-end">
     <button mat-raised-button color="primary"
-    data-toggle="tooltip" data-placement="bottom" title="Создать"
+    matTooltip="Создать"
     routerLink="/admin/organizations/create">
         <i class="fa-solid fa-plus"></i> Создать
     </button>
@@ -20,12 +20,12 @@
             <input matInput (keyup.enter)="onSearch()" #search maxlength="256" placeholder="Оф. название организации">
         </mat-form-field>
         <button mat-stroked-button color="primary" [disabled]="search.value.length == 0"
-        data-toggle="tooltip" data-placement="bottom" title="Поиск"
+        matTooltip="Поиск"
         (click)="onSearch()">
             Поиск
         </button>
-        <button mat-stroked-button color="warn" 
-        data-toggle="tooltip" data-placement="bottom" title="Очистить"
+        <button mat-stroked-button color="warn"
+        matTooltip="Очистить"
         (click)="onReset()">
             Очистить
         </button>
@@ -66,17 +66,17 @@
         <div class="btn-group btn-group-sm">
             <button mat-button color="primary" 
                 routerLink="/admin/organizations/edit/{{ element.id }}"
-                data-toggle="tooltip" data-placement="bottom" title="Редактировать">
+                matTooltip="Редактировать">
                 <i class="fa-solid fa-pen-to-square"></i>
             </button>
             <button mat-button color="primary" 
                 routerLink="/admin/organizations/{{ element.id }}/specializations"
-                data-toggle="tooltip" data-placement="bottom" title="Указать специализации">
+                matTooltip="Указать специализации">
                 <i class="fa-solid fa-pencil"></i>
             </button>
             <button mat-button color="warn" 
                 (click)="deleteOrganization(element.id)"
-                data-toggle="tooltip" data-placement="bottom" title="Удалить">
+                matTooltip="Удалить">
                 <i class="fa-solid fa-trash"></i>
             </button>
         </div>

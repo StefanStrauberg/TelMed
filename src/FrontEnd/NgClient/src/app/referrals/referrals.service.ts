@@ -28,10 +28,11 @@ export class ReferralsService {
       this.createCompleteRoute(route, this._envUrl.urlAddress), body, { observe: 'response' });
   }
 
-  // // Update Referral
-  // updateReferral = (model: IReferral, id: string) => {
-  //   return this.http.put<{}>(this.createCompleteRoute(this.baseUrl + `/${id}`, this.envUrl.urlAddress), model);
-  // }
+  // Update Referral
+  updateReferral = (route: string, body: IReferral) => {
+    return this._http.put<{}>(
+      this.createCompleteRoute(route, this._envUrl.urlAddress), body, { observe: 'response' });
+  }
 
   // Delete Referral
   deleteReferral = (route: string) => {

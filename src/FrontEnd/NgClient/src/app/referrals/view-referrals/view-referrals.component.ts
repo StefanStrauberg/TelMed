@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { _MAT_HINT } from '@angular/material/form-field';
-import { IReferral, ReferralStatus } from 'src/app/shared/models/referral';
+import { Router } from '@angular/router';
+import { IReferral } from 'src/app/shared/models/referral';
 import { ReferralsService } from '../referrals.service';
 
 @Component({
@@ -10,7 +11,6 @@ import { ReferralsService } from '../referrals.service';
 })
 export class ViewReferralsComponent implements OnInit {
   referrals: IReferral[] = [];
-  referralStatus = ReferralStatus;
 
   constructor(private _referralsService: ReferralsService) { }
 
@@ -23,6 +23,15 @@ export class ViewReferralsComponent implements OnInit {
       this.referrals = response?.body!;
     }, error => {
       console.log(error);
+    })
+  }
+
+  deleteReferral(referralId: Event){
+    this._referralsService.deleteReferral(`referral/${referralId}`).subscribe(data => {
+      this.getAllReferrals();
+    }, error => {
+      console.log(error);
+      this.getAllReferrals();
     })
   }
 

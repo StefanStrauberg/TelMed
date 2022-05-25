@@ -32,6 +32,9 @@ export class ErrorHandlerService implements HttpInterceptor {
           if(error.status === 404) {
             this._router.navigateByUrl('/not-found');
           }
+          if(error.status === 405) {
+            this._toastr.error(error.statusText, error.status);
+          }
           if(error.status === 500) {
             const navigationExtras: NavigationExtras = 
               { state: {error: error.error} };

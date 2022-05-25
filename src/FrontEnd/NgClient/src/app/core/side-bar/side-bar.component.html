@@ -1,7 +1,7 @@
 <pre>isUserAdmin:{{isUserAdmin}}</pre>
 <pre>isUserDocktor:{{isUserDocktor}}</pre>
 <pre>isUserAuthenticated:{{isUserAuthenticated}}</pre>
-<button *ngIf="isUserAuthenticated" button mat-raised-button color="primary" class="menu-button" routerLink='/referrals'>
+<button *ngIf="isUserAuthenticated" button mat-raised-button color="primary" class="menu-button" [routerLink]="['/referrals']" routerLinkActive="activebutton">
   <span>
     Направления
   </span>
@@ -57,11 +57,6 @@
 <button *ngIf="!isUserAuthenticated" button mat-raised-button color="primary" class="menu-button">
   <span>
     Архив заключений организации
-  </span>
-</button>
-<button *ngIf="isUserAdmin" button mat-raised-button color="primary" class="menu-button">
-  <span>
-    Панель управления
   </span>
 </button>
 <button *ngIf="isUserAdmin" button mat-raised-button color="primary" class="menu-button" [routerLink]="['admin/accounts']" routerLinkActive="activebutton">

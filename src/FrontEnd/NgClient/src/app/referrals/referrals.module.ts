@@ -14,13 +14,18 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { PatientGenderPipe } from '../pipes/patient-gender.pipe';
 import { ReferralStatusPipe } from '../pipes/referral-status.pipe';
+import { MatDividerModule } from '@angular/material/divider';
+import { UpdateReferralComponent } from './update-referral/update-referral.component';
+import { ReferralCardComponent } from './referral-card/referral-card.component';
 
 @NgModule({
   declarations: [
     ViewReferralsComponent,
     CreateReferralComponent,
     PatientGenderPipe,
-    ReferralStatusPipe
+    ReferralStatusPipe,
+    UpdateReferralComponent,
+    ReferralCardComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +38,8 @@ import { ReferralStatusPipe } from '../pipes/referral-status.pipe';
     MatInputModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatDividerModule,
   ]
 })
 export class ReferralsModule { }

@@ -15,8 +15,6 @@ namespace Referrals.Application.GrpcServices
             _mapper = mapper;
         }
         public async Task<string> GetAccName(string id)
-        {
-            return _mapper.Map<string>(await _identityServerProtoService.GetAccNameByIdAsync(new GetAccIdRequest { Id = id }));
-        } 
+            => _mapper.Map<string>(await _identityServerProtoService.GetAccNameByIdAsync(new GetAccIdRequest { Id = id }));
     }
 }

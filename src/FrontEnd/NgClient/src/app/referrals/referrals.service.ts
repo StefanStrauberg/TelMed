@@ -33,10 +33,10 @@ export class ReferralsService {
   //   return this.http.put<{}>(this.createCompleteRoute(this.baseUrl + `/${id}`, this.envUrl.urlAddress), model);
   // }
 
-  // // Delete Referral
-  // deleteReferral = (id: string) => {
-  //   return this._http.delete<{}>(this.createCompleteRoute(this.baseUrl + `/${id}`, this._envUrl.urlAddress));
-  // }
+  // Delete Referral
+  deleteReferral = (route: string) => {
+    return this._http.delete<{}>(this.createCompleteRoute(route, this._envUrl.urlAddress), { observe: 'response' });
+  }
 
   private createCompleteRoute = (route: string, envAddress: string) => {
     return `${envAddress}/${route}`;

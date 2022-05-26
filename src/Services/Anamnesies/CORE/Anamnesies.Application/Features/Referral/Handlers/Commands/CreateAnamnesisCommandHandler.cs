@@ -25,6 +25,9 @@ namespace Anamnesies.Application.Features.Referral.Handlers.Commands
         public async Task<Unit> Handle(CreateAnamnesisCommand request,
             CancellationToken cancellationToken)
         {
+            // Check Contains AnamnesisCategory
+            if(await _repository.ContainsAnamnesisCategoryAsync(request.model.CategoryId, request.model.ReferralId))
+                return Unit.Value;
             // Create Anamnesis
             var anamnesis = await _repository.CreateAsync(_mapper.Map<Anamnesis>(request.model));
             // Adding AnamnesisId to Referral

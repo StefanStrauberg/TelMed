@@ -14,8 +14,8 @@ namespace IdentityServer.Application.Configuration
         public static IEnumerable<Client> GetClients() =>
             new List<Client>
             {
-               new Client
-               {
+                new Client
+                {
                     ClientName = "Angular-Client",
                     ClientId = "angular-client",
                     AllowedGrantTypes = GrantTypes.Code,
@@ -28,7 +28,8 @@ namespace IdentityServer.Application.Configuration
                         StandardScopes.Profile,
                         "SpecializationApiScope",
                         "OrganizationApiScope",
-                        "ReferralsApiScope"
+                        "ReferralsApiScope",
+                        "AnamnesiesApiScope"
                     },
                     AllowedCorsOrigins = { "http://localhost:4200" },
                     RequireClientSecret = false,
@@ -42,6 +43,7 @@ namespace IdentityServer.Application.Configuration
                 new ApiScope("SpecializationApiScope", "Scope for SpecializationApi"),
                 new ApiScope("OrganizationApiScope", "Scope for OrganizationApi"),
                 new ApiScope("ReferralsApiScope", "Scope for ReferralsApi"),
+                new ApiScope("AnamnesiesApiScope", "Scope for AnamnesiesApi"),
             };
         public static IEnumerable<ApiResource> GetApiResources() =>
             new List<ApiResource>
@@ -57,6 +59,10 @@ namespace IdentityServer.Application.Configuration
                 new ApiResource("ReferralsApi", "Referrals API")
                 {
                     Scopes = { "ReferralsApiScope" }
+                },
+                new ApiResource("AnamnesiesApi", "Anamnesies API")
+                {
+                    Scopes = { "AnamnesiesApiScope" }
                 }
             };
     }

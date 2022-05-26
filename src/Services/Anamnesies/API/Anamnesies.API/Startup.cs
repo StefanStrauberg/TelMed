@@ -59,6 +59,7 @@ namespace Anamnesies.API
             app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.UseRouting();
             app.UseCors(_policyName);
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

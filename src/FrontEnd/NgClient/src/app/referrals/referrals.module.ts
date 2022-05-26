@@ -7,7 +7,7 @@ import { ReferralsRoutingModule } from './referrals-routing.module';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { CreateReferralComponent } from './create-referral/create-referral.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -23,6 +23,8 @@ import { CreateAnamnesisComponent } from './create-anamnesis/create-anamnesis.co
 import { AnamnesisCategoriesPipe } from '../pipes/anamnesis-categories.pipe';
 import { ViewAnamnesiesComponent } from './view-anamnesies/view-anamnesies.component';
 import { UpdateAnamnesiesComponent } from './update-anamnesies/update-anamnesies.component';
+import { AnamnesisTableComponent } from './anamnesis-table/anamnesis-table.component';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { UpdateAnamnesiesComponent } from './update-anamnesies/update-anamnesies
     CreateAnamnesisComponent,
     AnamnesisCategoriesPipe,
     ViewAnamnesiesComponent,
-    UpdateAnamnesiesComponent
+    UpdateAnamnesiesComponent,
+    AnamnesisTableComponent
   ],
   imports: [
     CommonModule,
@@ -51,7 +54,8 @@ import { UpdateAnamnesiesComponent } from './update-anamnesies/update-anamnesies
     MatDatepickerModule,
     MatNativeDateModule,
     MatDividerModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatTableModule
   ]
 })
 export class ReferralsModule { }

@@ -25,7 +25,6 @@ export class AuthGuardService implements CanActivate {
   private checkIsUserAuthenticated() {
     return this._authService.isAuthenticated()
     .then(res => {
-      console.log(`Guard isAuthenticated: ${res}`);
       return res ? true : this.redirectToUnauthorized();
     })
   }
@@ -33,7 +32,6 @@ export class AuthGuardService implements CanActivate {
   private checkUserRole(userRole: string) {
     return this._authService.checkUserRole(userRole)
       .then(res => {
-        console.log(`Guard checkIfUserIsAdmin: ${res}`);
         return res ? true : this.redirectToUnauthorized();
       })
   }

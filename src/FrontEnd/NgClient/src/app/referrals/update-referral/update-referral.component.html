@@ -83,7 +83,7 @@
                 </mat-card-title>
                 <mat-divider inset></mat-divider>
                 <mat-card-content>
-                    123
+                    <app-anamnesis-table *ngIf="referralId" [refferalId]="referralId"></app-anamnesis-table>
                 </mat-card-content>
             </mat-card>
             <mat-card class="example-form mb-2">

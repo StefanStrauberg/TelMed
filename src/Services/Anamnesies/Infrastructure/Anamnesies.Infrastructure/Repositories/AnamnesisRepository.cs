@@ -44,6 +44,11 @@ namespace Referrals.Infrastructure.Repositories
             return await _context.Anamnesies.Find(filter).FirstOrDefaultAsync();
         }
 
+        public async Task<IReadOnlyList<Anamnesis>> GetAllAsyncByRefferalId(string id)
+        {
+            return await _context.Anamnesies.Find(x => x.ReferralId == id).ToListAsync();
+        }
+
         public async Task<string> GetReferralId(string id)
         {
             var filter = Builders<Anamnesis>.Filter.Eq(x => x.Id, id);
@@ -60,6 +65,13 @@ namespace Referrals.Infrastructure.Repositories
                 .Set(x => x.Summary, entity.Summary);
             var result = await _context.Anamnesies.UpdateOneAsync(filter, update);
             return result.IsAcknowledged && result.ModifiedCount > 0;
+        }
+
+        public async Task<bool> ContainsAnamnesisCategoryAsync(AnamnesisCategory CategoryId, string ReferralId)
+        {
+            var filter = Builders<Anamnesis>.Filter.Eq(x => x.ReferralId, ReferralId);
+            var document = await _context.Anamnesies.Find(filter).ToListAsync();
+            return document.Exists(x => x.CategoryId == CategoryId);
         }
     }
 }

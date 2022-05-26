@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { _MAT_HINT } from '@angular/material/form-field';
-import { Router } from '@angular/router';
 import { IReferral } from 'src/app/shared/models/referral';
 import { ReferralsService } from '../referrals.service';
 

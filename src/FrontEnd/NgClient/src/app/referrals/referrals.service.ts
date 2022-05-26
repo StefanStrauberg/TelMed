@@ -50,6 +50,29 @@ export class ReferralsService {
       this.createCompleteRoute(route, this._envUrl.urlAddress), body, { observe: 'response' });
   }
 
+  // Get All Anamnesies by ReferralId
+  getAnamnesies = (route: string) => {
+    return this._http.get<IAnamnesis[]>(
+      this.createCompleteRoute(route, this._envUrl.urlAddress),{ observe: 'response' });
+  }
+
+  // Get All Anamnesis by ReferralId
+  getAnamnesis = (route: string) => {
+    return this._http.get<IAnamnesis>(
+      this.createCompleteRoute(route, this._envUrl.urlAddress),{ observe: 'response' });
+  }
+
+  // Update Anamnesis
+  updateAnamnesis = (route: string, body: IAnamnesis) => {
+    return this._http.put<{}>(
+      this.createCompleteRoute(route, this._envUrl.urlAddress), body, { observe: 'response' });
+  }
+
+  // Delete Anamnesis
+  deleteAnamnesis = (route: string) => {
+    return this._http.delete<{}>(this.createCompleteRoute(route, this._envUrl.urlAddress), { observe: 'response' });
+  }
+
   private createCompleteRoute = (route: string, envAddress: string) => {
     return `${envAddress}/${route}`;
   }

@@ -38,7 +38,7 @@ export class ViewSpecializationsComponent implements OnInit {
   }
 
   deleteSpecialization(specializationId: string){
-    this._specializationsService.deleteSpecialization(`Specialization/${specializationId}`).subscribe(data => {
+    this._specializationsService.deleteSpecialization(`Specialization/${specializationId}`).subscribe(response => {
       this.getAllSpecializations();
     }, error => {
       this.getAllSpecializations();

@@ -85,6 +85,18 @@
 			"UpstreamHttpMethod": [ "GET", "POST" ]
 		},
 		{
+			"DownstreamPathTemplate": "/api/anamnesis/ByReferralId/{id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5003
+				}
+			],
+			"UpstreamPathTemplate": "/anamnesis/ByReferralId/{id}",
+			"UpstreamHttpMethod": [ "GET" ]
+		},
+		{
 			"DownstreamPathTemplate": "/api/anamnesis/{id}",
 			"DownstreamScheme": "http",
 			"DownstreamHostAndPorts": [

@@ -2,6 +2,7 @@
 using Anamnesies.Application.Features.Referral.Requests.Commands;
 using Anamnesies.Application.Features.Referral.Requests.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Anamnesies.API.Controllers
 {
+    [Authorize]
     public class AnamnesisController : BaseController
     {
         private readonly IMediator _mediator;
@@ -19,6 +21,13 @@ namespace Anamnesies.API.Controllers
         public async Task<IActionResult> GetAllAnamnesis()
         {
             return Ok(await _mediator.Send(new GetAnamnesisListRequest()));
+        }
+
+        [HttpGet("ByReferralId/{id:length(24)}")]
+        [ProducesResponseType(typeof(IReadOnlyList<AnamnesisDto>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetAnamnesisListByRefferalIdRequest(string id)
+        {
+            return Ok(await _mediator.Send(new GetAnamnesisListByRefferalIdRequest(id)));
         }
 
         [HttpGet("{id:length(24)}")]

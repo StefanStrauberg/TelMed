@@ -14,10 +14,11 @@ namespace Referrals.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task CreateAsync(Anamnesis entity)
+        public async Task<string> CreateAsync(Anamnesis entity)
         {
             entity.Id = ObjectId.GenerateNewId().ToString();
             await _context.Anamnesies.InsertOneAsync(entity);
+            return entity.Id;
         }
 
         public async Task<bool> DeleteAsync(string Id)
@@ -41,6 +42,13 @@ namespace Referrals.Infrastructure.Repositories
         {
             var filter = Builders<Anamnesis>.Filter.Eq(x => x.Id, Id);
             return await _context.Anamnesies.Find(filter).FirstOrDefaultAsync();
+        }
+
+        public async Task<string> GetReferralId(string id)
+        {
+            var filter = Builders<Anamnesis>.Filter.Eq(x => x.Id, id);
+            return await _context.Anamnesies.Find(filter)
+                .Project(x => x.ReferralId).FirstOrDefaultAsync();
         }
 
         public async Task<bool> UpdateAsync(Anamnesis entity, string Id)

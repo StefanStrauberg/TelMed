@@ -71,6 +71,30 @@
 			],
 			"UpstreamPathTemplate": "/referral/{id}",
 			"UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+		},
+		{
+			"DownstreamPathTemplate": "/api/anamnesis",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5003
+				}
+			],
+			"UpstreamPathTemplate": "/anamnesis",
+			"UpstreamHttpMethod": [ "GET", "POST" ]
+		},
+		{
+			"DownstreamPathTemplate": "/api/anamnesis/{id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5003
+				}
+			],
+			"UpstreamPathTemplate": "/anamnesis/{id}",
+			"UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
 		}
 	]
 }

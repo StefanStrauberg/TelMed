@@ -33,4 +33,16 @@ export class CreateAnamnesisComponent implements OnInit {
     });
   }
 
+  createAnamnesis(){
+    if(this.ownerForm.valid)
+    {
+      this._referralsService.createAnamnesis('anamnesis', this.ownerForm.value).subscribe(response => {
+        this._router.navigate([`/referrals/edit/${this.referralId}`]).then();
+      }, (error) => {
+        console.log(error);
+        this._router.navigate([`/referrals/anamnesis/${this.referralId}`]).then();
+      })
+    }
+  }
+
 }

@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using MessageBus;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using Referrals.Application.Contracts.Persistence;
 using Referrals.Application.Specs;
@@ -75,5 +76,25 @@ namespace Referrals.Infrastructure.Repositories
             => await _context.Referrals
                 .Find(GetFilter(authorId))
                 .CountDocumentsAsync();
+
+        public async Task<bool> AddAnamnesis(Message message)
+        {
+            var filter = Builders<Referral>.Filter.Eq(x => x.Id, message.ReferralId);
+            var update = Builders<Referral>.Update
+                .Set(x => x.Updated, DateTime.Now)
+                .Push(x => x.Anamnesis, message.DataId);
+            var result = await _context.Referrals.UpdateOneAsync(filter, update);
+            return result.IsAcknowledged && result.ModifiedCount > 0;
+        }
+
+        public async Task<bool> RemoveAnamnesis(Message message)
+        {
+            var filter = Builders<Referral>.Filter.Eq(x => x.Id, message.ReferralId);
+            var update = Builders<Referral>.Update
+                .Set(x => x.Updated, DateTime.Now)
+                .Pull(x => x.Anamnesis, message.DataId);
+            var result = await _context.Referrals.UpdateOneAsync(filter, update);
+            return result.IsAcknowledged && result.ModifiedCount > 0;
+        }
     }
 }

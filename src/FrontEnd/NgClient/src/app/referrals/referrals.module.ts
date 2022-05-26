@@ -21,6 +21,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { UpdatePatientComponent } from './update-patient/update-patient.component';
 import { CreateAnamnesisComponent } from './create-anamnesis/create-anamnesis.component';
 import { AnamnesisCategoriesPipe } from '../pipes/anamnesis-categories.pipe';
+import { ViewAnamnesiesComponent } from './view-anamnesies/view-anamnesies.component';
+import { UpdateAnamnesiesComponent } from './update-anamnesies/update-anamnesies.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { AnamnesisCategoriesPipe } from '../pipes/anamnesis-categories.pipe';
     ReferralCardComponent,
     UpdatePatientComponent,
     CreateAnamnesisComponent,
-    AnamnesisCategoriesPipe
+    AnamnesisCategoriesPipe,
+    ViewAnamnesiesComponent,
+    UpdateAnamnesiesComponent
   ],
   imports: [
     CommonModule,

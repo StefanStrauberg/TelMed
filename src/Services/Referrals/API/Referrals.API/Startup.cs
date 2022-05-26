@@ -47,8 +47,7 @@ namespace Referrals.API
                     {
                         builder.AllowAnyOrigin()
                             .AllowAnyHeader()
-                            .AllowAnyMethod()
-                            .WithExposedHeaders("X-Pagination");
+                            .AllowAnyMethod();
                     });
                 });
         }

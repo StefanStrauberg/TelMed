@@ -40,7 +40,7 @@ export class CreateAnamnesisComponent implements OnInit {
         this._router.navigate([`/referrals/edit/${this.referralId}`]).then();
       }, (error) => {
         console.log(error);
-        this._router.navigate([`/referrals/anamnesis/${this.referralId}`]).then();
+        this._router.navigate([`/referrals/${this.referralId}/anamnesis/create`]).then();
       })
     }
   }

@@ -28,7 +28,6 @@ namespace Anamnesies.Application
                     });
                 }));
             });
-            
             return services;
         }
     }

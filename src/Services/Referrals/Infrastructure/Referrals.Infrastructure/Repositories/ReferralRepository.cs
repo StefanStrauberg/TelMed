@@ -2,7 +2,6 @@
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Referrals.Application.Contracts.Persistence;
-using Referrals.Application.Specs;
 using Referrals.Domain;
 using Referrals.Infrastructure.Persistence;
 
@@ -30,11 +29,8 @@ namespace Referrals.Infrastructure.Repositories
             return result.IsAcknowledged && result.DeletedCount > 0;
         }
 
-        public async Task<IEnumerable<Referral>> GetAllAsync(QuerySpecParams querySpecParams, string authorId)
+        public async Task<IEnumerable<Referral>> GetAllAsync(string authorId)
             => await _context.Referrals.Find(GetFilter(authorId))
-                //.Skip((querySpecParams.PageIndex) * querySpecParams.PageSize)
-                //.Limit(querySpecParams.PageSize)
-                //.Sort(GetSort(querySpecParams.Sort))
                 .ToListAsync();
 
         public async Task<Referral> GetAsync(string Id)
@@ -59,23 +55,10 @@ namespace Referrals.Infrastructure.Repositories
         private FilterDefinition<Referral> GetFilter(string authorId)
             => Builders<Referral>.Filter.Eq(x => x.AuthorId, new Guid(authorId));
 
-        // Sort Referrals by Published Data
-        private SortDefinition<Referral> GetSort(string sort) =>
-            sort switch
-            {
-                "OrderByDescending" => Builders<Referral>.Sort.Descending(x => x.Published),
-                _ => Builders<Referral>.Sort.Ascending(x => x.Published)
-            };
-
         public void Dispose()
         {
             GC.SuppressFinalize(this);
         }
-
-        public async Task<long> CountAsync(QuerySpecParams querySpecParams, string authorId)
-            => await _context.Referrals
-                .Find(GetFilter(authorId))
-                .CountDocumentsAsync();
 
         public async Task<bool> AddAnamnesis(Message message)
         {

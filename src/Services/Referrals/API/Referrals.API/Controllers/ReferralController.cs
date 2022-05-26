@@ -2,11 +2,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Referrals.Application.DTO;
 using Referrals.Application.Features.Referral.Requests.Commands;
 using Referrals.Application.Features.Referral.Requests.Queries;
-using Referrals.Application.Specs;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -21,22 +19,9 @@ namespace Referrals.API.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(List<ReferralDto>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetAllReferrals([FromQuery] QuerySpecParams querySpecParams)
-        {
-            var result = await _mediator.Send(new GetReferralListRequest(
-                querySpecParams,
-                User.FindFirstValue(ClaimTypes.NameIdentifier)));
-            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(new
-            {
-                result.TotalCount,
-                result.PageSize,
-                result.CurrentPage,
-                result.TotalPages,
-                result.HasNext,
-                result.HasPrevious
-            }));
-            return Ok(result);
-        }
+        public async Task<IActionResult> GetAllReferrals()
+            => Ok(await _mediator.Send(new GetReferralListRequest(
+                User.FindFirstValue(ClaimTypes.NameIdentifier))));
 
         [HttpGet("{id:length(24)}")]
         [ProducesResponseType(typeof(ReferralDto), StatusCodes.Status200OK)]

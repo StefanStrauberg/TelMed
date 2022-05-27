@@ -1,4 +1,4 @@
-﻿using Organizations.Domain.Common;
+﻿using BaseDomain;
 
 namespace Organizations.Domain
 {

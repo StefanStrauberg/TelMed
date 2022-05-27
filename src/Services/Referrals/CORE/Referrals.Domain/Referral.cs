@@ -1,4 +1,4 @@
-﻿using Referrals.Domain.Common;
+﻿using BaseDomain;
 
 namespace Referrals.Domain
 {

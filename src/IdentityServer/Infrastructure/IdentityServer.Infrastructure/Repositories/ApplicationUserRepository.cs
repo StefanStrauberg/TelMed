@@ -1,5 +1,5 @@
-﻿using IdentityServer.Application.Contracts.Persistence;
-using IdentityServer.Application.Specs;
+﻿using BaseDomain.Specs;
+using IdentityServer.Application.Contracts.Persistence;
 using IdentityServer.Domain;
 using IdentityServer.Infrastructure.Persistence;
 using MongoDB.Bson;

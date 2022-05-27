@@ -1,4 +1,4 @@
-﻿using Organizations.Application.Specs;
+﻿using BaseDomain.Specs;
 
 namespace Organizations.Application.Contracts.Persistence
 {

@@ -1,5 +1,5 @@
-﻿using IdentityServer.GRPC.DbContexts;
-using IdentityServer.GRPC.Entities;
+﻿using IdentityServer.Domain;
+using IdentityServer.Infrastructure.Persistence;
 using MongoDB.Driver;
 
 namespace IdentityServer.GRPC.Repositories

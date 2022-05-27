@@ -1,3 +1,5 @@
+using BaseDomain.Errors;
+
 namespace Specializations.Application.Errors
 {
     public class SpecializationBadRequestException : BadRequestException

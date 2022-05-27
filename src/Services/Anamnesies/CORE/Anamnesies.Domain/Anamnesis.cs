@@ -1,4 +1,4 @@
-﻿using Anamnesies.Domain.Common;
+﻿using BaseDomain;
 
 namespace Anamnesies.Domain
 {

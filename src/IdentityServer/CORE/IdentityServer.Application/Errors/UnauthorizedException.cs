@@ -1,4 +1,5 @@
-﻿namespace IdentityServer.Application.Errors
+﻿using ApplicationException = BaseDomain.Errors.ApplicationException;
+namespace IdentityServer.Application.Errors
 {
     public class UnauthorizedException : ApplicationException
     {

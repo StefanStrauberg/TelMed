@@ -12,7 +12,11 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.46.0" />
-    <PackageReference Include="MongoDB.Driver" Version="2.15.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\CORE\Specializations.Domain\Specializations.Domain.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Specializations.Infrastructure\Specializations.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

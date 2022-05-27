@@ -1,7 +1,7 @@
-using IdentityServer.GRPC.DbContexts;
-using IdentityServer.GRPC.DbContexts.Config;
 using IdentityServer.GRPC.Repositories;
 using IdentityServer.GRPC.Services;
+using IdentityServer.Infrastructure.Persistence;
+using IdentityServer.Infrastructure.Persistence.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));

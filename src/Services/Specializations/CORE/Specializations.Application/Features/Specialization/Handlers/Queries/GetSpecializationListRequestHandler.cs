@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
+using BaseDomain.Specs;
 using MediatR;
 using Specializations.Application.Contracts.Persistence;
 using Specializations.Application.DTO;
 using Specializations.Application.Features.Specialization.Requests.Queries;
-using Specializations.Application.Specs;
 
 namespace Specializations.Application.Features.Specialization.Handlers.Queries
 {

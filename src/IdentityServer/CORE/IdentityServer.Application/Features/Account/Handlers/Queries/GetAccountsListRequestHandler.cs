@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
+using BaseDomain.Specs;
 using IdentityServer.Application.Contracts.Persistence;
 using IdentityServer.Application.DTOs;
 using IdentityServer.Application.Features.Account.Requests.Queries;
 using IdentityServer.Application.GrpcServices;
-using IdentityServer.Application.Specs;
 using MediatR;
 
 namespace IdentityServer.Application.Features.Account.Handlers.Queries

@@ -1,7 +1,7 @@
-﻿using MongoDB.Bson;
+﻿using BaseDomain.Specs;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using Organizations.Application.Contracts.Persistence;
-using Organizations.Application.Specs;
 using Organizations.Domain;
 using Organizations.Infrastructure.Persistence;
 

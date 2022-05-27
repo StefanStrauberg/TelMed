@@ -1,4 +1,6 @@
-﻿namespace Organizations.Application.Errors
+﻿using BaseDomain.Errors;
+
+namespace Organizations.Application.Errors
 {
     public class OrganizationBadRequestException : BadRequestException
     {

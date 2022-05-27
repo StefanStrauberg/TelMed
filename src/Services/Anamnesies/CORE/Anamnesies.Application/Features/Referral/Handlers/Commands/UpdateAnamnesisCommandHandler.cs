@@ -1,7 +1,7 @@
 ﻿using Anamnesies.Application.Contracts.Persistence;
+using Anamnesies.Application.Errors;
 using Anamnesies.Application.Features.Referral.Requests.Commands;
 using Anamnesies.Domain;
-using Anamnesies.Domain.Exceptions;
 using AutoMapper;
 using MediatR;
 

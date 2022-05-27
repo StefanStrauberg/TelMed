@@ -1,13 +1,13 @@
-﻿using MongoDB.Bson;
+﻿using BaseDomain.Specs;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using Specializations.Application.Contracts.Persistence;
-using Specializations.Application.Specs;
 using Specializations.Domain;
 using Specializations.Infrastructure.Persistence;
 
 namespace Specializations.Infrastructure.Repositories
 {
-    public class SpecializationRepository : ISpecializationRepository, IDisposable
+    public class SpecializationRepository : ISpecializationRepository
     {
         private readonly ISpecializationContext _context;
         public SpecializationRepository(ISpecializationContext context)

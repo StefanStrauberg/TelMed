@@ -1,4 +1,6 @@
-﻿namespace Referrals.Application.Errors
+﻿using BaseDomain.Errors;
+
+namespace Referrals.Application.Errors
 {
     public class ReferralNotFoundException : NotFoundException
     {

@@ -1,5 +1,5 @@
-﻿using IdentityServer.Application.DTOs;
-using IdentityServer.Application.Specs;
+﻿using BaseDomain.Specs;
+using IdentityServer.Application.DTOs;
 using MediatR;
 
 namespace IdentityServer.Application.Features.Account.Requests.Queries

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using BaseDomain.Specs;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -6,9 +7,7 @@ using Newtonsoft.Json;
 using Specializations.Application.DTO;
 using Specializations.Application.Features.Specialization.Requests.Commands;
 using Specializations.Application.Features.Specialization.Requests.Queries;
-using Specializations.Application.Specs;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Specializations.API.Controllers
@@ -19,10 +18,6 @@ namespace Specializations.API.Controllers
         private readonly IMediator _mediator;
         public SpecializationController(IMediator mediator) 
             => _mediator = mediator;
-
-        [HttpGet("Privacy")]
-        public IActionResult Privacy()
-            => Ok(User.Claims.Select(c => new { c.Type, c.Value }).ToList());
 
         [HttpGet]
         [ProducesResponseType(typeof(List<SpecializationDto>), StatusCodes.Status200OK)]

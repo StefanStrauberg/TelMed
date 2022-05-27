@@ -1,6 +1,6 @@
-﻿using MediatR;
+﻿using BaseDomain.Specs;
+using MediatR;
 using Specializations.Application.DTO;
-using Specializations.Application.Specs;
 
 namespace Specializations.Application.Features.Specialization.Requests.Queries
 {

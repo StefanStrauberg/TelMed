@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
-using ValidationException = IdentityServer.Application.Errors.ValidationException;
+using ValidationException = BaseDomain.Errors.ValidationException;
 
 namespace IdentityServer.Application.Behaviors
 {

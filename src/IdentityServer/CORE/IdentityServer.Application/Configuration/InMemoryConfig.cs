@@ -29,7 +29,8 @@ namespace IdentityServer.Application.Configuration
                         "SpecializationApiScope",
                         "OrganizationApiScope",
                         "ReferralsApiScope",
-                        "AnamnesiesApiScope"
+                        "AnamnesiesApiScope",
+                        "PurposeApiScope"
                     },
                     AllowedCorsOrigins = { "http://localhost:4200" },
                     RequireClientSecret = false,
@@ -40,10 +41,11 @@ namespace IdentityServer.Application.Configuration
             };
         public static IEnumerable<ApiScope> GetApiScopes() =>
             new List<ApiScope> {
-                new ApiScope("SpecializationApiScope", "Scope for SpecializationApi"),
-                new ApiScope("OrganizationApiScope", "Scope for OrganizationApi"),
-                new ApiScope("ReferralsApiScope", "Scope for ReferralsApi"),
-                new ApiScope("AnamnesiesApiScope", "Scope for AnamnesiesApi"),
+                new ApiScope("SpecializationApiScope", "Full access for SpecializationApi"),
+                new ApiScope("OrganizationApiScope", "Full access for OrganizationApi"),
+                new ApiScope("ReferralsApiScope", "Full access for ReferralsApi"),
+                new ApiScope("AnamnesiesApiScope", "Full access for AnamnesiesApi"),
+                new ApiScope("PurposeApiScope", "Full access for PurposeApi"),
             };
         public static IEnumerable<ApiResource> GetApiResources() =>
             new List<ApiResource>
@@ -63,6 +65,10 @@ namespace IdentityServer.Application.Configuration
                 new ApiResource("AnamnesiesApi", "Anamnesies API")
                 {
                     Scopes = { "AnamnesiesApiScope" }
+                },
+                new ApiResource("PurposeApi", "Purpose API")
+                {
+                    Scopes = { "PurposeApiScope" }
                 }
             };
     }

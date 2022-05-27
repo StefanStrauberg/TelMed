@@ -1,4 +1,6 @@
-﻿namespace IdentityServer.Application.Errors
+﻿using BaseDomain.Errors;
+
+namespace IdentityServer.Application.Errors
 {
     public class AccountBadRequestException : BadRequestException
     {

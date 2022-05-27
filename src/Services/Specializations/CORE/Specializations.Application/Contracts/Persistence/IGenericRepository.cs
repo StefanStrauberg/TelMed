@@ -1,8 +1,8 @@
-﻿using Specializations.Application.Specs;
+﻿using BaseDomain.Specs;
 
 namespace Specializations.Application.Contracts.Persistence
 {
-    public interface IGenericRepository<T> where T : class
+    public interface IGenericRepository<T> : IDisposable where T : class
     {
         Task<T> GetAsync(string Id);
         Task<IEnumerable<T>> GetAllAsync(QuerySpecParams querySpecParams);

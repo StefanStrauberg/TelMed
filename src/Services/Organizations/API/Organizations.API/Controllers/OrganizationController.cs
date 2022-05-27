@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using BaseDomain.Specs;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +7,6 @@ using Newtonsoft.Json;
 using Organizations.Application.DTO;
 using Organizations.Application.Features.Organization.Requests.Commands;
 using Organizations.Application.Features.Organization.Requests.Queries;
-using Organizations.Application.Specs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

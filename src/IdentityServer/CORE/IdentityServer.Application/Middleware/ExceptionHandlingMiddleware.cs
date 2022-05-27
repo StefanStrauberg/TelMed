@@ -1,8 +1,9 @@
-﻿using IdentityServer.Application.Errors;
+﻿using BaseDomain.Errors;
+using IdentityServer.Application.Errors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
-using ApplicationException = IdentityServer.Application.Errors.ApplicationException;
+using ApplicationException = BaseDomain.Errors.ApplicationException;
 
 namespace IdentityServer.Application.Middleware
 {

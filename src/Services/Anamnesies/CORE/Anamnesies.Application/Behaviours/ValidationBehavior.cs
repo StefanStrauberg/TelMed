@@ -1,6 +1,6 @@
 using FluentValidation;
 using MediatR;
-using ValidationException = Anamnesies.Domain.Exceptions.ValidationException;
+using ValidationException = BaseDomain.Errors.ValidationException;
 
 namespace Anamnesies.Application.Behaviours
 {

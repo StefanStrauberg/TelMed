@@ -1,4 +1,4 @@
-﻿using Specializations.Domain.Common;
+﻿using BaseDomain;
 
 namespace Specializations.Domain
 {

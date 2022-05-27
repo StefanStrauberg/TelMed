@@ -1,4 +1,4 @@
-﻿using IdentityServer.Application.Specs;
+﻿using BaseDomain.Specs;
 using IdentityServer.Domain;
 
 namespace IdentityServer.Application.Contracts.Persistence

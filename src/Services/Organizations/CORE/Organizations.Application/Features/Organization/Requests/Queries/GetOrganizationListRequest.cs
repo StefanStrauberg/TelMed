@@ -1,6 +1,6 @@
-﻿using MediatR;
+﻿using BaseDomain.Specs;
+using MediatR;
 using Organizations.Application.DTO;
-using Organizations.Application.Specs;
 
 namespace Organizations.Application.Features.Organization.Requests.Queries
 {

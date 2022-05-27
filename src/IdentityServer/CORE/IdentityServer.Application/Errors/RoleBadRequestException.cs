@@ -1,3 +1,5 @@
+using BaseDomain.Errors;
+
 namespace IdentityServer.Application.Errors
 {
     public class RoleBadRequestException : BadRequestException

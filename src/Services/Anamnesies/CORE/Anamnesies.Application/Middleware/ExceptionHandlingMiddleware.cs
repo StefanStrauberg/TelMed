@@ -1,8 +1,8 @@
-using System.Text.Json;
-using Anamnesies.Domain.Exceptions;
+using BaseDomain.Errors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using ApplicationException = Anamnesies.Domain.Exceptions.ApplicationException;
+using System.Text.Json;
+using ApplicationException = BaseDomain.Errors.ApplicationException;
 
 namespace Anamnesies.Application.Middleware
 {

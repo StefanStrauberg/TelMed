@@ -1,6 +1,6 @@
 ﻿using Anamnesies.Application.Contracts.Persistence;
+using Anamnesies.Application.Errors;
 using Anamnesies.Application.Features.Referral.Requests.Commands;
-using Anamnesies.Domain.Exceptions;
 using MassTransit;
 using MediatR;
 using MessageBus;

@@ -1,7 +1,7 @@
+using BaseDomain.Specs;
 using IdentityServer.Application.DTOs;
 using IdentityServer.Application.Features.Account.Requests.Commands;
 using IdentityServer.Application.Features.Account.Requests.Queries;
-using IdentityServer.Application.Specs;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;

@@ -1,13 +1,13 @@
-using Specialization.GRPC.DbContexts;
-using Specialization.GRPC.DbContexts.Config;
 using Specialization.GRPC.Repositories;
 using Specialization.GRPC.Services;
+using Specializations.Infrastructure.Persistence;
+using Specializations.Infrastructure.Persistence.Config;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
-builder.Services.AddScoped<IMongoSpecContext, MongoSpecContext>();
+builder.Services.AddScoped<ISpecializationContext, SpecializationContext>();
 builder.Services.AddScoped<ISpecializationRepository, SpecializationRepository>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddGrpc();

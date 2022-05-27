@@ -2,9 +2,9 @@
 {
     public class MongoDbConfig
     {
-        public string Name { get; set; }
-        public string Host { get; set; }
-        public string Port { get; set; }
+        public string Name { get; init; }
+        public string Host { get; init; }
+        public int Port { get; init; }
         public string ConnectionString => $"mongodb://{Host}:{Port}";
     }
 }

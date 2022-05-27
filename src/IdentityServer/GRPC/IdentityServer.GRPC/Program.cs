@@ -1,10 +1,9 @@
 using IdentityServer.GRPC.Repositories;
 using IdentityServer.GRPC.Services;
 using IdentityServer.Infrastructure.Persistence;
-using IdentityServer.Infrastructure.Persistence.Config;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
+//builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
 builder.Services.AddScoped<IIdentityContext, IdentityContext>();
 builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
 builder.Services.AddGrpc();

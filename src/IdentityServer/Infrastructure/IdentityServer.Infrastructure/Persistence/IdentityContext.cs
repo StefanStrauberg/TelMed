@@ -9,12 +9,12 @@ namespace IdentityServer.Infrastructure.Persistence
     {
         public IMongoCollection<ApplicationUser> Accounts { get; }
         public IMongoCollection<ApplicationRole> Roles { get; }
-        public IdentityContext(IOptions<DatabaseSettings> dbOptions)
+        public IdentityContext(IOptions<MongoDbConfig> dbOptions)
         {
             var Client = new MongoClient(dbOptions.Value.ConnectionString);
-            var Databse = Client.GetDatabase(dbOptions.Value.DatabaseName);
-            Accounts = Databse.GetCollection<ApplicationUser>(dbOptions.Value.CollectionNameAccounts);
-            Roles = Databse.GetCollection<ApplicationRole>(dbOptions.Value.CollectionNameRoles);
+            var Databse = Client.GetDatabase(dbOptions.Value.Name);
+            Accounts = Databse.GetCollection<ApplicationUser>("applicationRoles");
+            Roles = Databse.GetCollection<ApplicationRole>("applicationUsers");
         }
     }
 }

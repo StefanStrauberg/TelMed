@@ -29,7 +29,7 @@ namespace IdentityServer.Application.Features.Account.Handlers.Commands
             if(role is null)
                 throw new RoleBadRequestException(request.model.Role);
             _mapper.Map(request.model, user);
-            user.Roles = new List<Guid>() { role.Id };
+            //user.Roles = new List<Guid>() { role.Id };
             await _userManager.UpdateAsync(user);
             return Unit.Value;
         }

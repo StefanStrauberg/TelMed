@@ -1,6 +1,4 @@
-﻿using IdentityServer.Domain;
-using IdentityServer.Infrastructure.Persistence;
-using MongoDB.Driver;
+﻿using IdentityServer.Infrastructure.Persistence;
 
 namespace IdentityServer.GRPC.Repositories
 {
@@ -10,10 +8,11 @@ namespace IdentityServer.GRPC.Repositories
         public ApplicationUserRepository(IIdentityContext context)
             => _context = context;
         public async Task<string> GetAccNameAsync(string Id)
-            => await _context.Accounts
-                .Find(Builders<ApplicationUser>.Filter.Eq(x => x.Id, new Guid(Id)))
-                .Project(x => x.LastName + " " + x.FirstName + " " + x.MiddleName)
-                .FirstOrDefaultAsync();
+            => "123";
+            // => await _context.Accounts
+            //     .Find(Builders<ApplicationUser>.Filter.Eq(x => x.Id, new Guid(Id)))
+            //     .Project(x => x.LastName + " " + x.FirstName + " " + x.MiddleName)
+            //     .FirstOrDefaultAsync();
         public void Dispose()
             => GC.SuppressFinalize(this);
     }

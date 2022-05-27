@@ -5,7 +5,6 @@ using IdentityServer.Domain;
 using IdentityServer.Infrastructure.Persistence;
 using IdentityServer.Infrastructure.Persistence.Config;
 using IdentityServer.Infrastructure.Repositories;
-using IdentityServer4.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

@@ -1,12 +1,11 @@
 using IdentityServer.Application;
 using IdentityServer.Application.Middleware;
 using IdentityServer.Infrastructure;
-using IdentityServer.Infrastructure.Persistence.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 const string _policyName = "CorsPolicy";
 
-builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
+//builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddControllersWithViews();

@@ -28,8 +28,7 @@ namespace IdentityServer.Application.Mappings
             CreateMap<AccountForRegistrationDto, ApplicationUser>();
             CreateMap<AccountForUpdateDto, ApplicationUser>();
             CreateMap<ApplicationRole, RoleDto>();
-            CreateMap<ApplicationUser, AccountDto>()
-                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Roles.FirstOrDefault()));
+            CreateMap<ApplicationUser, AccountDto>().ReverseMap();
         }
     }
 }

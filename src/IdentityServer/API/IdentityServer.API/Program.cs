@@ -5,7 +5,7 @@ using IdentityServer.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 const string _policyName = "CorsPolicy";
 
-//builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
+
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddControllersWithViews();
@@ -15,8 +15,7 @@ builder.Services.AddCors(options =>
         {
             builder.AllowAnyOrigin()
                 .AllowAnyHeader()
-                .AllowAnyMethod()
-                .WithExposedHeaders("X-Pagination");
+                .AllowAnyMethod();
         });
     });
 

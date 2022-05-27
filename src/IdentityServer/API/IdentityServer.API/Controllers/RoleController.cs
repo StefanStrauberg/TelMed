@@ -24,7 +24,7 @@ namespace IdentityServer.API.Controllers
             => Ok(await _mediatR.Send(new GetRoleDetailRequest(id)));
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRoleById(string id)
+        public async Task<IActionResult> DeleteRoleById(Guid id)
             => Ok(await _mediatR.Send(new DeleteRoleCommand(id)));
     }
 }

@@ -1,8 +1,7 @@
-﻿using BaseDomain.Specs;
-using IdentityServer.Application.DTOs;
+﻿using IdentityServer.Application.DTOs;
 using MediatR;
 
 namespace IdentityServer.Application.Features.Account.Requests.Queries
 {
-    public record GetAccountsListRequest(QuerySpecParams querySpecParams) : IRequest<PagedList<AccountDto>>;
+    public record GetAccountsListRequest : IRequest<IReadOnlyList<AccountDto>>;
 }

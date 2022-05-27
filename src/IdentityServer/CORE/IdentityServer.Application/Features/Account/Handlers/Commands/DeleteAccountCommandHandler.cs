@@ -12,9 +12,9 @@ namespace IdentityServer.Application.Features.Account.Handlers.Commands
             => _userManager = userManager;
         public async Task<Unit> Handle(DeleteAccountCommand request, CancellationToken cancellationToken)
         {
-            var account = await _userManager.FindByIdAsync(request.id);
+            var account = await _userManager.FindByIdAsync(request.id.ToString());
             if (account is null)
-                throw new AccountBadRequestException(request.id);
+                throw new AccountBadRequestException(request.id.ToString());
             await _userManager.DeleteAsync(account);
             return Unit.Value;
         }

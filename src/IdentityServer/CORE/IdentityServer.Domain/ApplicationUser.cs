@@ -1,8 +1,8 @@
-﻿using AspNetCore.Identity.MongoDbCore.Models;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace IdentityServer.Domain
 {
-    public class ApplicationUser : MongoIdentityUser
+    public class ApplicationUser : IdentityUser<Guid>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

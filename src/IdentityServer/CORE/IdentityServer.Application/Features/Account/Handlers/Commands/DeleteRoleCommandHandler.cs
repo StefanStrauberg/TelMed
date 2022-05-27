@@ -13,9 +13,9 @@ namespace IdentityServer.Application.Features.Account.Handlers.Commands
             => _roleManager = roleManager;
         public async Task<Unit> Handle(DeleteRoleCommand request, CancellationToken cancellationToken)
         {
-            var role = await _roleManager.FindByIdAsync(request.id);
+            var role = await _roleManager.FindByIdAsync(request.id.ToString());
             if(role is null)
-                throw new RoleBadRequestException(request.id);
+                throw new RoleBadRequestException(request.id.ToString());
             await _roleManager.DeleteAsync(role);
             return Unit.Value;
         }

@@ -1,6 +1,8 @@
-﻿using FluentValidation;
+﻿using AutoMapper;
+using FluentValidation;
 using IdentityServer.Application.Behaviors;
 using IdentityServer.Application.GrpcServices;
+using IdentityServer.Application.Mappings;
 using IdentityServer.Application.Middleware;
 using MediatR;
 using Microsoft.Extensions.Configuration;
@@ -13,17 +15,22 @@ namespace IdentityServer.Application
 {
     public static class ApplicationServiceRegistration
     {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddTransient<ExceptionHandlingMiddleware>();
             services.AddGrpcClient<SpecializationProtoService.SpecializationProtoServiceClient>
-                (options => options.Address = new Uri(config["GrpcSettings:SpecializationUrl"]));
+                (options => options.Address = new Uri(configuration["GrpcSettings:SpecializationUrl"]));
             services.AddGrpcClient<OrganizationProtoService.OrganizationProtoServiceClient>
-                (options => options.Address = new Uri(config["GrpcSettings:OrganizationUrl"]));
+                (options => options.Address = new Uri(configuration["GrpcSettings:OrganizationUrl"]));
             services.AddScoped<IGrpcService, GrpcService>();
             return services;
         }

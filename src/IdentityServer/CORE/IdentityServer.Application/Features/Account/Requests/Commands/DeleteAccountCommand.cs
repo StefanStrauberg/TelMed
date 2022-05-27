@@ -2,5 +2,5 @@
 
 namespace IdentityServer.Application.Features.Account.Requests.Commands
 {
-    public record DeleteAccountCommand(string id) : IRequest;
+    public record DeleteAccountCommand(Guid id) : IRequest;
 }

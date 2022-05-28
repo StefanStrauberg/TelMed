@@ -12,9 +12,9 @@ namespace IdentityServer.Application.Features.Account.Handlers.Commands
             => _roleManager = roleManager;
         public async Task<Unit> Handle(RegisterRoleCommand request, CancellationToken cancellationToken)
         {
-            if (await _roleManager.RoleExistsAsync(request.roleName))
-                throw new ExistsRoleBadRequestException(request.roleName);
-            await _roleManager.CreateAsync(new Domain.ApplicationRole() { Name = request.roleName });
+            if (await _roleManager.RoleExistsAsync(request.model.RoleName))
+                throw new ExistsRoleBadRequestException(request.model.RoleName);
+            await _roleManager.CreateAsync(new Domain.ApplicationRole() { Name = request.model.RoleName });
             return Unit.Value;
         }
     }

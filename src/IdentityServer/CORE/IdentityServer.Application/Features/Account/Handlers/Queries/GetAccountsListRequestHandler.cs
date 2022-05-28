@@ -28,7 +28,6 @@ namespace IdentityServer.Application.Features.Account.Handlers.Queries
             var data = _mapper.Map<IReadOnlyList<AccountDto>>(await _userManager.Users.ToListAsync());
             await Parallel.ForEachAsync(data, async (x, cancellationToken) =>
             {
-                //x.Role = await _applicationRoleRepository.GetRoleNameById(x.Role);
                 if (x.SpecializationId is not null)
                     x.SpecializationId = await _grpcService.GetSpecName(x.SpecializationId);
                 if (x.SpecializationId is not null)

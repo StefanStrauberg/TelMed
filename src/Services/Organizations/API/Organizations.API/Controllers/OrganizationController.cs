@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Organizations.API.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    [Authorize]
     public class OrganizationController : BaseController
     {
         private readonly IMediator _mediator;

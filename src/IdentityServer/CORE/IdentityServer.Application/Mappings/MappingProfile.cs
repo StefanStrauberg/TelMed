@@ -26,9 +26,8 @@ namespace IdentityServer.Application.Mappings
                 .ConvertUsing(src => src.Name.Select(name => name.ToString()).ToList());
             // API
             CreateMap<AccountForRegistrationDto, ApplicationUser>();
-            CreateMap<AccountForUpdateDto, ApplicationUser>();
             CreateMap<ApplicationRole, RoleDto>();
-            CreateMap<ApplicationUser, AccountDto>().ReverseMap();
+            CreateMap<ApplicationUser, AccountDto>();
         }
     }
 }

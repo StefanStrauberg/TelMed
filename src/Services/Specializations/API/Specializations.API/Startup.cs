@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Specializations.Application;
 using Specializations.Application.Middleware;
@@ -29,12 +28,7 @@ namespace Specializations.API
                 {
                     options.RequireHttpsMetadata = false;
                     options.Authority = "http://localhost:5050";
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidIssuer = "http://localhost:5050",
-                        ValidAudience = "SpecializationApi"
-                    };
+                    options.Audience = "SpecializationApi";
                 });
             services.AddControllers();
             services.AddSwaggerGen(c =>

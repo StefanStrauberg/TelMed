@@ -1,5 +1,6 @@
 ﻿using IdentityServer4.Models;
-using static IdentityServer4.IdentityServerConstants;
+using IdentityServer4.Test;
+using System.Security.Claims;
 
 namespace IdentityServer.Application.Configuration
 {
@@ -24,52 +25,80 @@ namespace IdentityServer.Application.Configuration
                     AllowAccessTokensViaBrowser = true,
                     AllowedScopes =
                     {
-                        StandardScopes.OpenId,
-                        StandardScopes.Profile,
-                        "SpecializationApiScope",
-                        "OrganizationApiScope",
-                        "ReferralsApiScope",
-                        "AnamnesiesApiScope",
-                        "PurposeApiScope"
+                        "SpecializationApi",
+                        "OrganizationApi",
+                        "ReferralsApi",
+                        "AnamnesiesApi",
+                        "PurposeApi"
                     },
                     AllowedCorsOrigins = { "http://localhost:4200" },
                     RequireClientSecret = false,
                     PostLogoutRedirectUris = new List<string> { "http://localhost:4200/signout-callback" },
                     RequireConsent = false,
                     AccessTokenLifetime = 600
+                },
+                new Client
+                {
+                    ClientId = "ExternalApi",
+                    ClientSecrets = new [] { new Secret("ExternalApiSuperPassword".Sha512()) },
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
+                    AllowedScopes = 
+                    {
+                        "SpecializationApi",
+                        "OrganizationApi",
+                        "ReferralsApi",
+                        "AnamnesiesApi",
+                        "PurposeApi"
+                    }
                 }
             };
         public static IEnumerable<ApiScope> GetApiScopes() =>
             new List<ApiScope> {
-                new ApiScope("SpecializationApiScope", "Full access for SpecializationApi"),
-                new ApiScope("OrganizationApiScope", "Full access for OrganizationApi"),
-                new ApiScope("ReferralsApiScope", "Full access for ReferralsApi"),
-                new ApiScope("AnamnesiesApiScope", "Full access for AnamnesiesApi"),
-                new ApiScope("PurposeApiScope", "Full access for PurposeApi"),
+                new ApiScope("SpecializationApi", "Full access for SpecializationApi"),
+                new ApiScope("OrganizationApi", "Full access for OrganizationApi"),
+                new ApiScope("ReferralsApi", "Full access for ReferralsApi"),
+                new ApiScope("AnamnesiesApi", "Full access for AnamnesiesApi"),
+                new ApiScope("PurposeApi", "Full access for PurposeApi"),
             };
         public static IEnumerable<ApiResource> GetApiResources() =>
             new List<ApiResource>
             {
                 new ApiResource("SpecializationApi", "Specialization API")
                 {
-                    Scopes = { "SpecializationApiScope" }
+                    Scopes = { "SpecializationApi" }
                 },
                 new ApiResource("OrganizationApi", "Organization API")
                 {
-                    Scopes = { "OrganizationApiScope" }
+                    Scopes = { "OrganizationApi" }
                 },
                 new ApiResource("ReferralsApi", "Referrals API")
                 {
-                    Scopes = { "ReferralsApiScope" }
+                    Scopes = { "ReferralsApi" }
                 },
                 new ApiResource("AnamnesiesApi", "Anamnesies API")
                 {
-                    Scopes = { "AnamnesiesApiScope" }
+                    Scopes = { "AnamnesiesApi" }
                 },
                 new ApiResource("PurposeApi", "Purpose API")
                 {
-                    Scopes = { "PurposeApiScope" }
+                    Scopes = { "PurposeApi" }
                 }
+            };
+
+        public static List<TestUser> GetUsers() =>
+            new List<TestUser>
+            {
+                new TestUser
+                {
+                    SubjectId = "a9ea0f25-b964-409f-bcce-c923266249b4",
+                    Username = "Admin",
+                    Password = "AdminSuperPassword",
+                    Claims = new List<Claim>
+                    {
+                        new Claim("given_name", "AdminNameClaim"),
+                        new Claim("family_name", "AdminFamilyNameClaim")
+                    }
+                },
             };
     }
 }

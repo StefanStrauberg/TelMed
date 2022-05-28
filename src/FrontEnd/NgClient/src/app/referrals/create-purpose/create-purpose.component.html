@@ -1,7 +1,8 @@
+<pre>{{ownerForm.value | json}}</pre>
 <mat-card class="example-form">
     <mat-card-title class="card-header d-flex justify-content-between" style="background-color: #135589;">
         <div class="col">
-            <h3>Анамнез</h3>
+            <h3>Цель консультирования</h3>
         </div>
         <div>
             <a mat-raised-button matTooltip="Отмена" routerLink="/referrals/edit/{{referralId}}">
@@ -13,17 +14,17 @@
         </div>
     </mat-card-title>
     <mat-card-content>
-        <form [formGroup]="ownerForm" id="createForm" (ngSubmit)="createAnamnesis()">
-            <mat-label>Тип</mat-label>
+        <form [formGroup]="ownerForm" id="createForm" (ngSubmit)="createPurpose()">
+            <mat-label>Цель</mat-label>
             <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Укажите тип анаменза</mat-label>
-                <mat-select formControlName="categoryId">
-                    <mat-option *ngFor="let anamnesis of enumValuse(anamnesisCategory)" [value]="anamnesis">{{ anamnesis | anamnesisCategories }}</mat-option>
+                <mat-label>Укажите цель консультирования</mat-label>
+                <mat-select formControlName="group">
+                    <mat-option *ngFor="let purpose of enumValuse(purposeGroup)" [value]="purpose">{{ purpose | purposeGroup }}</mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-label>Описание</mat-label>
+            <mat-label>Описание цели консультирования</mat-label>
             <mat-form-field class="example-full-width" appearance="outline">
-                <textarea matInput formControlName="summary" type="text"></textarea>
+                <textarea matInput formControlName="resume" type="text"></textarea>
             </mat-form-field>
         </form>
     </mat-card-content>

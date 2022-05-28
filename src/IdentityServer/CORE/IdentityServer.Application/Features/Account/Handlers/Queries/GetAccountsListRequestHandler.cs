@@ -25,9 +25,11 @@ namespace IdentityServer.Application.Features.Account.Handlers.Queries
         }
         public async Task<IReadOnlyList<AccountDto>> Handle(GetAccountsListRequest request, CancellationToken cancellationToken)
         {
-            var data = _mapper.Map<IReadOnlyList<AccountDto>>(await _userManager.Users.ToListAsync());
+            var data = _mapper.Map<IReadOnlyList<AccountDto>>( await _userManager.Users.ToListAsync());
             await Parallel.ForEachAsync(data, async (x, cancellationToken) =>
             {
+                var roles = await _userManager.GetRolesAsync(await _userManager.FindByIdAsync(x.Id));
+                x.Role = roles.First();
                 if (x.SpecializationId is not null)
                     x.SpecializationId = await _grpcService.GetSpecName(x.SpecializationId);
                 if (x.SpecializationId is not null)

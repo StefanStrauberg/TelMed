@@ -35,6 +35,10 @@ export class ErrorHandlerService implements HttpInterceptor {
           if(error.status === 405) {
             this._toastr.error(error.statusText, error.status);
           }
+          if(error.status === 502) {
+            this._toastr.error(error.message, error.status);
+            this._router.navigateByUrl('/server-error');
+          }
           if(error.status === 500) {
             const navigationExtras: NavigationExtras = 
               { state: {error: error.error} };

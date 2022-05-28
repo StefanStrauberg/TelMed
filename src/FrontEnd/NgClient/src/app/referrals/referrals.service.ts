@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IAnamnesis } from '../shared/models/anamnesis';
+import { IPurpose } from '../shared/models/purpose';
 import { IReferral } from '../shared/models/referral';
 import { EnvironmentUrlService } from '../shared/services/environment-url.service';
 
@@ -66,6 +67,20 @@ export class ReferralsService {
   updateAnamnesis = (route: string, body: IAnamnesis) => {
     return this._http.put<{}>(
       this.createCompleteRoute(route, this._envUrl.urlAddress), body, { observe: 'response' });
+  }
+
+  //********************Purpose********************//
+
+  // Create Purpose
+  createPurpose = (route: string, body: IPurpose) => {
+    return this._http.post<{}>(
+      this.createCompleteRoute(route, this._envUrl.urlAddress), body, { observe: 'response' });
+  }
+
+  // Get All Anamnesies by ReferralId
+  getPurposes = (route: string) => {
+    return this._http.get<IPurpose[]>(
+      this.createCompleteRoute(route, this._envUrl.urlAddress),{ observe: 'response' });
   }
 
   // Delete Anamnesis

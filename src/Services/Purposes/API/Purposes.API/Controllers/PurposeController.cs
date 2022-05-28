@@ -19,6 +19,13 @@ namespace Purposes.API.Controllers
         public async Task<IActionResult> GetAllPurposes()
             => Ok(await _mediator.Send(new GetPurposeListRequest()));
 
+        [HttpGet("ByReferralId/{id:length(24)}")]
+        [ProducesResponseType(typeof(IReadOnlyList<PurposeDto>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetPurposeListByRefferalIdRequest(string id)
+        {
+            return Ok(await _mediator.Send(new GetPurposeListByRefferalIdRequest(id)));
+        }
+
         [HttpGet("{id:length(24)}")]
         [ProducesResponseType(typeof(PurposeDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

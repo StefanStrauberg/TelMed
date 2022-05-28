@@ -1,5 +1,4 @@
-﻿using IdentityServer.Domain;
-using IdentityServer.Infrastructure.Persistence;
+﻿using IdentityServer.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace IdentityServer.GRPC.Repositories

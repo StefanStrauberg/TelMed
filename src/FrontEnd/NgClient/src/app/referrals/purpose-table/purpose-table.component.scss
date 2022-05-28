@@ -1,0 +1,25 @@
+table {
+    width: 100%;
+}
+.mat-header-row {
+    background-color: gainsboro;
+}
+.mat-column-categoryId {
+    width: 20%;
+    border-right: 1px solid currentColor;
+    padding-left: 24px;
+    padding-right: 24px;
+    text-align: start;
+}
+.mat-column-summary {
+    border-right: 1px solid currentColor;
+    padding-left: 24px;
+    padding-right: 24px;
+    text-align: start;
+}
+.mat-column-actions {
+    width: 10%;
+    padding-left: 24px;
+    padding-right: 24px;
+    text-align: start;
+}

@@ -7,7 +7,7 @@ import { ReferralsRoutingModule } from './referrals-routing.module';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { CreateReferralComponent } from './create-referral/create-referral.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -25,6 +25,9 @@ import { ViewAnamnesiesComponent } from './view-anamnesies/view-anamnesies.compo
 import { UpdateAnamnesiesComponent } from './update-anamnesies/update-anamnesies.component';
 import { AnamnesisTableComponent } from './anamnesis-table/anamnesis-table.component';
 import { MatTableModule } from '@angular/material/table';
+import { PurposeTableComponent } from './purpose-table/purpose-table.component';
+import { CreatePurposeComponent } from './create-purpose/create-purpose.component';
+import { PurposeGroupPipe } from '../pipes/purpose-group.pipe';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,10 @@ import { MatTableModule } from '@angular/material/table';
     AnamnesisCategoriesPipe,
     ViewAnamnesiesComponent,
     UpdateAnamnesiesComponent,
-    AnamnesisTableComponent
+    AnamnesisTableComponent,
+    PurposeTableComponent,
+    CreatePurposeComponent,
+    PurposeGroupPipe
   ],
   imports: [
     CommonModule,

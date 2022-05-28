@@ -1,7 +1,9 @@
 ﻿using IdentityServer.Application.Configuration;
+using IdentityServer.Application.Contracts.Persistence;
 using IdentityServer.Application.Services;
 using IdentityServer.Domain;
 using IdentityServer.Infrastructure.Persistence;
+using IdentityServer.Infrastructure.Repositories;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

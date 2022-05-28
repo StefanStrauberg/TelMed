@@ -107,6 +107,42 @@
 			],
 			"UpstreamPathTemplate": "/anamnesis/{id}",
 			"UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+		},
+		{
+			"DownstreamPathTemplate": "/api/purpose",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5006
+				}
+			],
+			"UpstreamPathTemplate": "/purpose",
+			"UpstreamHttpMethod": [ "GET", "POST" ]
+		},
+		{
+			"DownstreamPathTemplate": "/api/purpose/ByReferralId/{id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5006
+				}
+			],
+			"UpstreamPathTemplate": "/purpose/ByReferralId/{id}",
+			"UpstreamHttpMethod": [ "GET" ]
+		},
+		{
+			"DownstreamPathTemplate": "/api/purpose/{id}",
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5006
+				}
+			],
+			"UpstreamPathTemplate": "/purpose/{id}",
+			"UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
 		}
 	]
 }

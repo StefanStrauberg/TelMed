@@ -1,12 +1,11 @@
-using IdentityServer.Domain;
 using IdentityServer.GRPC.Repositories;
 using IdentityServer.GRPC.Services;
 using IdentityServer.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.Configure<RepositoryContext>(builder.Configuration.GetSection("DatabaseSettings"));
-builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
-                .AddEntityFrameworkStores<RepositoryContext>();
+builder.Services.AddDbContext<RepositoryContext>(opts =>
+                opts.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
 builder.Services.AddGrpc();
 

@@ -1,6 +1,5 @@
-﻿using IdentityServer4.Models;
-using IdentityServer4.Test;
-using System.Security.Claims;
+﻿using IdentityServer4;
+using IdentityServer4.Models;
 
 namespace IdentityServer.Application.Configuration
 {
@@ -25,6 +24,8 @@ namespace IdentityServer.Application.Configuration
                     AllowAccessTokensViaBrowser = true,
                     AllowedScopes =
                     {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
                         "SpecializationApi",
                         "OrganizationApi",
                         "ReferralsApi",
@@ -44,6 +45,8 @@ namespace IdentityServer.Application.Configuration
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
                     AllowedScopes = 
                     {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
                         "SpecializationApi",
                         "OrganizationApi",
                         "ReferralsApi",
@@ -83,22 +86,6 @@ namespace IdentityServer.Application.Configuration
                 {
                     Scopes = { "PurposeApi" }
                 }
-            };
-
-        public static List<TestUser> GetUsers() =>
-            new List<TestUser>
-            {
-                new TestUser
-                {
-                    SubjectId = "a9ea0f25-b964-409f-bcce-c923266249b4",
-                    Username = "Admin",
-                    Password = "AdminSuperPassword",
-                    Claims = new List<Claim>
-                    {
-                        new Claim("given_name", "AdminNameClaim"),
-                        new Claim("family_name", "AdminFamilyNameClaim")
-                    }
-                },
             };
     }
 }

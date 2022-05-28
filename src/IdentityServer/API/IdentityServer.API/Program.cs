@@ -1,3 +1,4 @@
+using IdentityServer.API;
 using IdentityServer.Application;
 using IdentityServer.Application.Middleware;
 using IdentityServer.Infrastructure;

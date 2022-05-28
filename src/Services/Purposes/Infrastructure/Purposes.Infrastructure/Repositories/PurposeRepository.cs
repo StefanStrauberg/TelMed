@@ -47,5 +47,8 @@ namespace Purposes.Infrastructure.Repositories
         {
             GC.SuppressFinalize(this);
         }
+
+        public async Task<IReadOnlyList<Purpose>> GetAllAsyncByRefferalId(string id)
+            => await _context.Purposes.Find(x => x.ReferralId == id).ToListAsync();
     }
 }

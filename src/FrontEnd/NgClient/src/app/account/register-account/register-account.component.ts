@@ -78,7 +78,7 @@ export class RegisterAccountComponent implements OnInit {
   public createAccount(){
     if(this.ownerForm.valid)
     {
-      this.accountService.createAccount('Api/Register',this.ownerForm.value).subscribe((data: {}) => {
+      this.accountService.createAccount('Api/User',this.ownerForm.value).subscribe((data: {}) => {
         this.router.navigate(['/admin/accounts']).then();
       }, (error) => {
         this.router.navigate(['/admin/accounts/create']).then();

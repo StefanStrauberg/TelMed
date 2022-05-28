@@ -9,6 +9,7 @@ namespace IdentityServer.Application.DTOs
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
+        public string Role { get; set; }
         public string OrganizationId { get; set; }
         public string PhoneNumber { get; set; }
         public string OfficePhone { get; set; }

@@ -3,10 +3,10 @@ export interface IReferral {
     status: ReferralStatus;
     patient: Patient;
     authorId: string;
-    anamnesis: string[];
+    anamnesis: IAnamnesis[];
     imagingStudies: string[];
     observations: string[];
-    purposeList: string[];
+    purposeList: IPurpose[];
     medicalAttention: MedicalAttention;
     recallCause: string;
     published: Date;
@@ -35,4 +35,28 @@ export enum PatientGender {
 export enum MedicalAttention {
     "Экстренная" = 1,
     "Плановая" = 2
+}
+
+export interface IAnamnesis {
+    categoryId: AnamnesisCategory;
+    summary: string;
+}
+
+export enum AnamnesisCategory {
+    "Анамнез жизни" = 1,
+    "Анамнез заболевания" = 2,
+    "Объективный статус" = 3
+}
+
+export interface IPurpose {
+    group: PurposeGroup;
+    resume: string;
+}
+
+export enum PurposeGroup {
+    "Определение (уточнение, установление) клинического диагноза" = 1,
+    "Определение (уточнение, установление) тактики обследования (лабораторного, функционального, инструментального и др.)" = 2,
+    "Определение (уточнение, установление) тактики лечения (консервативного, оперативного)" = 3,
+    "Решение вопроса о плановой госпитализации (согласование даты плановой госпитализации)" = 4,
+    "Другое" = 5
 }

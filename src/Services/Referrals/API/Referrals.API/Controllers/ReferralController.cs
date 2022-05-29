@@ -27,7 +27,7 @@ namespace Referrals.API.Controllers
         [ProducesResponseType(typeof(ReferralDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetByIdReferral(string id)
-           => Ok(await _mediator.Send(new GetReferralDetailRequest(id)));
+            => Ok(await _mediator.Send(new GetReferralDetailRequest(id)));
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -39,7 +39,7 @@ namespace Referrals.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateReferral([FromBody] UpdateReferralDto model, string id)
-           => Ok(await _mediator.Send(new UpdateReferralCommand(model, id)));
+            => Ok(await _mediator.Send(new UpdateReferralCommand(model, id)));
 
         [HttpDelete("{id:length(24)}")]
         [ProducesResponseType(StatusCodes.Status200OK)]

@@ -22,7 +22,7 @@ namespace Referrals.Application.Mappings
             CreateMap<Referral, ReferralDto>()
                 .ForMember(dest => dest.AuthorId, opt => opt.MapFrom(src => src.AuthorId.ToString()));
             // Anamnesis
-            CreateMap<AnamnesisDto, Anamnesis>();
+            CreateMap<AnamnesisDto, Anamnesis>().ReverseMap();
             // Purpose
             CreateMap<PurposeDto, Purpose>();
         }

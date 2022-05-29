@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { AnamnesisCategory } from '../shared/models/anamnesis';
+import { AnamnesisCategory } from '../shared/models/referral';
 
 @Pipe({
   name: 'anamnesisCategories'

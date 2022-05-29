@@ -2,5 +2,5 @@
 
 namespace Referrals.Application.Features.Referral.Requests.Commands
 {
-    public record DeleteAnamnesisCommand(int anamnesisCategory,string referralId) : IRequest;
+    public record DeleteAnamnesisCommand(string referralId, int anamnesisCategoryId) : IRequest;
 }

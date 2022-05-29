@@ -28,9 +28,7 @@ namespace IdentityServer.Application.Configuration
                         IdentityServerConstants.StandardScopes.Profile,
                         "SpecializationApi",
                         "OrganizationApi",
-                        "ReferralsApi",
-                        "AnamnesiesApi",
-                        "PurposeApi"
+                        "ReferralsApi"
                     },
                     AllowedCorsOrigins = { "http://localhost:4200" },
                     RequireClientSecret = false,
@@ -49,9 +47,7 @@ namespace IdentityServer.Application.Configuration
                         IdentityServerConstants.StandardScopes.Profile,
                         "SpecializationApi",
                         "OrganizationApi",
-                        "ReferralsApi",
-                        "AnamnesiesApi",
-                        "PurposeApi"
+                        "ReferralsApi"
                     }
                 }
             };
@@ -59,9 +55,7 @@ namespace IdentityServer.Application.Configuration
             new List<ApiScope> {
                 new ApiScope("SpecializationApi", "Full access for SpecializationApi"),
                 new ApiScope("OrganizationApi", "Full access for OrganizationApi"),
-                new ApiScope("ReferralsApi", "Full access for ReferralsApi"),
-                new ApiScope("AnamnesiesApi", "Full access for AnamnesiesApi"),
-                new ApiScope("PurposeApi", "Full access for PurposeApi"),
+                new ApiScope("ReferralsApi", "Full access for ReferralsApi")
             };
         public static IEnumerable<ApiResource> GetApiResources() =>
             new List<ApiResource>
@@ -77,14 +71,6 @@ namespace IdentityServer.Application.Configuration
                 new ApiResource("ReferralsApi", "Referrals API")
                 {
                     Scopes = { "ReferralsApi" }
-                },
-                new ApiResource("AnamnesiesApi", "Anamnesies API")
-                {
-                    Scopes = { "AnamnesiesApi" }
-                },
-                new ApiResource("PurposeApi", "Purpose API")
-                {
-                    Scopes = { "PurposeApi" }
                 }
             };
     }

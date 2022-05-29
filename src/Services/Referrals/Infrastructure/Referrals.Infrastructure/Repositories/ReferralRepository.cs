@@ -52,7 +52,7 @@ namespace Referrals.Infrastructure.Repositories
             return result.IsAcknowledged && result.ModifiedCount > 0;
         }
 
-        // Find referrral by AuthorId
+        // Find Referrral by AuthorId
         private FilterDefinition<Referral> GetFilter(string authorId)
             => Builders<Referral>.Filter.Eq(x => x.AuthorId, new Guid(authorId));
 
@@ -82,9 +82,22 @@ namespace Referrals.Infrastructure.Repositories
             return result.IsAcknowledged && result.ModifiedCount > 0;
         }
 
-        public Task<bool> UpdateAnamnesis(Anamnesis model, string referralId)
+        public async Task<bool> UpdateAnamnesis(Anamnesis model, string referralId)
         {
-            throw new NotImplementedException();
+            var filter = Builders<Referral>.Filter.Eq(x => x.Id, referralId) &
+                Builders<Referral>.Filter.ElemMatch(doc => doc.Anamnesis, el => el.CategoryId == model.CategoryId);
+            var update = Builders<Referral>.Update.Set(doc => doc.Anamnesis[-1].Summary, model.Summary);
+            var result = await _context.Referrals.UpdateOneAsync(filter, update);
+            return result.IsAcknowledged && result.ModifiedCount > 0;
+        }
+
+        public async Task<Anamnesis> GetAnamnesisByReferralIdAndAnamnesisCategoryId(string referralId, int AnamnesisCategoryId)
+        {
+            var filter = Builders<Referral>.Filter.Eq(x => x.Id, referralId);
+            return await _context.Referrals.Find(filter)
+                .Project(x => x.Anamnesis
+                    .Where(x => x.CategoryId == (AnamnesisCategory)AnamnesisCategoryId).FirstOrDefault())
+                    .FirstOrDefaultAsync();
         }
 
         // Referral Purpose
@@ -102,5 +115,6 @@ namespace Referrals.Infrastructure.Repositories
         {
             throw new NotImplementedException();
         }
+
     }
 }

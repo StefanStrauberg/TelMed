@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { PurposeGroup } from '../shared/models/purpose';
+import { PurposeGroup } from '../shared/models/referral';
 
 @Pipe({
   name: 'purposeGroup'

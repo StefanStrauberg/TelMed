@@ -6,6 +6,7 @@ namespace Referrals.Application.Contracts.Persistence
 {
     public interface IReferralRepository : IGenericRepository<Referral>
     {
+        Task<Anamnesis> GetAnamnesisByReferralIdAndAnamnesisCategoryId(string referralId, int AnamnesisCategoryId);
         Task<bool> CreateAnamnesis(Anamnesis model, string referralId);
         Task<bool> UpdateAnamnesis(Anamnesis model, string referralId);
         Task<bool> RemoveAnamnesis(int anamnesisCategory, string referralId);

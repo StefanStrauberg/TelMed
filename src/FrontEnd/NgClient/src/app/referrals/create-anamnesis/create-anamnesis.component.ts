@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { enumValues } from 'src/app/helpers/enum.helper';
-import { AnamnesisCategory } from 'src/app/shared/models/anamnesis';
+import { AnamnesisCategory } from 'src/app/shared/models/referral';
 import { ReferralsService } from '../referrals.service';
 
 @Component({
@@ -26,7 +26,6 @@ export class CreateAnamnesisComponent implements OnInit {
     this._activatedRoute.paramMap.subscribe((param: ParamMap) => {
       this.referralId = param.get('id');
       this.ownerForm = this._formBuilder.group({
-        referralId: new FormControl(this.referralId, Validators.required),
         categoryId : new FormControl(null, Validators.required),
         summary : new FormControl(null, Validators.required),
       });
@@ -34,9 +33,9 @@ export class CreateAnamnesisComponent implements OnInit {
   }
 
   createAnamnesis(){
-    if(this.ownerForm.valid)
+    if(this.ownerForm.valid && this.referralId)
     {
-      this._referralsService.createAnamnesis('anamnesis', this.ownerForm.value).subscribe(response => {
+      this._referralsService.createAnamnesis(`anamnesis/${this.referralId}`, this.ownerForm.value).subscribe(response => {
         this._router.navigate([`/referrals/edit/${this.referralId}`]).then();
       }, (error) => {
         console.log(error);

@@ -73,76 +73,28 @@
 			"UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
 		},
 		{
-			"DownstreamPathTemplate": "/api/anamnesis",
+			"DownstreamPathTemplate": "/api/anamnesis/{referralId}",
 			"DownstreamScheme": "http",
 			"DownstreamHostAndPorts": [
 				{
 					"Host": "localhost",
-					"Port": 5003
+					"Port": 5002
 				}
 			],
-			"UpstreamPathTemplate": "/anamnesis",
-			"UpstreamHttpMethod": [ "GET", "POST" ]
+			"UpstreamPathTemplate": "/anamnesis/{referralId}",
+			"UpstreamHttpMethod": [ "POST", "PUT" ]
 		},
 		{
-			"DownstreamPathTemplate": "/api/anamnesis/ByReferralId/{id}",
+			"DownstreamPathTemplate": "/api/anamnesis/{referralId}/{categoryId}",
 			"DownstreamScheme": "http",
 			"DownstreamHostAndPorts": [
 				{
 					"Host": "localhost",
-					"Port": 5003
+					"Port": 5002
 				}
 			],
-			"UpstreamPathTemplate": "/anamnesis/ByReferralId/{id}",
-			"UpstreamHttpMethod": [ "GET" ]
-		},
-		{
-			"DownstreamPathTemplate": "/api/anamnesis/{id}",
-			"DownstreamScheme": "http",
-			"DownstreamHostAndPorts": [
-				{
-					"Host": "localhost",
-					"Port": 5003
-				}
-			],
-			"UpstreamPathTemplate": "/anamnesis/{id}",
-			"UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
-		},
-		{
-			"DownstreamPathTemplate": "/api/purpose",
-			"DownstreamScheme": "http",
-			"DownstreamHostAndPorts": [
-				{
-					"Host": "localhost",
-					"Port": 5006
-				}
-			],
-			"UpstreamPathTemplate": "/purpose",
-			"UpstreamHttpMethod": [ "GET", "POST" ]
-		},
-		{
-			"DownstreamPathTemplate": "/api/purpose/ByReferralId/{id}",
-			"DownstreamScheme": "http",
-			"DownstreamHostAndPorts": [
-				{
-					"Host": "localhost",
-					"Port": 5006
-				}
-			],
-			"UpstreamPathTemplate": "/purpose/ByReferralId/{id}",
-			"UpstreamHttpMethod": [ "GET" ]
-		},
-		{
-			"DownstreamPathTemplate": "/api/purpose/{id}",
-			"DownstreamScheme": "http",
-			"DownstreamHostAndPorts": [
-				{
-					"Host": "localhost",
-					"Port": 5006
-				}
-			],
-			"UpstreamPathTemplate": "/purpose/{id}",
-			"UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+			"UpstreamPathTemplate": "/anamnesis/{referralId}/{categoryId}",
+			"UpstreamHttpMethod": [ "GET", "DELETE" ]
 		}
 	]
 }

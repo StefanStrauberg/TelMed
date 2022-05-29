@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { enumValues } from 'src/app/helpers/enum.helper';
-import { PurposeGroup } from 'src/app/shared/models/purpose';
+import { PurposeGroup } from 'src/app/shared/models/referral';
 import { ReferralsService } from '../referrals.service';
 
 @Component({
@@ -26,7 +26,6 @@ export class CreatePurposeComponent implements OnInit {
     this._activatedRoute.paramMap.subscribe((param: ParamMap) => {
       this.referralId = param.get('id');
       this.ownerForm = this._formBuilder.group({
-        referralId: new FormControl(this.referralId, Validators.required),
         group : new FormControl(null, Validators.required),
         resume : new FormControl(null, Validators.required),
       });

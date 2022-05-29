@@ -32,5 +32,10 @@ namespace Referrals.API.Controllers
         public async Task<IActionResult> UpdateAnamnesis([FromBody] AnamnesisDto model, string id)
             => Ok(await _mediator.Send(new UpdateAnamnesisCommand(model, id)));
 
+        [HttpDelete("{id:length(24)}/{categoryId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> DeleteAnamnesis(string id, int categoryId)
+            => Ok(await _mediator.Send(new DeleteAnamnesisCommand(id, categoryId)));
     }
 }

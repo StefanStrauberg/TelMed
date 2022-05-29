@@ -1,8 +1,6 @@
-﻿using BaseDomain;
-
-namespace Referrals.Domain.PurposeEntity
+﻿namespace Referrals.Domain.PurposeEntity
 {
-    public abstract class Purpose : BaseDomainEntity
+    public class Purpose
     {
         public PurposeGroup Group { get; set; }
         public string Resume { get; set; }

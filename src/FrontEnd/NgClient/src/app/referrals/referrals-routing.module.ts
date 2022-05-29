@@ -6,6 +6,8 @@ import { UpdateReferralComponent } from './update-referral/update-referral.compo
 import { UpdatePatientComponent } from './update-patient/update-patient.component';
 import { CreateAnamnesisComponent } from './create-anamnesis/create-anamnesis.component';
 import { UpdateAnamnesiesComponent } from './update-anamnesies/update-anamnesies.component';
+import { CreatePurposeComponent } from './create-purpose/create-purpose.component';
+import { UpdatePurposeComponent } from './update-purpose/update-purpose.component';
 
 const routes: Routes = [
   { path: '', component: ViewReferralsComponent },
@@ -13,7 +15,9 @@ const routes: Routes = [
   { path: 'edit/:id', component: UpdateReferralComponent },
   { path: ':id/patient', component: UpdatePatientComponent },
   { path: ':id/anamnesis/create', component: CreateAnamnesisComponent },
+  { path: ':id/purpose/create', component: CreatePurposeComponent },
   { path: ':referralId/anamnesis/edit/:anamnesisCategoryId', component: UpdateAnamnesiesComponent },
+  { path: ':referralId/purpose/edit/:purposeGroupId', component: UpdatePurposeComponent },
 ]
 
 @NgModule({

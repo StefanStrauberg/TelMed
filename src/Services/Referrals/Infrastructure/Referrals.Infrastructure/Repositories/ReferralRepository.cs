@@ -72,12 +72,12 @@ namespace Referrals.Infrastructure.Repositories
             return result.IsAcknowledged && result.ModifiedCount > 0;
         }
 
-        public async Task<bool> RemoveAnamnesis(int anamnesisCategory, string referralId)
+        public async Task<bool> RemoveAnamnesis(string referralId, int anamnesisCategoryId)
         {
             var filter = Builders<Referral>.Filter.Eq(x => x.Id, referralId);
             var update = Builders<Referral>.Update
                 .Set(x => x.Updated, DateTime.Now)
-                .PullFilter(x => x.Anamnesis, item => item.CategoryId == (AnamnesisCategory)anamnesisCategory);
+                .PullFilter(x => x.Anamnesis, item => item.CategoryId == (AnamnesisCategory)anamnesisCategoryId);
             var result = await _context.Referrals.UpdateOneAsync(filter, update);
             return result.IsAcknowledged && result.ModifiedCount > 0;
         }
@@ -91,30 +91,52 @@ namespace Referrals.Infrastructure.Repositories
             return result.IsAcknowledged && result.ModifiedCount > 0;
         }
 
-        public async Task<Anamnesis> GetAnamnesisByReferralIdAndAnamnesisCategoryId(string referralId, int AnamnesisCategoryId)
+        public async Task<Anamnesis> GetAnamnesisByReferralIdAndAnamnesisCategoryId(string referralId, int anamnesisCategoryId)
         {
             var filter = Builders<Referral>.Filter.Eq(x => x.Id, referralId);
             return await _context.Referrals.Find(filter)
                 .Project(x => x.Anamnesis
-                    .Where(x => x.CategoryId == (AnamnesisCategory)AnamnesisCategoryId).FirstOrDefault())
+                    .Where(x => x.CategoryId == (AnamnesisCategory)anamnesisCategoryId).FirstOrDefault())
                     .FirstOrDefaultAsync();
         }
 
         // Referral Purpose
-        public Task<bool> AddPurpose(Purpose model, string referralId)
+        public async Task<bool> CreatePurpose(Purpose model, string referralId)
         {
-            throw new NotImplementedException();
+            var filter = Builders<Referral>.Filter.Eq(x => x.Id, referralId);
+            var update = Builders<Referral>.Update
+                .Set(x => x.Updated, DateTime.Now)
+                .Push(x => x.Purpose, model);
+            var result = await _context.Referrals.UpdateOneAsync(filter, update);
+            return result.IsAcknowledged && result.ModifiedCount > 0;
         }
 
-        public Task<bool> UpdatePurpose(Purpose model, string referralId)
+        public async Task<bool> UpdatePurpose(Purpose model, string referralId)
         {
-            throw new NotImplementedException();
+            var filter = Builders<Referral>.Filter.Eq(x => x.Id, referralId) &
+                Builders<Referral>.Filter.ElemMatch(doc => doc.Purpose, el => el.Group == model.Group);
+            var update = Builders<Referral>.Update.Set(doc => doc.Purpose[-1].Resume, model.Resume);
+            var result = await _context.Referrals.UpdateOneAsync(filter, update);
+            return result.IsAcknowledged && result.ModifiedCount > 0;
         }
 
-        public Task<bool> RemovePurpose(int purposeGroup, string referralId)
+        public async Task<bool> RemovePurpose(string referralId, int purposeGroupId)
         {
-            throw new NotImplementedException();
+            var filter = Builders<Referral>.Filter.Eq(x => x.Id, referralId);
+            var update = Builders<Referral>.Update
+                .Set(x => x.Updated, DateTime.Now)
+                .PullFilter(x => x.Purpose, item => item.Group == (PurposeGroup)purposeGroupId);
+            var result = await _context.Referrals.UpdateOneAsync(filter, update);
+            return result.IsAcknowledged && result.ModifiedCount > 0;
         }
 
+        public async Task<Purpose> GetPurposeByReferralIdAndPurposeGroupId(string referralId, int purposeGroupId)
+        {
+            var filter = Builders<Referral>.Filter.Eq(x => x.Id, referralId);
+            return await _context.Referrals.Find(filter)
+                .Project(x => x.Purpose
+                    .Where(x => x.Group == (PurposeGroup)purposeGroupId).FirstOrDefault())
+                    .FirstOrDefaultAsync();
+        }
     }
 }

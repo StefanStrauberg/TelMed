@@ -6,20 +6,20 @@ using Referrals.Application.Features.Referral.Requests.Commands;
 
 namespace Referrals.Application.Features.Referral.Handlers.Commands
 {
-    public class DeleteAnamnesisCommandHandler : IRequestHandler<DeleteAnamnesisCommand>
+    public class DeletePurposeCommandHandler : IRequestHandler<DeletePurposeCommand>
     {
         private readonly IReferralRepository _referralRepository;
         private readonly IMapper _mapper;
-        public DeleteAnamnesisCommandHandler(
+        public DeletePurposeCommandHandler(
             IReferralRepository referralRepository,
             IMapper mapper)
         {
             _referralRepository = referralRepository;
             _mapper = mapper;
         }
-        public async Task<Unit> Handle(DeleteAnamnesisCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeletePurposeCommand request, CancellationToken cancellationToken)
         {
-            if(await _referralRepository.RemoveAnamnesis(request.referralId, request.anamnesisCategoryId))
+            if(await _referralRepository.RemovePurpose(request.referralId, request.purposeGroupId))
                 return Unit.Value;
             throw new ReferralBadRequestException(request.referralId);
         }

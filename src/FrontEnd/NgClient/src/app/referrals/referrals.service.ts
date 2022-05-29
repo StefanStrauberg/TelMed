@@ -43,16 +43,16 @@ export class ReferralsService {
 
   //********************Anamnesis********************//
 
+  // Get By Id Anamnesis
+  getAnamnesis = (route: string) => {
+    return this._http.get<IAnamnesis>(
+      this.createCompleteRoute(route, this._envUrl.urlAddress),{ observe: 'response' });
+  }
+
   // Create Anamnesis
   createAnamnesis = (route: string, body: IAnamnesis) => {
     return this._http.post<{}>(
       this.createCompleteRoute(route, this._envUrl.urlAddress), body, { observe: 'response' });
-  }
-
-  // Get All Anamnesis by ReferralId
-  getAnamnesis = (route: string) => {
-    return this._http.get<IAnamnesis>(
-      this.createCompleteRoute(route, this._envUrl.urlAddress),{ observe: 'response' });
   }
 
   // Update Anamnesis
@@ -61,7 +61,18 @@ export class ReferralsService {
       this.createCompleteRoute(route, this._envUrl.urlAddress), body, { observe: 'response' });
   }
 
+  // Delete Anamnesis
+  deleteAnamnesis = (route: string) => {
+    return this._http.delete<{}>(this.createCompleteRoute(route, this._envUrl.urlAddress), { observe: 'response' });
+  }
+
   //********************Purpose********************//
+
+  // Get By Id Purpose
+  getPurpose = (route: string) => {
+    return this._http.get<IPurpose>(
+      this.createCompleteRoute(route, this._envUrl.urlAddress),{ observe: 'response' });
+  }
 
   // Create Purpose
   createPurpose = (route: string, body: IPurpose) => {
@@ -69,16 +80,18 @@ export class ReferralsService {
       this.createCompleteRoute(route, this._envUrl.urlAddress), body, { observe: 'response' });
   }
 
-  // Get All Anamnesies by ReferralId
-  getPurposes = (route: string) => {
-    return this._http.get<IPurpose[]>(
-      this.createCompleteRoute(route, this._envUrl.urlAddress),{ observe: 'response' });
+  // Update Purpose
+  updatePurpose = (route: string, body: IPurpose) => {
+    return this._http.put<{}>(
+      this.createCompleteRoute(route, this._envUrl.urlAddress), body, { observe: 'response' });
   }
 
-  // Delete Anamnesis
-  deleteAnamnesis = (route: string) => {
+  // Delete Purpose
+  deletePurpose = (route: string) => {
     return this._http.delete<{}>(this.createCompleteRoute(route, this._envUrl.urlAddress), { observe: 'response' });
   }
+
+  //***********************************************//
 
   private createCompleteRoute = (route: string, envAddress: string) => {
     return `${envAddress}/${route}`;

@@ -35,7 +35,7 @@ export class CreatePurposeComponent implements OnInit {
   createPurpose(){
     if(this.ownerForm.valid)
     {
-      this._referralsService.createPurpose('purpose', this.ownerForm.value).subscribe(response => {
+      this._referralsService.createPurpose(`purpose/${this.referralId}`, this.ownerForm.value).subscribe(response => {
         this._router.navigate([`/referrals/edit/${this.referralId}`]).then();
       }, (error) => {
         console.log(error);

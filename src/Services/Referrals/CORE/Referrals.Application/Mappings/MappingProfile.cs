@@ -24,7 +24,7 @@ namespace Referrals.Application.Mappings
             // Anamnesis
             CreateMap<AnamnesisDto, Anamnesis>().ReverseMap();
             // Purpose
-            CreateMap<PurposeDto, Purpose>();
+            CreateMap<PurposeDto, Purpose>().ReverseMap();
         }
         
     }

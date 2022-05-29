@@ -13,7 +13,7 @@ namespace Referrals.Application.DTO.ReferralDtos
         public List<Anamnesis> Anamnesis { get; set; }
         public List<string> ImagingStudies { get; set; }
         public List<string> Observations { get; set; }
-        public List<Purpose> PurposeList { get; set; }
+        public List<Purpose> Purpose { get; set; }
         public MedicalAttention MedicalAttention { get; set; }
         public string RecallCause { get; set; }
         public DateTime Published { get; set; }

@@ -1,0 +1,30 @@
+<mat-card class="example-form">
+    <mat-card-title class="card-header d-flex justify-content-between" style="background-color: #135589;">
+        <div class="col">
+            <h3>Анамнез</h3>
+        </div>
+        <div>
+            <a mat-raised-button matTooltip="Отмена" routerLink="/referrals/edit/{{referralId}}">
+                <i class="fa-solid fa-xmark"></i> Отмена
+            </a>
+            <button mat-raised-button color="primary" matTooltip="Сохранить" type="submit" form="createForm" [disabled]="ownerForm?.invalid">
+                <i class="fa-solid fa-check"></i> Сохранить
+            </button>
+        </div>
+    </mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="ownerForm" *ngIf="ownerForm" id="createForm" (submit)="updatePurpose()">
+            <mat-label>Цель</mat-label>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Укажите цель</mat-label>
+                <mat-select formControlName="group">
+                    <mat-option *ngFor="let purpose of enumValuse(purposeGroup)" [value]="purpose">{{ purpose | purposeGroup }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-label>Подробно</mat-label>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <textarea matInput formControlName="resume" type="text"></textarea>
+            </mat-form-field>
+        </form>
+    </mat-card-content>
+</mat-card>

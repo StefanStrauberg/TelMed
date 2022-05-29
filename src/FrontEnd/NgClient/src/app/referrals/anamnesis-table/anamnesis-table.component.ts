@@ -8,7 +8,7 @@ import { ReferralsService } from '../referrals.service';
   styleUrls: ['./anamnesis-table.component.scss']
 })
 export class AnamnesisTableComponent implements OnInit {
-  @Input()refferalId: string | null = null;
+  @Input()referralId: string | null = null;
   @Input()anamnesies: IAnamnesis[] = [];
   displayedColumns: string[] = ['categoryId', 'summary', 'actions'];
 
@@ -18,7 +18,7 @@ export class AnamnesisTableComponent implements OnInit {
   }
 
   deleteAnamnesis(anamnesisId: string) {
-    this._referralsService.deleteAnamnesis(`anamnesis/${anamnesisId}`).subscribe(response => {
+    this._referralsService.deleteAnamnesis(`anamnesis/${this.referralId}/${anamnesisId}`).subscribe(response => {
     }, error => {
       console.log(error);
     })

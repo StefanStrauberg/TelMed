@@ -8,8 +8,8 @@ import { ReferralsService } from '../referrals.service';
   styleUrls: ['./purpose-table.component.scss']
 })
 export class PurposeTableComponent implements OnInit {
-  @Input() refferalId!: string;
-  purposes: IPurpose[] = [];
+  @Input()referralId: string | null = null;
+  @Input()purposes: IPurpose[] = [];
   displayedColumns: string[] = ['group', 'resume', 'actions'];
 
   constructor(private _referralsService: ReferralsService) { }
@@ -17,19 +17,8 @@ export class PurposeTableComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getPurposes() {
-    if(this.refferalId){
-      this._referralsService.getPurposes(`purpose/ByReferralId/${this.refferalId}`).subscribe(response => {
-        this.purposes = response?.body!;
-      }, error => {
-        console.log(error);
-      })
-    }
-  }
-
-  deletePurpose(purposeId: string) {
-    this._referralsService.deleteAnamnesis(`purpose/${purposeId}`).subscribe(response => {
-      this.getPurposes();
+  deletePurpose(purposeGroupId: string) {
+    this._referralsService.deletePurpose(`purpose/${this.referralId}/${purposeGroupId}`).subscribe(response => {
     }, error => {
       console.log(error);
     })

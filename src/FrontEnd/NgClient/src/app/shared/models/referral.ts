@@ -6,7 +6,7 @@ export interface IReferral {
     anamnesis: IAnamnesis[];
     imagingStudies: string[];
     observations: string[];
-    purposeList: IPurpose[];
+    purpose: IPurpose[];
     medicalAttention: MedicalAttention;
     recallCause: string;
     published: Date;

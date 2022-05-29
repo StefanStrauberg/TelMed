@@ -1,11 +1,9 @@
-﻿using BaseDomain;
-
-namespace Referrals.Domain.AnamnesisEntity
+﻿namespace Referrals.Domain.AnamnesisEntity
 {
     /// <summary>
     /// Anamnesis of the disease
     /// </summary>
-    public class Anamnesis : BaseDomainEntity
+    public class Anamnesis
     {
         public AnamnesisCategory CategoryId { get; set; }
         /// <summary>

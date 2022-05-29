@@ -15,7 +15,7 @@ namespace Referrals.Domain.ReferralEntity
         public List<Anamnesis> Anamnesis { get; set; } = new List<Anamnesis>();
         public List<string> ImagingStudies { get; set; } = new List<string>();
         public List<string> Observations { get; set; } = new List<string>();
-        public List<Purpose> PurposeList { get; set; } = new List<Purpose>();
+        public List<Purpose> Purpose { get; set; } = new List<Purpose>();
         public MedicalAttention MedicalAttention { get; set; } = MedicalAttention.Planned;
         public string RecallCause { get; set; }
     }

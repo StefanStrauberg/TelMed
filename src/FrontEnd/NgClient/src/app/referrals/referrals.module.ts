@@ -28,6 +28,7 @@ import { MatTableModule } from '@angular/material/table';
 import { PurposeTableComponent } from './purpose-table/purpose-table.component';
 import { CreatePurposeComponent } from './create-purpose/create-purpose.component';
 import { PurposeGroupPipe } from '../pipes/purpose-group.pipe';
+import { UpdatePurposeComponent } from './update-purpose/update-purpose.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { PurposeGroupPipe } from '../pipes/purpose-group.pipe';
     AnamnesisTableComponent,
     PurposeTableComponent,
     CreatePurposeComponent,
-    PurposeGroupPipe
+    PurposeGroupPipe,
+    UpdatePurposeComponent
   ],
   imports: [
     CommonModule,

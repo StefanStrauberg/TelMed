@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Referrals.Application.Contracts.Persistence;
-using Referrals.Application.DTO;
+using Referrals.Application.DTO.ReferralDtos;
 using Referrals.Application.Features.Referral.Requests.Queries;
 using Referrals.Application.GrpcServices;
 

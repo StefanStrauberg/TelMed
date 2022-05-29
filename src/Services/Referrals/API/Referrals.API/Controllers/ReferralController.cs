@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Referrals.Application.DTO;
+using Referrals.Application.DTO.ReferralDtos;
 using Referrals.Application.Features.Referral.Requests.Commands;
 using Referrals.Application.Features.Referral.Requests.Queries;
 using System.Collections.Generic;
@@ -27,34 +27,24 @@ namespace Referrals.API.Controllers
         [ProducesResponseType(typeof(ReferralDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetByIdReferral(string id)
-        {
-           return Ok(await _mediator.Send(new GetReferralDetailRequest(id)));
-        }
+           => Ok(await _mediator.Send(new GetReferralDetailRequest(id)));
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateReferral([FromBody] CreateReferralDto model)
-        {
-            return Ok(await _mediator.Send(new CreateReferralCommand(
-                model,
-                User.FindFirstValue(ClaimTypes.NameIdentifier)
-                )));
-        }
+            => Ok(await _mediator.Send(new CreateReferralCommand(
+                model, User.FindFirstValue(ClaimTypes.NameIdentifier))));
 
         [HttpPut("{id:length(24)}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateReferral([FromBody] UpdateReferralDto model, string id)
-        {
-           return Ok(await _mediator.Send(new UpdateReferralCommand(model, id)));
-        }
+           => Ok(await _mediator.Send(new UpdateReferralCommand(model, id)));
 
         [HttpDelete("{id:length(24)}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteReferral(string id)
-        {
-            return Ok(await _mediator.Send(new DeleteReferralCommand(id)));
-        }
+            => Ok(await _mediator.Send(new DeleteReferralCommand(id)));
     }
 }

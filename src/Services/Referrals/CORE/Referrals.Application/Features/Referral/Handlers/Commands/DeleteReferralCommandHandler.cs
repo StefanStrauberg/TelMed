@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Referrals.Application.Contracts.Persistence;
-using Referrals.Application.Features.Referral.Requests.Commands;
 using Referrals.Application.Errors;
+using Referrals.Application.Features.Referral.Requests.Commands;
 
 namespace Referrals.Application.Features.Referral.Handlers.Commands
 {
@@ -12,9 +12,9 @@ namespace Referrals.Application.Features.Referral.Handlers.Commands
             => _repository = repository;
         public async Task<Unit> Handle(DeleteReferralCommand request, CancellationToken cancellationToken)
         {
-            if(await _repository.DeleteAsync(request.id))
+            if(await _repository.DeleteAsync(request.referralId))
                 return Unit.Value;
-            throw new ReferralBadRequestException(request.id);
+            throw new ReferralBadRequestException(request.referralId);
         }
     }
 }

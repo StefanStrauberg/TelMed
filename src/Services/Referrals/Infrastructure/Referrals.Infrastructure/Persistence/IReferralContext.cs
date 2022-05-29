@@ -1,5 +1,5 @@
 ﻿using MongoDB.Driver;
-using Referrals.Domain;
+using Referrals.Domain.ReferralEntity;
 
 namespace Referrals.Infrastructure.Persistence
 {

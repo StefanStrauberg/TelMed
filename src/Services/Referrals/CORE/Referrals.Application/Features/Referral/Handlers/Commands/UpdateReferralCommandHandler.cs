@@ -19,9 +19,9 @@ namespace Referrals.Application.Features.Referral.Handlers.Commands
         }
         public async Task<Unit> Handle(UpdateReferralCommand request, CancellationToken cancellationToken)
         {
-            if (await _repository.UpdateAsync(_mapper.Map<Domain.Referral>(request.model), request.id))
+            if (await _repository.UpdateAsync(_mapper.Map<Domain.ReferralEntity.Referral>(request.model), request.referralId))
                 return Unit.Value;
-            throw new ReferralBadRequestException(request.id);
+            throw new ReferralBadRequestException(request.referralId);
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
 using Referrals.Application.Contracts.Persistence;
-using Referrals.Application.DTO;
 using Referrals.Application.Features.Referral.Requests.Queries;
 using Referrals.Application.Errors;
+using Referrals.Application.DTO.ReferralDtos;
 
 namespace Referrals.Application.Features.Referral.Handlers.Queries
 {

@@ -1,8 +1,9 @@
-﻿using MessageBus;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using Referrals.Application.Contracts.Persistence;
-using Referrals.Domain;
+using Referrals.Domain.AnamnesisEntity;
+using Referrals.Domain.PurposeEntity;
+using Referrals.Domain.ReferralEntity;
 using Referrals.Infrastructure.Persistence;
 
 namespace Referrals.Infrastructure.Repositories
@@ -60,24 +61,46 @@ namespace Referrals.Infrastructure.Repositories
             GC.SuppressFinalize(this);
         }
 
-        public async Task<bool> AddAnamnesis(Message message)
+        // Referral Anamnesis
+        public async Task<bool> CreateAnamnesis(Anamnesis model, string referralId)
         {
-            var filter = Builders<Referral>.Filter.Eq(x => x.Id, message.ReferralId);
+            var filter = Builders<Referral>.Filter.Eq(x => x.Id, referralId);
             var update = Builders<Referral>.Update
                 .Set(x => x.Updated, DateTime.Now)
-                .Push(x => x.Anamnesis, message.DataId);
+                .Push(x => x.Anamnesis, model);
             var result = await _context.Referrals.UpdateOneAsync(filter, update);
             return result.IsAcknowledged && result.ModifiedCount > 0;
         }
 
-        public async Task<bool> RemoveAnamnesis(Message message)
+        public async Task<bool> RemoveAnamnesis(int anamnesisCategory, string referralId)
         {
-            var filter = Builders<Referral>.Filter.Eq(x => x.Id, message.ReferralId);
+            var filter = Builders<Referral>.Filter.Eq(x => x.Id, referralId);
             var update = Builders<Referral>.Update
                 .Set(x => x.Updated, DateTime.Now)
-                .Pull(x => x.Anamnesis, message.DataId);
+                .PullFilter(x => x.Anamnesis, item => item.CategoryId == (AnamnesisCategory)anamnesisCategory);
             var result = await _context.Referrals.UpdateOneAsync(filter, update);
             return result.IsAcknowledged && result.ModifiedCount > 0;
+        }
+
+        public Task<bool> UpdateAnamnesis(Anamnesis model, string referralId)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Referral Purpose
+        public Task<bool> AddPurpose(Purpose model, string referralId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> UpdatePurpose(Purpose model, string referralId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> RemovePurpose(int purposeGroup, string referralId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

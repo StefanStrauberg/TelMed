@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using Referrals.Domain;
+using Referrals.Domain.ReferralEntity;
 using Referrals.Infrastructure.Persistence.Config;
 
 namespace Referrals.Infrastructure.Persistence

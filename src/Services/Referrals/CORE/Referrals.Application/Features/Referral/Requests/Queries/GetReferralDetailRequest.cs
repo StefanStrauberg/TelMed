@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Referrals.Application.DTO;
+using Referrals.Application.DTO.ReferralDtos;
 
 namespace Referrals.Application.Features.Referral.Requests.Queries
 {

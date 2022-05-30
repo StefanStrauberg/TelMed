@@ -20,6 +20,8 @@ namespace IdentityServer.Infrastructure
                 opts.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<RepositoryContext>().AddDefaultTokenProviders();
+            services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
+            services.AddScoped<IApplicationRoleRepository, ApplicationRoleRepository>();
             var builder = services.AddIdentityServer(options =>
                 {
                     options.Events.RaiseErrorEvents = true;

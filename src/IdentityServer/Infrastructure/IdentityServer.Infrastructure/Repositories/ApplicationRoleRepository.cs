@@ -1,28 +1,25 @@
 ﻿using IdentityServer.Application.Contracts.Persistence;
 using IdentityServer.Domain;
+using IdentityServer.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace IdentityServer.Infrastructure.Repositories
 {
     public class ApplicationRoleRepository : IApplicationRoleRepository
     {
+        private readonly RepositoryContext _context;
+        public ApplicationRoleRepository(RepositoryContext context)
+            => _context = context;
         public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
+            => GC.SuppressFinalize(this);
 
-        public Task<List<ApplicationRole>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<List<ApplicationRole>> GetAllAsync()
+            => await _context.ApplicationRoles.AsNoTracking().ToListAsync();
 
-        public Task<ApplicationRole> GetAsync(Guid Id)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<ApplicationRole> GetAsync(Guid id)
+            => await _context.ApplicationRoles.Where(x => x.Id == id).AsNoTracking().FirstOrDefaultAsync();
 
-        public Task<string> GetRoleNameById(string Id)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<string> GetRoleNameByIdAsync(Guid id)
+            => await _context.ApplicationRoles.Where(x => x.Id == id).AsNoTracking().Select(x => x.Name).FirstOrDefaultAsync();
     }
 }

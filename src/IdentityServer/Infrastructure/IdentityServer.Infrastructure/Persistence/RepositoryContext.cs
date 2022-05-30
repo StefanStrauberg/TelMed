@@ -48,8 +48,8 @@ namespace IdentityServer.Infrastructure.Persistence
                 UserName = "Admin",
                 NormalizedUserName = "ADMIN",
                 EmailConfirmed = true,
-                OrganizationId = "6266a19afa7ebfdc47fe345e",
-                SpecializationId = "62668f9ad25fa13c9378ebc2",
+                OrganizationId = "6294a0d94f365e01d8c2622d",
+                SpecializationId = "6294a0aa4f365e01d8c2619a",
                 SecurityStamp = Guid.NewGuid().ToString("D")
             };
             var doctorUser = new ApplicationUser
@@ -60,8 +60,8 @@ namespace IdentityServer.Infrastructure.Persistence
                 MiddleName = "DOCTOR",
                 UserName = "Doctor",
                 NormalizedUserName = "DOCTOR",
-                OrganizationId = "6266a19afa7ebfdc47fe345e",
-                SpecializationId = "62668f9ad25fa13c9378ebc2",
+                OrganizationId = "6294a0d94f365e01d8c2622d",
+                SpecializationId = "6294a0aa4f365e01d8c2619a",
                 SecurityStamp = Guid.NewGuid().ToString("D")
             };
             var practitionerUser = new ApplicationUser
@@ -72,8 +72,8 @@ namespace IdentityServer.Infrastructure.Persistence
                 MiddleName = "PRACTITIONER",
                 UserName = "Practitioner",
                 NormalizedUserName = "PRACTITIONER",
-                OrganizationId = "6266a19afa7ebfdc47fe345e",
-                SpecializationId = "62668f9ad25fa13c9378ebc2",
+                OrganizationId = "6294a0d94f365e01d8c2622d",
+                SpecializationId = "6294a0aa4f365e01d8c2619a",
                 SecurityStamp = Guid.NewGuid().ToString("D")
             };
             var coordinatorPractitionerUser = new ApplicationUser
@@ -84,8 +84,8 @@ namespace IdentityServer.Infrastructure.Persistence
                 MiddleName = "COORDINATORPRACTITIONER",
                 UserName = "CoordinatorPractitioner",
                 NormalizedUserName = "COORDINATORPRACTITIONER",
-                OrganizationId = "6266a19afa7ebfdc47fe345e",
-                SpecializationId = "62668f9ad25fa13c9378ebc2",
+                OrganizationId = "6294a0d94f365e01d8c2622d",
+                SpecializationId = "6294a0aa4f365e01d8c2619a",
                 SecurityStamp = Guid.NewGuid().ToString("D")
             };
             var coordinatorDoctorUser = new ApplicationUser
@@ -96,8 +96,8 @@ namespace IdentityServer.Infrastructure.Persistence
                 MiddleName = "COORDINATORDOCTOR",
                 UserName = "CoordinatorDoctor",
                 NormalizedUserName = "COORDINATORDOCTOR",
-                OrganizationId = "6266a19afa7ebfdc47fe345e",
-                SpecializationId = "62668f9ad25fa13c9378ebc2",
+                OrganizationId = "6294a0d94f365e01d8c2622d",
+                SpecializationId = "6294a0aa4f365e01d8c2619a",
                 SecurityStamp = Guid.NewGuid().ToString("D")
             };
             var developerUser = new ApplicationUser
@@ -108,8 +108,8 @@ namespace IdentityServer.Infrastructure.Persistence
                 MiddleName = "DEVELOPER",
                 UserName = "Developer",
                 NormalizedUserName = "DEVELOPER",
-                OrganizationId = "6266a19afa7ebfdc47fe345e",
-                SpecializationId = "62668f9ad25fa13c9378ebc2",
+                OrganizationId = "6294a0d94f365e01d8c2622d",
+                SpecializationId = "6294a0aa4f365e01d8c2619a",
                 SecurityStamp = Guid.NewGuid().ToString("D")
             };
 

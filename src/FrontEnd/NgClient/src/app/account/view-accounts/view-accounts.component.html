@@ -42,7 +42,7 @@
     </ng-container>
     <ng-container matColumnDef="roleId">
       <th mat-header-cell *matHeaderCellDef> Роль </th>
-      <td mat-cell *matCellDef="let element"> {{ element.role }} </td>
+      <td mat-cell *matCellDef="let element"> {{ getRoleName(element.role) }} </td>
     </ng-container>
     <ng-container matColumnDef="specializationId">
       <th mat-header-cell *matHeaderCellDef> Специализация </th>

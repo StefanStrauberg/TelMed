@@ -74,7 +74,7 @@ export class UpdateAccountComponent implements OnInit {
 
   private getRoles() {
     this.accountService.getRoles('Api/Role').subscribe(response => {
-      this.roles = response;
+      this.roles = response?.body!;
     }, (error) => {
       console.log(error);
       this.router.navigate(['/']).then();

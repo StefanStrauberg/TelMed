@@ -50,7 +50,7 @@ export class RegisterAccountComponent implements OnInit {
 
   private getRoles() {
     this.accountService.getRoles('Api/Role').subscribe(response => {
-      this.roles = response;
+      this.roles = response?.body!;
     }, (error) => {
       this.router.navigate(['/']).then();
       console.log(error);

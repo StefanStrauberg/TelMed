@@ -1,28 +1,33 @@
 ﻿using AutoMapper;
 using MediatR;
 using Specializations.Application.Contracts.Persistence;
-using Specializations.Application.Features.Specialization.Requests.Commands;
+using Specializations.Application.DTO;
 using Specializations.Application.Errors;
+using Specializations.Application.Features.Specialization.Requests.Commands;
 
 namespace Specializations.Application.Features.Specialization.Handlers.Commands
 {
     public class UpdateSpecializationCommandHandler : IRequestHandler<UpdateSpecializationCommand>
     {
-        private readonly ISpecializationRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         public UpdateSpecializationCommandHandler(
-            ISpecializationRepository repository,
-            IMapper mapper)
+            IMapper mapper,
+            IUnitOfWork unitOfWork)
         {
-            _repository = repository;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
         public async Task<Unit> Handle(UpdateSpecializationCommand request,
             CancellationToken cancellationToken)
         {
-            if (await _repository.UpdateAsync(_mapper.Map<Domain.Specialization>(request.model), request.id))
-                return Unit.Value;
-            throw new SpecializationBadRequestException(request.id);
+            var specializationToUpdate = await _unitOfWork.Specializations.GetByIdAsync(request.id);
+            if (specializationToUpdate is null)
+                throw new SpecializationNotFoundException(request.id.ToString());
+            _mapper.Map(request.model, specializationToUpdate, typeof(SpecializationDto), typeof(Domain.Specialization));
+            _unitOfWork.Specializations.Update(specializationToUpdate);
+            await _unitOfWork.Complete();
+            return Unit.Value;
         }
     }
 }

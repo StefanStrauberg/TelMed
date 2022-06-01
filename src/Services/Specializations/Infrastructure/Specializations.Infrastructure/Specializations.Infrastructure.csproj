@@ -6,11 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\CORE\Specializations.Application\Specializations.Application.csproj" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MongoDB.Driver" Version="2.15.1" />
+    <ProjectReference Include="..\..\CORE\Specializations.Application\Specializations.Application.csproj" />
   </ItemGroup>
 
 </Project>

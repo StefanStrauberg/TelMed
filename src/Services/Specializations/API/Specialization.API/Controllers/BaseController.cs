@@ -1,6 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Specializations.API.Controllers
+namespace Specialization.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

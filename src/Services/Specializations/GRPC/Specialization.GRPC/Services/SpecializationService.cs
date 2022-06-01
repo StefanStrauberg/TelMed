@@ -1,24 +1,27 @@
 ﻿using AutoMapper;
 using Grpc.Core;
-using Specialization.GRPC.Repositories;
+using Specializations.Application.Contracts.Persistence;
 
 namespace Specialization.GRPC.Services
 {
     public class SpecializationService : SpecializationProtoService.SpecializationProtoServiceBase
     {
-        private readonly ISpecializationRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         public SpecializationService(
-            ISpecializationRepository repository,
-            IMapper mapper)
+            IMapper mapper,
+            IUnitOfWork unitOfWork)
         {
-            _repository = repository;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
         public override async Task<SpecName> GetSpecNameById(GetSpecIdRequest request, ServerCallContext context)
-            => new SpecName() { Name = await _repository.GetAsync(request.Id) };
+            => new SpecName() { Name = (await _unitOfWork.Specializations.GetByIdAsync(new Guid(request.Id))).Name };
         public override async Task<SpecNamesList> GetSpecNamesByIds(GetSpecIdsRequestList request, ServerCallContext context)
-            => _mapper.Map<SpecNamesList>(
-                await _repository.GetSpecNamesByIds(_mapper.Map<List<string>>(request)));
+        {
+            var requestIds = _mapper.Map<List<Guid>>(request.Id);
+            var result = await _unitOfWork.Specializations.FindWithExpressionAsync(x => requestIds.Contains(x.Id));
+            return _mapper.Map<SpecNamesList>(result);
+        }
     }
 }

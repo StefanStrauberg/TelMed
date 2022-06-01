@@ -1,21 +1,24 @@
 ﻿using MediatR;
 using Organizations.Application.Contracts.Persistence;
-using Organizations.Application.Features.Organization.Requests.Commands;
 using Organizations.Application.Errors;
+using Organizations.Application.Features.Organization.Requests.Commands;
 
 namespace Organizations.Application.Features.Organization.Handlers.Commands
 {
     public class DeleteOrganizationCommandHandler : IRequestHandler<DeleteOrganizationCommand>
     {
-        private readonly IOrganizationRepository _repository;
-        public DeleteOrganizationCommandHandler(IOrganizationRepository repository) 
-            => _repository = repository;
+        private readonly IUnitOfWork _unitOfWork;
+        public DeleteOrganizationCommandHandler(IUnitOfWork unitOfWork)
+            => _unitOfWork = unitOfWork;
         public async Task<Unit> Handle(DeleteOrganizationCommand request, 
             CancellationToken cancellationToken)
         {
-            if(await _repository.DeleteAsync(request.id))
-                return Unit.Value;
-            throw new OrganizationBadRequestException(request.id);
+            var removeData = await _unitOfWork.Organizations.GetByIdAsync(request.id);
+            if (removeData is null)
+                throw new OrganizationNotFoundException(request.id.ToString());
+            _unitOfWork.Organizations.Remove(removeData);
+            await _unitOfWork.Complete();
+            return Unit.Value;
         }
     }
 }

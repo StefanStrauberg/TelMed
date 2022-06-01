@@ -4,5 +4,5 @@ using Organizations.Domain;
 
 namespace Organizations.Application.Features.Organization.Requests.Commands
 {
-    public record UpdateOrganizationCommand(UpdateOrganizationDto model, string id) : IRequest;
+    public record UpdateOrganizationCommand(UpdateOrganizationDto model, Guid id) : IRequest;
 }

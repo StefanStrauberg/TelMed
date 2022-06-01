@@ -24,7 +24,7 @@ namespace Specializations.Application.Features.Specialization.Handlers.Commands
             var specializationToUpdate = await _unitOfWork.Specializations.GetByIdAsync(request.id);
             if (specializationToUpdate is null)
                 throw new SpecializationNotFoundException(request.id.ToString());
-            _mapper.Map(request.model, specializationToUpdate, typeof(SpecializationDto), typeof(Domain.Specialization));
+            _mapper.Map(request.model, specializationToUpdate, typeof(CreateSpecializationDto), typeof(Domain.Specialization));
             _unitOfWork.Specializations.Update(specializationToUpdate);
             await _unitOfWork.Complete();
             return Unit.Value;

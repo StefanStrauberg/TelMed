@@ -1,4 +1,5 @@
-﻿using BaseDomain.Specs;
+﻿using BaseDomain.Specifications;
+using BaseDomain.Specs;
 using Specializations.Domain;
 
 namespace Specializations.Application.Specifications

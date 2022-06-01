@@ -1,5 +1,4 @@
-﻿using BaseDomain.Specs;
-using Specializations.Application.Specifications;
+﻿using BaseDomain.Specifications;
 using System.Linq.Expressions;
 
 namespace Specializations.Application.Contracts.Persistence

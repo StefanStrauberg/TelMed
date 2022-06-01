@@ -11,13 +11,13 @@ namespace Organizations.Application.Validations
                 .IsInEnum();
             RuleFor(x => x.model.Region)
                 .IsInEnum();
-            RuleFor(x => x.model.Address.Line)
+            RuleFor(x => x.model.Address)
                 .NotNull().WithMessage("{PropertyName} not be null.")
                 .NotEmpty().WithMessage("{PropertyName} is required.");
-            RuleFor(x => x.model.OrganizationName.OfficialName)
+            RuleFor(x => x.model.OfficialName)
                 .NotNull().WithMessage("{PropertyName} not be null.")
                 .NotEmpty().WithMessage("{PropertyName} is required.");
-            RuleFor(x => x.model.OrganizationName.OfficialName)
+            RuleFor(x => x.model.OfficialName)
                 .NotNull().WithMessage("{PropertyName} not be null.")
                 .NotEmpty().WithMessage("{PropertyName} is required.");
         }

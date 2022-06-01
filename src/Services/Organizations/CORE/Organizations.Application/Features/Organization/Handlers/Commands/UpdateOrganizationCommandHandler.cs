@@ -3,26 +3,31 @@ using MediatR;
 using Organizations.Application.Contracts.Persistence;
 using Organizations.Application.Features.Organization.Requests.Commands;
 using Organizations.Application.Errors;
+using Organizations.Application.DTO;
 
 namespace Organizations.Application.Features.Organization.Handlers.Commands
 {
     public class UpdateOrganizationCommandHandler : IRequestHandler<UpdateOrganizationCommand>
     {
-        private readonly IOrganizationRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         public UpdateOrganizationCommandHandler(
-            IOrganizationRepository repository,
-            IMapper mapper)
+            IMapper mapper,
+            IUnitOfWork unitOfWork)
         {
-            _repository = repository;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
         public async Task<Unit> Handle(UpdateOrganizationCommand request, 
             CancellationToken cancellationToken)
         {
-            if(await _repository.UpdateAsync(_mapper.Map<Domain.Organization>(request.model), request.id))
-                return Unit.Value;
-            throw new OrganizationBadRequestException(request.id);
+            var organizationToUpdate = await _unitOfWork.Organizations.GetByIdAsync(request.id);
+            if (organizationToUpdate is null)
+                throw new OrganizationNotFoundException(request.id.ToString());
+            _mapper.Map(request.model, organizationToUpdate, typeof(CreateOrganizationDto), typeof(Domain.Organization));
+            _unitOfWork.Organizations.Update(organizationToUpdate);
+            await _unitOfWork.Complete();
+            return Unit.Value;
         }
     }
 }

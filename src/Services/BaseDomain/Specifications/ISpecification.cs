@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Specializations.Application.Specifications
+namespace BaseDomain.Specifications
 {
     public interface ISpecification<T>
     {

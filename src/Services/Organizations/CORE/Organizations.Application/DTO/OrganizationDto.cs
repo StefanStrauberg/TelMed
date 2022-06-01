@@ -7,9 +7,10 @@ namespace Organizations.Application.DTO
         public string Id { get; set; }
         public OrganizationLevel Level { get; set; }
         public OrganizationRegion Region { get; set; }
-        public Address Address { get; set; }
+        public string Address { get; set; }
         public bool IsActive { get; set; }
-        public OrganizationName OrganizationName { get; set; }
+        public string UsualName { get; set; }
+        public string OfficialName { get; set; }
         public string SpecializationIds { get; set; }
     }
 }

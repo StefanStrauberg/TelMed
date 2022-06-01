@@ -1,10 +1,10 @@
 ﻿using BaseDomain;
 using BaseDomain.Specifications;
 using Microsoft.EntityFrameworkCore;
-using Specializations.Application.Contracts.Persistence;
+using Organizations.Application.Contracts.Persistence;
 using System.Linq.Expressions;
 
-namespace Specializations.Infrastructure
+namespace Organizations.Infrastructure
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : BaseDomainEntity
     {

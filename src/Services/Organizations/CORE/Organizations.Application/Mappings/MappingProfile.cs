@@ -10,8 +10,8 @@ namespace Organizations.Application.Mappings
         public MappingProfile()
         {
             CreateMap<CreateOrganizationDto, Organization>();
-            CreateMap<UpdateOrganizationDto, Organization>();
             CreateMap<Organization, OrganizationDetailDto>();
+            CreateMap<UpdateOrganizationDto, Organization>();
             CreateMap<List<string>, GetSpecIdsRequestList>()
                 .ForMember(dst => dst.Id, opt => opt.MapFrom(src => src));
             CreateMap<SpecNamesList, List<string>>()

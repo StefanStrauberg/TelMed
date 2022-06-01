@@ -9,21 +9,21 @@ namespace Organizations.Application.Features.Organization.Handlers.Queries
 {
     public class GetOrganizationDetailRequestHandler : IRequestHandler<GetOrganizationDetailRequest, OrganizationDetailDto>
     {
-        private readonly IOrganizationRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         public GetOrganizationDetailRequestHandler(
-            IOrganizationRepository repository,
-            IMapper mapper)
+            IMapper mapper,
+            IUnitOfWork unitOfWork)
         {
-            _repository = repository;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
         public async Task<OrganizationDetailDto> Handle(GetOrganizationDetailRequest request, 
             CancellationToken cancellationToken)
         {
-            var organization = await _repository.GetAsync(request.id);
+            var organization = await _unitOfWork.Organizations.GetByIdAsync(request.id);
             if (organization is null)
-                throw new OrganizationBadRequestException(request.id);
+                throw new OrganizationBadRequestException(request.id.ToString());
             return _mapper.Map<OrganizationDetailDto>(organization);
         }
     }

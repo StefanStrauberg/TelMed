@@ -25,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\MessageBus\MessageBus.csproj" />
     <ProjectReference Include="..\Referrals.Domain\Referrals.Domain.csproj" />
   </ItemGroup>
 

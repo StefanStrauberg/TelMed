@@ -5,35 +5,34 @@ using Organizations.Application.Contracts.Persistence;
 using Organizations.Application.DTO;
 using Organizations.Application.Features.Organization.Requests.Queries;
 using Organizations.Application.GrpcServices;
+using Organizations.Application.Specifications;
 
 namespace Organizations.Application.Features.Organization.Handlers.Queries
 {
     public class GetOrganizationListRequestHandler : IRequestHandler<GetOrganizationListRequest, PagedList<OrganizationDto>>
     {
-        private readonly IOrganizationRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IGrpcService _grpcService;
         public GetOrganizationListRequestHandler(
-            IOrganizationRepository repository,
             IMapper mapper,
-            IGrpcService grpcService)
+            IGrpcService grpcService,
+            IUnitOfWork unitOfWork)
         {
-            _repository = repository;
             _mapper = mapper;
-            _grpcService = grpcService;
+            _unitOfWork = unitOfWork;
         }
         public async Task<PagedList<OrganizationDto>> Handle(GetOrganizationListRequest request,
             CancellationToken cancellationToken) 
         {
-            var data = await _repository.GetAllAsync(request.querySpecParams);
-            await Parallel.ForEachAsync(data, async (x, CancellationToken) =>
-            {
-                if(x.SpecializationIds is not null)
-                    x.SpecializationIds = await _grpcService.GetSpecNamesByListIds(x.SpecializationIds);
-            });
+            //await Parallel.ForEachAsync(data, async (x, CancellationToken) =>
+            //{
+            //    if(x.SpecializationIds is not null)
+            //        x.SpecializationIds = await _grpcService.GetSpecNamesByListIds(x.SpecializationIds);
+            //});
+            var spec = new OrganizationsWithSpecification(request.querySpecParams);
             return new PagedList<OrganizationDto>(
-                _mapper.Map<List<OrganizationDto>>(data),
-                await _repository.CountAsync(request.querySpecParams),
+                _mapper.Map<List<OrganizationDto>>(await _unitOfWork.Organizations.FindWithSpecificationAsync(spec)),
+                await _unitOfWork.Organizations.CountAsync(spec),
                 request.querySpecParams.PageIndex,
                 request.querySpecParams.PageSize);
         }

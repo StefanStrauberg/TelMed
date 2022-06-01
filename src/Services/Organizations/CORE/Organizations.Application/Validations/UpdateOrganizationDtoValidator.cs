@@ -11,16 +11,16 @@ namespace Organizations.Application.Validations
                 .IsInEnum();
             RuleFor(x => x.model.Region)
                 .IsInEnum();
-            RuleFor(x => x.model.Address.Line)
+            RuleFor(x => x.model.Address)
                 .NotNull().WithMessage("{PropertyName} not be null.")
                 .NotEmpty().WithMessage("{PropertyName} is required.");
             RuleFor(x => x.model.IsActive)
                 .NotNull().WithMessage("{PropertyName} not be null.")
                 .Must(x => x == false || x == true).WithMessage("{PropertyName} is boolean value.");
-            RuleFor(x => x.model.OrganizationName.OfficialName)
+            RuleFor(x => x.model.OfficialName)
                 .NotNull().WithMessage("{PropertyName} not be null.")
                 .NotEmpty().WithMessage("{PropertyName} is required.");
-            RuleFor(x => x.model.OrganizationName.OfficialName)
+            RuleFor(x => x.model.OfficialName)
                 .NotNull().WithMessage("{PropertyName} not be null.")
                 .NotEmpty().WithMessage("{PropertyName} is required.");
         }

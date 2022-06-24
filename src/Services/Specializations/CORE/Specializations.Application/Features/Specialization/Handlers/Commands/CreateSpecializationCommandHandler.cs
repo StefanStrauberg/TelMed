@@ -7,20 +7,19 @@ namespace Specializations.Application.Features.Specialization.Handlers.Commands
 {
     public class CreateSpecializationCommandHandler : IRequestHandler<CreateSpecializationCommand>
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ISpecializationCommandRepository _commandRepository;
         private readonly IMapper _mapper;
         public CreateSpecializationCommandHandler(
             IMapper mapper,
-            IUnitOfWork unitOfWork)
+            ISpecializationCommandRepository commandRepository)
         {
             _mapper = mapper;
-            _unitOfWork = unitOfWork;
+            _commandRepository = commandRepository;
         }
         public async Task<Unit> Handle(CreateSpecializationCommand request,
             CancellationToken cancellationToken)
         {
-            await _unitOfWork.Specializations.Add(_mapper.Map<Domain.Specialization>(request.model));
-            await _unitOfWork.Complete();
+            await _commandRepository.Add(_mapper.Map<Domain.Specialization>(request.model));
             return Unit.Value;
         }
     }

@@ -10,22 +10,22 @@ namespace Specializations.Application.Features.Specialization.Handlers.Queries
 {
     public class GetSpecializationListRequestHandler : IRequestHandler<GetSpecializationListRequest, PagedList<SpecializationDto>>
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ISpecializationQueryRepository _queryRepository;
         private readonly IMapper _mapper;
         public GetSpecializationListRequestHandler(
             IMapper mapper,
-            IUnitOfWork unitOfWork)
+            ISpecializationQueryRepository queryRepository)
         {
             _mapper = mapper;
-            _unitOfWork = unitOfWork;
+            _queryRepository = queryRepository;
         }
         public async Task<PagedList<SpecializationDto>> Handle(GetSpecializationListRequest request,
             CancellationToken cancellationToken)
         {
             var spec = new SpecializationsWithSpecification(request.querySpecParams);
             return new PagedList<SpecializationDto>(
-                _mapper.Map<List<SpecializationDto>>(await _unitOfWork.Specializations.FindWithSpecificationAsync(spec)),
-                await _unitOfWork.Specializations.CountAsync(spec),
+                _mapper.Map<List<SpecializationDto>>(await _queryRepository.FindWithSpecificationAsync(spec)),
+                await _queryRepository.CountAsync(spec),
                 request.querySpecParams.PageIndex,
                 request.querySpecParams.PageSize);
         }

@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseInMemoryDatabase(builder.Configuration.GetConnectionString("DatabaseName")));
 builder.Services.AddScoped((typeof(IGenericRepository<>)), (typeof(GenericRepository<>)));
-builder.Services.AddScoped<ISpecializationRepository, SpecializationRepository>();
+builder.Services.AddScoped<ISpecializationCommandRepository, SpecializationRepository>();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddGrpc();

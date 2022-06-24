@@ -6,7 +6,7 @@ namespace Specializations.Application.Validations
 {
     public class UpdateSpecializationCommandValidator : AbstractValidator<UpdateSpecializationCommand>
     {
-        public UpdateSpecializationCommandValidator(ISpecializationRepository repository)
+        public UpdateSpecializationCommandValidator(ISpecializationCommandRepository repository)
         {
             RuleFor(x => x.model.Name)
                 .NotNull().WithMessage("{PropertyName} is cannot be null.")

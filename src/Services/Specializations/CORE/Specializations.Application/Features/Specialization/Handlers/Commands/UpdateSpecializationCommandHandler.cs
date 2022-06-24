@@ -9,24 +9,21 @@ namespace Specializations.Application.Features.Specialization.Handlers.Commands
 {
     public class UpdateSpecializationCommandHandler : IRequestHandler<UpdateSpecializationCommand>
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ISpecializationCommandRepository _commandRepository;
         private readonly IMapper _mapper;
         public UpdateSpecializationCommandHandler(
             IMapper mapper,
-            IUnitOfWork unitOfWork)
+            ISpecializationCommandRepository commandRepository)
         {
             _mapper = mapper;
-            _unitOfWork = unitOfWork;
+            _commandRepository = commandRepository;
         }
         public async Task<Unit> Handle(UpdateSpecializationCommand request,
             CancellationToken cancellationToken)
         {
-            var specializationToUpdate = await _unitOfWork.Specializations.GetByIdAsync(request.id);
-            if (specializationToUpdate is null)
+            var updateResult = await _commandRepository.Update(_mapper.Map<Domain.Specialization>(request.model));
+            if (updateResult is false)
                 throw new SpecializationNotFoundException(request.id.ToString());
-            _mapper.Map(request.model, specializationToUpdate, typeof(CreateSpecializationDto), typeof(Domain.Specialization));
-            _unitOfWork.Specializations.Update(specializationToUpdate);
-            await _unitOfWork.Complete();
             return Unit.Value;
         }
     }

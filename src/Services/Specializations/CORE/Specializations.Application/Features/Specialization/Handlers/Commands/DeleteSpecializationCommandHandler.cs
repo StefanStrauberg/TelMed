@@ -7,17 +7,15 @@ namespace Specializations.Application.Features.Specialization.Handlers.Commands
 {
     public class DeleteSpecializationCommandHandler : IRequestHandler<DeleteSpecializationCommand>
     {
-        private readonly IUnitOfWork _unitOfWork;
-        public DeleteSpecializationCommandHandler(IUnitOfWork unitOfWork)
-            => _unitOfWork = unitOfWork;
+        private readonly ISpecializationCommandRepository _commandRepository;
+        public DeleteSpecializationCommandHandler(ISpecializationCommandRepository commandRepository)
+            => _commandRepository = commandRepository;
         public async Task<Unit> Handle(DeleteSpecializationCommand request,
             CancellationToken cancellationToken)
         {
-            var removeData = await _unitOfWork.Specializations.GetByIdAsync(request.id);
-            if (removeData is null)
+            var removeResult = await _commandRepository.Remove(request.id);
+            if (removeResult is false)
                 throw new SpecializationNotFoundException(request.id.ToString());
-            _unitOfWork.Specializations.Remove(removeData);
-            await _unitOfWork.Complete();
             return Unit.Value;
         }
     }

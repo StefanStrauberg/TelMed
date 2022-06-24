@@ -9,19 +9,19 @@ namespace Specializations.Application.Features.Specialization.Handlers.Queries
 {
     public class GetSpecializationDetailRequestHandler : IRequestHandler<GetSpecializationDetailRequest, SpecializationDto>
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ISpecializationQueryRepository _queryRepository;
         private readonly IMapper _mapper;
         public GetSpecializationDetailRequestHandler(
             IMapper mapper,
-            IUnitOfWork unitOfWork)
+            ISpecializationQueryRepository queryRepository)
         {
             _mapper = mapper;
-            _unitOfWork = unitOfWork;
+            _queryRepository = queryRepository;
         }
         public async Task<SpecializationDto> Handle(GetSpecializationDetailRequest request,
             CancellationToken cancellationToken)
         {
-            var specialization = await _unitOfWork.Specializations.GetByIdAsync(request.id);
+            var specialization = await _queryRepository.GetByIdAsync(request.id);
             if(specialization is null)
                 throw new SpecializationBadRequestException(request.id.ToString());
             return _mapper.Map<SpecializationDto>(specialization);

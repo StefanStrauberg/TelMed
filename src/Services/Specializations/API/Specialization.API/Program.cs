@@ -1,11 +1,8 @@
 using Specializations.Application;
-using Specializations.Infrastructure;
-using Specializations.Infrastructure.SeedData;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplicationServices();
-builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
@@ -20,13 +17,6 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
-
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<ApplicationDbContext>();
-    DataGenerator.Initialize(services);
-}
 
 app.UseSwagger();
 app.UseSwaggerUI();

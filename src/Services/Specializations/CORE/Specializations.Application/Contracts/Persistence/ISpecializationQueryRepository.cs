@@ -2,7 +2,8 @@
 
 namespace Specializations.Application.Contracts.Persistence
 {
-    public interface ISpecializationRepository : IGenericRepository<Specialization>
+    public interface ISpecializationQueryRepository : IQueryRepository<Specialization>
     {
+
     }
 }
